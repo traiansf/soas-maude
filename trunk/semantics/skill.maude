@@ -48,6 +48,7 @@ endm
 mod MATCH-SKILLS is
   including SET{Skill} .
 
+  var F1 F2 : Float .
   var I1 I2 : Int . 
   vars Skills1 Skills2 : Set{Skill} . var Skill : Skill .
   vars Skill1 Skill2 : Set{SkillItem} .  var SItem : SkillItem .
@@ -63,10 +64,11 @@ mod MATCH-SKILLS is
   op matchSkillItems : Set{SkillItem} Set{SkillItem} -> [Bool] .
   eq matchSkillItems(Skill1, empty) = true .
   eq matchSkillItems(SItem Skill1, SItem Skill2) = matchSkillItems(Skill1, Skill2) .
----(
-  eq matchSkillItems(<range> I1 </range> Skill1, <range> I2 </range> Skill2)
-   = if I1 > I2 then matchSkillItems(Skill1,Skill2) else false .
----)
+
+--- this was outcommented
+  eq matchSkillItems(<range> F1 </range> Skill1, <range> F2 </range> Skill2 )
+   = if F1 > F2 then matchSkillItems(Skill1,Skill2) else false fi .
+   
 endm
 
 mod SUBSTRACT-SKILLS is
