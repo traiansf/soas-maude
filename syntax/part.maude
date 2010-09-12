@@ -31,6 +31,7 @@ mod PART-ITEM is
   including MRA-SUBTYPE .
   including ANGLE .
   including POSITION .
+  including FLOAT .
   sort PartItem . 
 ---  sorts Gripper-Subtype .
 ---  Subtype is defined in MRA-TYPE...
@@ -49,6 +50,7 @@ mod PART-ITEM is
   op <grip-pos1>_</grip-pos1> : Position -> PartItem [format (ni++ o -- o) ] .
   op <grip-pos2>_</grip-pos2> : Position -> PartItem [format (ni++ o -- o) ] .
   op <grip-pos3>_</grip-pos3> : Position -> PartItem [format (ni++ o -- o) ] .
+    op <prange>_</prange> : Float -> PartItem [format (ni++ o -- o) ] .
   op <part-position>_</part-position> : Position -> PartItem [format (ni++ o -- o) ] .
   op <part-angle>_</part-angle> : Angle -> PartItem [format (ni++ o -- o) ] .
 

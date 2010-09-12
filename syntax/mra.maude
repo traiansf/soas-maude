@@ -39,9 +39,12 @@ mod MRA-ITEM is
   op <name>_</name> : MraName -> MraItem [format (ni o d o) ].
   op <position>_</position> : Position -> MraItem [format (ni o d o) ] .
   op <angle>_</angle> : Angle -> MraItem [format (ni o d o) ] .
-
+  ---TODO: from set of required skills get MRA Item .
+  op <required-skills>_</required-skills> : Set{Skill} -> MraItem .
   op position : MraName -> Position .
   op angle : MraName -> Angle .
+--- feeders need to know which part they deliver. specified as follows:
+  op <deliverables>_</deliverables> : Part -> Part . 
 endm
 view MraItem from TRIV to MRA-ITEM is sort Elt to MraItem . endv
 

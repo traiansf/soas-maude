@@ -7,6 +7,9 @@ mod TEST is
 --- 
 endm
 
+
+set trace on .
+
 ---(
 set trace on .
 set trace condition off .

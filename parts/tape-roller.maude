@@ -16,6 +16,10 @@
 	  <gripper-subtype> 2finger </gripper-subtype>
 	  <grip-pos1> (25,0,10) </grip-pos1>
  	  <grip-pos2> (25,50,10) </grip-pos2>
+
+ 	  --- this should be calculated by maude, but we do it manually now: distance between gripping points
+	
+ 	  <prange> 50.0 </prange>
    </part> 
   .
   eq p2 = 
