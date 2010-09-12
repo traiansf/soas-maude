@@ -1,0 +1,64 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+mod CONVEYORS is
+  including MRA .
+  ops c1 c2 c3 c4 c5 : -> MraName .
+  ops c1 c2 c3 c4 c5 : -> Mra .
+  eq c1 = 
+    <mra> 
+        <name> c1 </name> <type> conveyor </type> 
+        <skills>
+          <skill> <type> transport </type> <subtype> linear </subtype>
+            <range> 80.0 </range> </skill>
+        </skills>
+        <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
+      </mra> 
+  .
+  eq c2 =
+     <mra> 
+        <name> c2 </name> <type> conveyor </type> 
+        <skills>
+          <skill> <type> transport </type> <subtype> linear </subtype>
+            <range> 60.0 </range> </skill>
+        </skills>
+        <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
+      </mra> 
+  .
+  eq c3 =
+     <mra> 
+        <name> c3 </name> <type> conveyor </type> 
+        <skills>
+          <skill> <type> transport </type> <subtype> linear </subtype>
+            <range> 70.0 </range> </skill>
+        </skills>
+        <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
+      </mra> 
+  .
+  eq c4 = 
+     <mra> 
+        <name> c4 </name> <type> conveyor </type> 
+        <skills>
+          <skill> <type> transport </type> <subtype> junction </subtype>
+            <range> 20.0 </range> </skill>
+        </skills>
+        <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
+      </mra>
+  .
+  eq c5 =
+     <mra> 
+        <name> c5 </name> <type> conveyor </type> 
+        <skills>
+          <skill> <type> transport </type> <subtype> corner </subtype>
+            <range> 30.0 </range> </skill>
+        </skills>
+        <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
+     </mra>
+  .
+endm

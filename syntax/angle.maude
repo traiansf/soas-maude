@@ -1,0 +1,9 @@
+mod ANGLE is
+  including INT .
+  sorts Yaw0 Pitch0 Roll0 Angle .
+  subsort Int < Yaw0 Pitch0 Roll0 .
+  op `[_`,_`,_`] : Yaw0 Pitch0 Roll0 -> Angle .
+--- brackets stand for an angle
+endm
+
+

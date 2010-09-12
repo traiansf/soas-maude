@@ -1,0 +1,44 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+mod BASE-AXES is
+  including MRA .
+  ops a1 a2 a3 : -> MraName .
+  ops a1 a2 a3 : -> Mra .
+  eq a1 = 
+       <mra>
+        <name> a1 </name> <type> axis </type>
+        <skills> 
+          <skill> <type> move </type> <subtype> linear-horizontal </subtype> 
+            <range> 50.0 </range> </skill> 
+        </skills>
+        <interfaces> square(- true) triangular(- true) straight(- true) </interfaces>
+     </mra>
+  .
+  eq a2 = 
+     <mra>
+        <name> a2 </name> <type> axis </type>
+        <skills> 
+          <skill> <type> move </type> <subtype> rotational-vertical </subtype> 
+            <range> 90.0 </range> </skill> 
+        </skills>
+        <interfaces> square(- true)  triangular(- true) straight(- true) </interfaces>
+     </mra>
+  .
+  eq a3 =
+     <mra>
+        <name> a3 </name> <type> axis </type>
+        <skills> 
+          <skill> <type> move </type> <subtype> linear-vertical </subtype> 
+            <range> 40.0 </range> </skill> 
+        </skills>
+        <interfaces> square(- true)  triangular(- true) straight(- true) </interfaces>
+     </mra>
+  .
+endm

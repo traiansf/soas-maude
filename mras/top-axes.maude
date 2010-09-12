@@ -1,0 +1,46 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+mod TOP-AXES is
+  including MRA .
+  ops a7 a8 a9 : -> MraName .
+  ops a7 a8 a9 : -> Mra .
+  eq a7 =
+     <mra>
+        <name> a7 </name> <type> axis </type>
+        <skills> 
+          <skill> <type> move </type> <subtype> linear-horizontal </subtype>
+           <range> 15.0 </range> </skill>
+        </skills>
+        <interfaces> square(+ true) circular(- true) </interfaces>
+     </mra>
+  .
+  eq a8 =
+     <mra>
+        <name> a8 </name> <type> axis </type>
+        <skills> 
+          <skill> <type> move </type> <subtype> rotational-horizontal </subtype>
+           <range> 190.0 </range> </skill>
+        </skills>
+        <interfaces> square(+ true) circular(- true) </interfaces>
+     </mra>
+  .
+  eq a9 =
+     <mra>
+        <name> a9 </name> <type> axis </type>
+        <skills> 
+          <skill> <type> move </type> <subtype> rotational-vertical </subtype>
+           <range> 280.0 </range> </skill>
+          <skill> <type> move </type> <subtype> linear-vertical </subtype>
+           <range> 5.0 </range> </skill>
+        </skills>
+        <interfaces> square(+ true) circular(- true) </interfaces>
+     </mra>
+  .
+endm

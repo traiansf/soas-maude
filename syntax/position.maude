@@ -1,0 +1,9 @@
+mod POSITION is
+  including INT .
+  sorts X0 Y0 Z0 Position .
+  subsort Int < X0 Y0 Z0 .
+  op `(_`,_`,_`) : X0 Y0 Z0 -> Position .
+--- parentheses stand for coordinates
+endm
+
+--- grip-positions are also positions, although they come alone, in pairs or as triplets

@@ -1,0 +1,52 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+load abb-robot.maude
+load base-axes.maude
+load cartesian-robot.maude
+load conveyors.maude
+load feeders.maude
+load grippers.maude
+load middle-axes.maude
+load positioning-devices.maude
+load scara-robot.maude
+load toolwarehouses.maude
+load top-axes.maude
+load human.maude
+load endings.maude
+mod MRAS is
+  including ABB-ROBOT .
+  including CARTESIAN-ROBOT .
+  including SCARA-ROBOT .
+  including ENDING .
+  including HUMAN .
+  including BASE-AXES .
+  including MIDDLE-AXES .
+  including TOP-AXES .
+  including CONVEYORS .
+  including FEEDERS .
+  including GRIPPERS .
+  including POSITIONING-DEVICES .
+  including TOOLWAREHOUSES .
+  including SET{Mra} .
+  op mras : -> Set{Mra} .
+  eq mras = 
+    abb-robot cartesian-robot scara-robot
+--- a1 a2 a3 --- base axes
+--- a4 a5 a6 --- middle axes
+a7 --- a8 a9 --- top axes 
+---    c1 c2 c3 c4 c5 
+---    f1 f2 f3 
+    g1 g2 g3 g4
+---    pd1 pd2 pd3
+---    w1 w2
+    human1 human2 human3
+---    ending-in ending-out
+  .
+endm

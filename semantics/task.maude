@@ -1,0 +1,5 @@
+mod MATCH-TASK is
+  op match : TaskName Set{PreCoalition} -> Bool .
+  eq match(TName, <coalition> <task> TName </task> PreCoalition </coalition> PreCoalitions) = true .
+  eq match(TName, PreCoalitions) = false [owise] .
+endm

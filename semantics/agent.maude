@@ -1,0 +1,41 @@
+---load ../syntax/syntax
+
+mod AGENT-ITEM is
+  including CONFIGURATION .
+  including SET{MraName} .
+  sort AgentItem TaskId .
+  op _->_ : GapName TaskName -> TaskId .
+  op <task-id>_</task-id> : TaskId -> AgentItem [format (ni o o o) ] .
+--- which task it is about?
+
+  op <open-interfaces>_</open-interfaces> : Set{Interface} -> AgentItem [format (ni++ o -- o) ] .
+--- can they connect?
+
+  op <required-ops>_</required-ops> : Set{Operation} -> AgentItem [format (ni++ o -- o) ] . 
+--- what is still needed?
+
+  op <provided-skills>_</provided-skills> 
+--- combined skills of all the mras which are already in the coalition
+
+     :  Set{Skill} -> AgentItem [format (ni++ o -- o) ] .
+  op <coalition>_</coalition> : Set{MraName} -> AgentItem [format (ni++ o n--i o)].
+--- these are the names of all the mras in the coalition
+
+endm
+
+view AgentItem from TRIV to AGENT-ITEM is sort Elt to AgentItem . endv
+view TaskId from TRIV to AGENT-ITEM is sort Elt to TaskId . endv
+
+
+
+mod AGENT is 
+  including SET{AgentItem} .
+  sort Agent .
+  op <agent>_</agent> : Set{AgentItem} -> Agent [format (ni++ o n--i o) ] . 
+endm
+view Agent from TRIV to AGENT is sort Elt to Agent . endv
+
+mod AGENTS is 
+  including SET{Agent} .
+  op <agents>_</agents> : Set{Agent} -> ConfigItem .
+endm
