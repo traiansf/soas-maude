@@ -11,6 +11,8 @@ mod CONVEYORS is
   including MRA .
   ops c1 c2 c3 c4 c5 : -> MraName .
   ops c1 c2 c3 c4 c5 : -> Mra .
+
+---TODO: when the layout is being concluded and the transportation links are being established, no STAR interface (+ or -) may be left open; conveyors are either connected to peers or to IN or OUT. 
   eq c1 = 
     <mra> 
         <name> c1 </name> <type> conveyor </type> 

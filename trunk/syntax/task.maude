@@ -46,6 +46,7 @@ mod TASK-ITEM is
   op <end-orientation>_</end-orientation> : Angle -> TaskItem [format (ni++ o -- o) ] .
   op <object>_</object> : ObjectName -> TaskItem [format (ni++ o -- o) ] .
   op <operations>_</operations> : Set{Operation} -> TaskItem [format (ni++ o -- o) ] .
+  op <trange>_</trange> : Float -> TaskItem .
 endm
 view TaskItem from TRIV to TASK-ITEM is sort Elt to TaskItem . endv
 

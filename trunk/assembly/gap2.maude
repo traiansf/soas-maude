@@ -21,81 +21,24 @@ mod GAP2 is
   eq gap2 = 
  	<gap> 
         <name> gap2 </name> 
-		<tasks> t1 t2 t3 t4 t5 t6 </tasks> 
+		<tasks> t2 </tasks> 
         	<number> 10 </number> 
       </gap>
-  .
-  eq t1 = 
- 	<task> 
-        <name> t1 </name> 
-  		<type> other </type> 
-         	<object> wpca </object> 
-                <operations> <operation> <skill> <type> load </type> </skill> </operation> </operations>
-		<start-point> (-10, 50, -20) </start-point> --- this is the part's current position
-  		<end-point> (0, 0, 0) </end-point> --- this is the part's position after the operation
-  		<start-orientation> [0, 0, 0] </start-orientation> 
-  		<end-orientation> [0, 0, 0] </end-orientation>
-      </task>
   .
   eq t2 = 
  	<task> 
         <name> t2 </name> 
   		<type> pick&place </type> 
  	      	<object> p1 </object> 
-		<operations> <operation> <skill> <type> pick&place </type> </skill> </operation> </operations>  
+		<operations> <operation> <skill> <type> open-close </type> </skill> </operation> </operations>  
 	      	<start-point> position(f1) </start-point> 
   		<end-point> position(wpca) </end-point> 
   		<start-orientation> angle(f1) </start-orientation> 
   		<end-orientation> angle(p1) </end-orientation>
+  		--- TODO: calculate from end-point and start-point
+  		<trange> 45.0 </trange>
      </task>
   .
-  eq t3 = 
- 	<task> 
-        <name> t3 </name> 
-  		<type> pick&place </type> 
- 	      	<object> p2 </object> 
-		<operations> <operation> <skill> <type> pick&place </type> </skill> </operation> </operations>
-	      	<start-point> position(f2) </start-point> 
-  		<end-point> position(p1) </end-point> 
-  		<start-orientation> angle(f2) </start-orientation> 
-  		<end-orientation> angle(p2) </end-orientation>
-     </task>
-  .
-eq t4 = 
- 	<task> 
-        <name> t4 </name> 
-  		<type> pick&place </type> 
- 	      	<object> p3 </object> 
-		<operations> <operation> <skill> <type> pick&place </type> </skill> </operation> </operations>
-	      	<start-point> position(f3) </start-point> 
-  		<end-point> position(p2) </end-point> 
-  		<start-orientation> angle(f3) </start-orientation> 
-  		<end-orientation> angle(p3) </end-orientation>
-     </task>
-  .
-eq t5 = 
- 	<task> 
-        <name> t5 </name> 
-  		<type> pick&place </type> 
- 	      	<object> p4 </object> 
-		<operations> <operation> <skill> <type> pick&place </type> </skill> </operation> </operations>
-	      	<start-point> position(f4) </start-point> 
-  		<end-point> position(p3) </end-point> 
-  		<start-orientation> angle(f4) </start-orientation> 
-  		<end-orientation> angle(p4) </end-orientation>
-     </task>
-  .
- eq t6 = 
- 	<task> 
-        <name> t6 </name> 
-  		<type> other </type> 
-         	<object> wpca + p1 + p2 </object> --- now with the assembled product on top 
-		<operations> <operation> <skill> <type> unload </type> </skill> </operation> </operations>
-		<start-point> position(wpca) </start-point> 
-		<end-point> (100, 100, -20) </end-point> 
-  		<start-orientation> angle(wpca) </start-orientation> 
-  		<end-orientation> [0, 0, 0] </end-orientation>
-      </task>
-  .
+
 endm
 

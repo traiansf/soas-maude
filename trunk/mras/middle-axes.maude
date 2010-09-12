@@ -19,7 +19,9 @@ mod MIDDLE-AXES is
            <range> 25.0 </range> </skill>
           <skill> <type> move </type> <subtype> rotational-vertical </subtype>
            <range> 180.0 </range> </skill>
+	<skill> <type> hold </type> </skill>
        </skills>
+	<required-skills> <skill> <type> base-hold </type> </skill> </required-skills>  
         <interfaces> square(+ true) square(- true) </interfaces>
      </mra>
   .
@@ -29,7 +31,9 @@ mod MIDDLE-AXES is
         <skills> 
           <skill> <type> move </type> <subtype> linear-horizontal </subtype>
            <range> 25.0 </range> </skill>
+	<skill> <type> hold </type> </skill>
        </skills>
+	<required-skills> <skill> <type> base-hold </type> </skill> </required-skills>  
         <interfaces> square(+ true) square(- true) </interfaces>
      </mra>
   .
@@ -39,7 +43,9 @@ mod MIDDLE-AXES is
         <skills> 
           <skill> <type> move </type> <subtype> rotational-horizontal </subtype>
            <range> 270.0 </range> </skill>
+	<skill> <type> hold </type> </skill>
        </skills>
+	<required-skills> <skill> <type> base-hold </type> </skill> </required-skills>  
         <interfaces> square(+ true) square(- true) </interfaces>
      </mra>
   .
