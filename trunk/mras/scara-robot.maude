@@ -1,0 +1,27 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+mod SCARA-ROBOT is
+  including MRA .
+  op r2 : -> MraName .
+  op scara-robot : -> Mra .
+  eq scara-robot =
+    <mra>
+        <name> r2 </name> <type> robot </type>
+        <skills> 
+          <skill> <type> move </type> <subtype> linear-vertical </subtype>
+           <range> 30.0 </range> </skill>
+          <skill> <type> move </type> <subtype> rotational-horizontal </subtype>
+           <range> 180.0 </range> </skill>
+          <skill> <type> move </type> <subtype> rotational-horizontal </subtype>
+           <range> 90.0 </range> </skill>
+        </skills>
+        <interfaces> circular(- true) triangular(- true) straight(- true) diamond(- true) </interfaces>
+     </mra> .
+endm

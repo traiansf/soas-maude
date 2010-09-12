@@ -1,0 +1,6 @@
+--- lets the modules / coalitions choose positions in the layout
+
+mod LAYOUT is 
+ including 
+
+endm

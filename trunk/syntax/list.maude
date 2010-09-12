@@ -1,0 +1,42 @@
+
+fmod LIST{X :: TRIV} is 
+  protecting NAT .
+  sorts NeList{X} List{X} .
+  subsorts X$Elt < NeList{X} < List{X} .
+  op nil : -> List{X} [ctor] .
+  op _`,_ : List{X} List{X} -> List{X} [assoc id: nil ctor prec 121 format (d r os d)] .
+  op _`,_ : NeList{X} List{X} -> NeList{X} [ctor ditto] .
+  op _`,_ : List{X} NeList{X} -> NeList{X} [ctor ditto] .
+  vars E E' : X$Elt .
+  vars A L : List{X} .
+  var C : Nat .
+  op append : List{X} List{X} -> List{X} .
+  op append : NeList{X} List{X} -> NeList{X} .
+  op append : List{X} NeList{X} -> NeList{X} .
+  op head_ : NeList{X} -> X$Elt .
+  op tail_ : NeList{X} -> List{X} .
+  op last_ : NeList{X} -> X$Elt .
+  op front_ : NeList{X} -> List{X} .
+  op occurs : X$Elt List{X} -> Bool .
+  op reverse_ : List{X} -> List{X} .
+  op reverse_ : NeList{X} -> NeList{X} .
+  op $reverse : List{X} List{X} -> List{X} .
+  op size_ : List{X} -> Nat .
+  op size_ : NeList{X} -> NzNat .
+  op $size : List{X} Nat -> Nat .
+  eq append (A, L) = A, L .
+  eq head (E, L) = E .
+  eq tail (E, L) = L .
+  eq last (L, E) = E .
+  eq front (L, E) = L .
+  eq occurs (E, nil) = false .
+  eq occurs (E, (E', L)) = if E == E' then true else occurs (E, L) fi .
+  eq reverse (L) = $reverse (L, nil) .
+  eq $reverse (nil, A) = A .
+  eq $reverse ((E, L), A) = $reverse (L, (E, A)) .
+  eq size (L) = $size (L, 0) .
+  eq $size (nil, C) = C .
+  eq $size ((E, L), C) = $size (L, C + 1) .
+endfm
+
+

@@ -1,0 +1,29 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+mod CARTESIAN-ROBOT is
+  including MRA .
+
+  op r1 : -> MraName .
+  op cartesian-robot : -> Mra .
+  eq cartesian-robot = 
+    <mra>
+     <name> r1 </name> <type> robot </type>
+     <skills> 
+       <skill> <type> move </type> <subtype> linear-horizontal </subtype>
+         <range> 25.0 </range> </skill>
+       <skill> <type> move </type> <subtype> linear-horizontal </subtype>
+         <range> 20.0 </range> </skill>
+       <skill> <type> move </type> <subtype> linear-vertical </subtype>
+         <range> 25.0 </range> </skill>
+     </skills>
+     <interfaces> circular(- true) triangular(- true) straight(- true) diamond(- true) </interfaces>
+   </mra> 
+  .
+endm

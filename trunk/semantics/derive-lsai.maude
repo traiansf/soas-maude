@@ -1,0 +1,6 @@
+--- takes the gap and the layout incl. transports => derive the LSAI
+
+mod DERIVE-LSAI is 
+ including 
+
+endm
