@@ -27,8 +27,8 @@ mod PART-ITEM is
   including PART-TYPE .
   including PART-NAME .
   including MATERIAL .
-  including MRA-TYPE .
-  including MRA-SUBTYPE .
+---  including MRA-TYPE .
+---  including MRA-SUBTYPE .
   including ANGLE .
   including POSITION .
   including FLOAT .
@@ -46,7 +46,8 @@ mod PART-ITEM is
   op <x-dimension>_</x-dimension> : Int -> PartItem [format (ni++ o -- o) ] .
   op <y-dimension>_</y-dimension> : Int -> PartItem [format (ni++ o -- o) ] .
   op <z-dimension>_</z-dimension> : Int -> PartItem [format (ni++ o -- o) ] .
-  op <gripper-subtype>_</gripper-subtype> : MraSubType -> PartItem [format (ni++ o -- o) ] .
+---TODO: Should be defined in a subclass  op <gripper-subtype>_</gripper-subtype> : MraSubType -> PartItem [format (ni++ o -- o) ] .
+--- Otherwise circular dependency between mra.maude and part.maude
   op <grip-pos1>_</grip-pos1> : Position -> PartItem [format (ni++ o -- o) ] .
   op <grip-pos2>_</grip-pos2> : Position -> PartItem [format (ni++ o -- o) ] .
   op <grip-pos3>_</grip-pos3> : Position -> PartItem [format (ni++ o -- o) ] .
