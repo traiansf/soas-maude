@@ -57,26 +57,17 @@ mod MATCH-SKILLS is
   op match : Set{Skill} Set{Skill} -> [Bool] .
   eq match(Skill Skills1, Skill Skills2) = true .
   ceq match(<skill> <type> SType </type> Skill1 </skill> Skills1, <skill> <type> SType </type> Skill2 </skill> Skills2) = true
-    if matchSkillItems(Skill1, Skill2) .
-  op matchSkillItems : Set{SkillItem} Set{SkillItem} -> [Bool] .
---- TODO: this one is normally called
-  eq matchSkillItems(Skill1, empty) = false .
---- TODO: There we want to compare ranges, but this method is never called.
-  eq matchSkillItems(Skill1, Skill2) = true .
-  ---   if matchSkillItems(Skill1, Skill2) .
+   if matchSkillItems(Skill1, Skill2) .
 --- add more matching rules here by need.
   eq match(Skills1, Skills2) = false [owise] .
 
----  op matchSkillItems : Set{SkillItem} Set{SkillItem} -> [Bool] .
----  eq matchSkillItems(Skill1, empty) = true .
----  eq matchSkillItems(SItem Skill1, SItem Skill2) = matchSkillItems(Skill1, Skill2) .
----  eq matchSkillItems(SItem Skill1, SItem Skill2) = false .
---- this was outcommented
----  eq matchSkillItems(<range> F1 </range> Skill1, <range> F2 </range> Skill2 )   = false .
-   --- if F1 > F2 then matchSkillItems(Skill1,Skill2) else false fi .
+  op matchSkillItems : Set{SkillItem} Set{SkillItem} -> [Bool] .
+  eq matchSkillItems(Skill1, empty) = true .
+  eq matchSkillItems(SItem Skill1, SItem Skill2) = matchSkillItems(Skill1, Skill2) .
+  eq matchSkillItems(<range> F1 </range> Skill1, <range> F2 </range> Skill2 )
+   = if F1 > F2 then matchSkillItems(Skill1,Skill2) else false fi .
 --- F1 is the gripper's opening range
 --- F2 is the distance between the gripping points on the part to be gripped
-   
 endm
 
 mod SUBSTRACT-SKILLS is
