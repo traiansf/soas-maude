@@ -7,14 +7,10 @@ mod TEST is
 --- 
 endm
 
-
-set trace on .
-
----(
-set trace on .
-set trace condition off .
-set trace substitution off .
----)
+---set trace on .
+---set trace condition off .
+---set trace substitution off .
+---
 
 --- this is the normal running command to get all results:
 --- search instance =>! X:Config .

@@ -22,6 +22,7 @@ mod SCARA-ROBOT is
           <skill> <type> move </type> <subtype> rotational-horizontal </subtype>
            <range> 90.0 </range> </skill>
         </skills>
+        <required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>      
         <interfaces> circular(- true) triangular(- true) straight(- true) diamond(- true) </interfaces>
      </mra> .
 endm
