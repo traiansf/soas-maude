@@ -23,6 +23,7 @@ mod CARTESIAN-ROBOT is
        <skill> <type> move </type> <subtype> linear-vertical </subtype>
          <range> 25.0 </range> </skill>
      </skills>
+     <required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>      
      <interfaces> circular(- true) triangular(- true) straight(- true) diamond(- true) </interfaces>
    </mra> 
   .

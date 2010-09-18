@@ -59,7 +59,7 @@ mod MATCH-SKILLS is
   ceq match(<skill> <type> SType </type> Skill1 </skill> Skills1, <skill> <type> SType </type> Skill2 </skill> Skills2) = true
    if matchSkillItems(Skill1, Skill2) .
 --- add more matching rules here by need.
-  eq match(Skills1, Skills2) = false [owise] .
+eq match(Skills1, Skills2) = false [owise] .
 
   op matchSkillItems : Set{SkillItem} Set{SkillItem} -> [Bool] .
   eq matchSkillItems(Skill1, empty) = true .

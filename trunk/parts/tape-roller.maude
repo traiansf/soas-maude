@@ -1,8 +1,9 @@
 ---in ../syntax/syntax
 
-
+load ../mras/feeders .
  mod TAPE-ROLLER is
   including PART .
+  including FEEDERS .
   ops p1 p2 p3 p4 carrier : -> Part .
   ops p1 p2 p3 p4 wpca : -> PartName .
   eq p1 = 
@@ -10,6 +11,8 @@
         <name> p1 </name> <type> body-case </type> 
         <material> plastic </material>
         <weight> 300 </weight>         
+        --- each part needs to know which feeder delivers it
+        <feeder> f1 </feeder>
 	  <x-dimension> 50 </x-dimension>
 	  <y-dimension> 70 </y-dimension>
 	  <z-dimension> 20 </z-dimension>
@@ -26,7 +29,8 @@
     <part> 
         <name> p2 </name> <type> tape-roll </type> 
         <material> plastic </material>
-        <weight> 90 </weight>         
+        <weight> 90 </weight>    
+                <feeder> f2 </feeder>
 	  <x-dimension> 40 </x-dimension>
 	  <y-dimension> 40 </y-dimension>
 	  <z-dimension> 15 </z-dimension>
@@ -39,7 +43,8 @@
     <part> 
         <name> p3 </name> <type> body-case </type> 
         <material> plastic </material>
-        <weight> 30 </weight>         
+        <weight> 30 </weight>  
+                <feeder> f3 </feeder>
 	  <x-dimension> 50 </x-dimension>
 	  <y-dimension> 70 </y-dimension>
 	  <z-dimension> 18 </z-dimension>
@@ -52,7 +57,8 @@
     <part> 
         <name> p4 </name> <type> screw </type> 
         <material> metal </material>
-        <weight> 10 </weight>         
+        <weight> 10 </weight>    
+                <feeder> f4 </feeder>
 	  <x-dimension> 5 </x-dimension>
 	  <y-dimension> 5 </y-dimension>
 	  <z-dimension> 15 </z-dimension>

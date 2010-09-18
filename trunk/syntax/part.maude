@@ -7,6 +7,8 @@ load skill
 load interface
 load mra
 ---)
+load mra
+
 
 mod PART-NAME is
   sort PartName .
@@ -32,6 +34,7 @@ mod PART-ITEM is
   including ANGLE .
   including POSITION .
   including FLOAT .
+  including MRA-NAME . 
   sort PartItem . 
 ---  sorts Gripper-Subtype .
 ---  Subtype is defined in MRA-TYPE...
@@ -43,6 +46,7 @@ mod PART-ITEM is
   op <name>_</name> : PartName -> PartItem [format (ni++ o -- o) ] .
   op <material>_</material> : Material -> PartItem [format (ni++ o -- o) ] .
   op <weight>_</weight> : Int -> PartItem [format (ni++ o -- o) ] .
+    op <feeder>_</feeder> : MraName -> PartItem .
   op <x-dimension>_</x-dimension> : Int -> PartItem [format (ni++ o -- o) ] .
   op <y-dimension>_</y-dimension> : Int -> PartItem [format (ni++ o -- o) ] .
   op <z-dimension>_</z-dimension> : Int -> PartItem [format (ni++ o -- o) ] .
