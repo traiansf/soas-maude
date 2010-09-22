@@ -59,13 +59,9 @@ mod ASSIGN-TASKS is
  op getSkills : Set{Operation} -> Set{Skill} .
  eq getSkills(<operation> MSkills </operation>) = MSkills .
  eq getSkills(empty) = empty .
- --- If arg2 is empty, return arg1. Otherwise arg1.
- op getMinimumSkills : Set{Skill} Set{Skill} -> Set{Skill} .
- eq getMinimumSkills(MSkills1, empty) = MSkills1 .
- eq getMinimumSkills(MSkills1, MSkills2) = MSkills2 .
  --- Return intersection of mras skills and gap operations. If intersection is empty, return MSkills.
  op getRequiredSkills : Set{Skill} Set{Operation} -> Set{Skill} .
- eq getRequiredSkills(MSkills, Operations) = getMinimumSkills(MSkills, intersection(MSkills, getSkills(Operations))) .
+ eq getRequiredSkills(MSkills, Operations) = intersection(MSkills, getSkills(Operations)) .
  
  --- this rule transforms a mra into an agent looking for partners to a task
  ceq <gaps>
