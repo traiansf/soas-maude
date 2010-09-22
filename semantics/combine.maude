@@ -55,6 +55,18 @@ mod ASSIGN-TASKS is
  rl [start-agents] : <config> <gaps> Gaps </gaps> <mras> Mras </mras> </config>
                   => <config> <gaps> Gaps </gaps> <mras> Mras </mras> <agents> empty </agents> </config> .
 
+ --- Extract Skills from Operation
+ op getSkills : Set{Operation} -> Set{Skill} .
+ eq getSkills(<operation> MSkills </operation>) = MSkills .
+ eq getSkills(empty) = empty .
+ --- If arg2 is empty, return arg1. Otherwise arg1.
+ op getMinimumSkills : Set{Skill} Set{Skill} -> Set{Skill} .
+ eq getMinimumSkills(MSkills1, empty) = MSkills1 .
+ eq getMinimumSkills(MSkills1, MSkills2) = MSkills2 .
+ --- Return intersection of mras skills and gap operations. If intersection is empty, return MSkills.
+ op getRequiredSkills : Set{Skill} Set{Operation} -> Set{Skill} .
+ eq getRequiredSkills(MSkills, Operations) = getMinimumSkills(MSkills, intersection(MSkills, getSkills(Operations))) .
+ 
  --- this rule transforms a mra into an agent looking for partners to a task
  ceq <gaps>
        <gap>
@@ -101,7 +113,7 @@ mod ASSIGN-TASKS is
      <agents>
        <agent>
          <task-id> GName -> TName </task-id>
-         <provided-skills> MSkills </provided-skills>
+         <provided-skills> getRequiredSkills(MSkills, Operations) </provided-skills>
          <required-ops> decompose(Operations) \ decompose(MSkills) </required-ops>
          <open-interfaces> IFaces </open-interfaces>
          <coalition> MName </coalition>
