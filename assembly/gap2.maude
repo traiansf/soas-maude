@@ -48,7 +48,7 @@ mod GAP2 is
                 <start-orientation> angle(f1) </start-orientation>
                 <end-orientation> angle(p1) </end-orientation>
 ---               --- TODO: calculate from end-point and start-point
----               <trange> 45.0 </trange>
+               <trange> 45.0 </trange>
      </task>
   .
   eq t3 = 
