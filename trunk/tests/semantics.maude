@@ -22,6 +22,7 @@ endm
 --- search instance =>! X:[Config] .
 
 rew instance .
+quit
 
 --- changes made:
 --- human3 added
