@@ -2,7 +2,7 @@
 --- load skill
 mod SKILL-TYPE is 
   sort SkillType .
-  ops open-close move feed transport position-carrier store pick&place load unload index-carrier-for-task load-unload-gripper hold base-hold
+  ops open-close move feed transport position-carrier store pick&place load unload index-carrier-for-task load-unload-gripper
    : -> SkillType [format (! o) ctor] .
 endm
 view SkillType from TRIV to SKILL-TYPE is sort Elt to SkillType . endv
