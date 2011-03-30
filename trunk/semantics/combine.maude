@@ -51,100 +51,11 @@ mod ASSIGN-TASKS is
  var Operations Operations1 Operations2 : Set{Operation} . 
  var Gap : Set{GapItem} . var Gaps : Set{Gap} .  var TaskId : TaskId .
  var Agents : Set{Agent} . var MNames : Set{MraName} .
- var TaskItem1 : TaskItem .
- var TaskItems : Set{TaskItem} .
- var t : SkillType .
+
  rl [start-agents] : <config> <gaps> Gaps </gaps> <mras> Mras </mras> </config>
                   => <config> <gaps> Gaps </gaps> <mras> Mras </mras> <agents> empty </agents> </config> .
- var f : Float .
- var MSkill : Skill .
- var TRange : Float .
- var MSkillSubType : SkillSubType .
- --- Extract Skills from Operation
- op getSkills : Set{Operation} -> Set{Skill} .
- eq getSkills(<operation> MSkills </operation>) = MSkills .
---- eq getSkills(empty) = empty .
 
- var si : SkillItem .
- var sis : Set{SkillItem} .
-
---- Create set of skills from skillitems. 
- op getSkills : Set{SkillItem} -> Set{Skill} .
- eq getSkills(si) = <skill> si </skill> .
- eq getSkills(si sis) = <skill> si </skill> getSkills(sis) .
-
---- stupid way of filtering out non-type skillitems such as range, subtype.
- op getOnlyType : SkillItem -> SkillItem .
- eq getOnlyType(empty) = empty .
- eq getOnlyType(<range> f </range> ) = empty .
- eq getOnlyType(<subtype> MSkillSubType </subtype>) = empty .
- eq getOnlyType(si) = si .
-
---- Extract only type skillitem from skill.
- op getSkillItem : Skill -> SkillItem .
- eq getSkillItem(<skill> si </skill> MSkill) = si getSkillItem(MSkill) .
- eq getSkillItem(<skill> sis </skill>) = getOnlyTypes(sis) .
- eq getSkillItem(<skill> si </skill>) = si .
-
---- For set..
- op getSkillItem : Set{Skill} -> Set{SkillItem} .
- eq getSkillItem(empty) = empty .
- eq getSkillItem(MSkill MSkills) = getSkillItem(MSkill) getSkillItem(MSkills) .
-
---- For set of SkillItems.
- op getOnlyTypes : Set{SkillItem} -> Set{SkillItem} .
- eq getOnlyTypes(empty) = empty .
- eq getOnlyTypes(si sis) = getOnlyType(si) getOnlyTypes(sis) .
-
---- Get only types of skill's skillitems 
- op getSkillTypes : Set{Skill} -> Set{SkillItem} .
- eq getSkillTypes(empty) = empty .
- eq getSkillTypes(MSkills) = getOnlyTypes(getSkillItem(MSkills)) .
-
---- Return intersection of mras skills and gap operations. If intersection is empty, return MSkills.
- op getRequiredSkills : Set{Skill} Set{Operation} Set{TaskItem} -> Set{Skill} .
- op getRequiredSkills : Set{Skill} Set{Operation} -> Set{Skill} .
- eq getRequiredSkills(MSkills, Operations) = empty .
- eq getRequiredSkills(empty, Operations, Task) = empty .
- eq getRequiredSkills(ProvidedSkill MSkills, Operations, Task) = getRightSkills(ProvidedSkill, Operations, Task) getRequiredSkills(MSkills, Operations, Task) .
----eq getRequiredSkills(MSkills, Operations, Task) = unique(intersection(getSkills(getSkillTypes(MSkills)), decompose(getSkills(Operations)))) .
-
- var ProvidedSkill : Skill .
- var RequiredSkills : Set{Operation} .
- var RequiredRange : Float .
- 
---- If provided skills in required skills and range in the task is greater than range in the provided skill => decompose required skills.
---- Basically it tries to compare ranges in order to find right skills 
- op getRightSkills : Skill Set{Operation} Set{TaskItem} -> Set{Skill} .
- eq getRightSkills(ProvidedSkill, RequiredSkills, Task) = if getSkills(getSkillTypes(ProvidedSkill)) in decompose(getSkills(RequiredSkills)) and getTRange(Task) > getRange(ProvidedSkill) then decompose(getSkills(RequiredSkills)) else empty fi .
---- eq getRightSkills(ProvidedSkill, RequiredSkills, Task) = if getSkills(getSkillTypes(ProvidedSkill)) in decompose(getSkills(RequiredSkills)) then decompose(getSkills(RequiredSkills)) else empty fi .
---- eq getRightSkills(ProvidedSkills, RequiredSkills, RequiredRange) = empty .
-
- var f1 : Float .
- --- Get trange from TaskItem(s) as float..
- op getTRange : TaskItem -> Float . 
- eq getTRange(<trange> f1 </trange>) = f1 .
- eq getTRange(TaskItem1) = 0.0 .
- op getTRange : Set{TaskItem} -> Float .
- eq getTRange(TaskItem1 TaskItems) = getTRange(TaskItem1) + getTRange(TaskItems) .
-
- var SkillItem1 : SkillItem . 
- var SkillItems : Set{SkillItem} .
- var MSkill1 : Skill .
-
- op getRange : SkillItem -> Float .
- eq getRange(<range> f1 </range>) = f1 .
- eq getRange(SkillItem1) = 0.0 .
-
- op getRange : Skill -> Float .
- eq getRange(<skill> SkillItems </skill>) = getRange(SkillItems) . 
- op getRange : Set{SkillItem} -> Float .
- eq getRange(SkillItem1 SkillItems) = getRange(SkillItem1) + getRange(SkillItems) .
-
- eq getRange(MSkill1) = 0.0 .
- op getRange : Set{Skill} -> Float .
- eq getRange(MSkill1 MSkills) = getRange(MSkill1) + getRange(MSkills) . 
---- this rule transforms a mra into an agent looking for partners to a task
+ --- this rule transforms a mra into an agent looking for partners to a task
  ceq <gaps>
        <gap>
         <name> GName </name>
@@ -190,8 +101,7 @@ mod ASSIGN-TASKS is
      <agents>
        <agent>
          <task-id> GName -> TName </task-id>
-         --- unique there is a workaround, otherwise duplicated skills will be returned. 
-         <provided-skills> unique(getRequiredSkills(MSkills, Operations, Task)) </provided-skills>
+         <provided-skills> MSkills </provided-skills>
          <required-ops> decompose(Operations) \ decompose(MSkills) </required-ops>
          <open-interfaces> IFaces </open-interfaces>
          <coalition> MName </coalition>

@@ -41,14 +41,12 @@ mod GAP2 is
  	<task> 
         <name> t2 </name> 
   		<type> pick&place </type> 
- 	    <object> p1 </object> 
-                <operations> <operation> <skill> <type> pick&place </type> </skill> </operation> </operations>
-                <start-point> position(f1) </start-point>
-                <end-point> position(wpca) </end-point>
-                <start-orientation> angle(f1) </start-orientation>
-                <end-orientation> angle(p1) </end-orientation>
----               --- TODO: calculate from end-point and start-point
-               <trange> 45.0 </trange>
+ 	      	<object> p1 </object> 
+		<operations> <operation> <skill> <type> pick&place </type> </skill> </operation> </operations>  
+	      	<start-point> position(f1) </start-point> 
+  		<end-point> position(wpca) </end-point> 
+  		<start-orientation> angle(f1) </start-orientation> 
+  		<end-orientation> angle(p1) </end-orientation>
      </task>
   .
   eq t3 = 

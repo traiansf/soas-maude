@@ -18,9 +18,6 @@ mod TOP-AXES is
           <skill> <type> move </type> <subtype> linear-horizontal </subtype>
            <range> 15.0 </range> </skill>
         </skills>
-
-        --- needs hold (connection to middle axis which will require base axis) ...or base-hold (=connection to base axis), but this is not implemented for now
-        <required-skills> <skill> <type> hold </type> </skill> </required-skills>  
         <interfaces> square(+ true) circular(- true) </interfaces>
      </mra>
   .
@@ -31,8 +28,6 @@ mod TOP-AXES is
           <skill> <type> move </type> <subtype> rotational-horizontal </subtype>
            <range> 190.0 </range> </skill>
         </skills>
- 		--- needs hold (connection to middle axis which will require base axis) ...or base-hold (=connection to base axis), but this is not implemented for now
-        <required-skills> <skill> <type> hold </type> </skill> </required-skills>  
         <interfaces> square(+ true) circular(- true) </interfaces>
      </mra>
   .
@@ -45,8 +40,6 @@ mod TOP-AXES is
           <skill> <type> move </type> <subtype> linear-vertical </subtype>
            <range> 5.0 </range> </skill>
         </skills>
-        --- needs hold (connection to middle axis which will require base axis) ...or base-hold (=connection to base axis), but this is not implemented for now
-        <required-skills> <skill> <type> hold </type> </skill> </required-skills>  
         <interfaces> square(+ true) circular(- true) </interfaces>
      </mra>
   .

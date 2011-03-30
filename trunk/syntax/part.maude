@@ -7,8 +7,6 @@ load skill
 load interface
 load mra
 ---)
-load mra
-
 
 mod PART-NAME is
   sort PartName .
@@ -29,12 +27,10 @@ mod PART-ITEM is
   including PART-TYPE .
   including PART-NAME .
   including MATERIAL .
----  including MRA-TYPE .
----  including MRA-SUBTYPE .
+  including MRA-TYPE .
+  including MRA-SUBTYPE .
   including ANGLE .
   including POSITION .
-  including FLOAT .
-  including MRA-NAME . 
   sort PartItem . 
 ---  sorts Gripper-Subtype .
 ---  Subtype is defined in MRA-TYPE...
@@ -46,16 +42,13 @@ mod PART-ITEM is
   op <name>_</name> : PartName -> PartItem [format (ni++ o -- o) ] .
   op <material>_</material> : Material -> PartItem [format (ni++ o -- o) ] .
   op <weight>_</weight> : Int -> PartItem [format (ni++ o -- o) ] .
-    op <feeder>_</feeder> : MraName -> PartItem .
   op <x-dimension>_</x-dimension> : Int -> PartItem [format (ni++ o -- o) ] .
   op <y-dimension>_</y-dimension> : Int -> PartItem [format (ni++ o -- o) ] .
   op <z-dimension>_</z-dimension> : Int -> PartItem [format (ni++ o -- o) ] .
----TODO: Should be defined in a subclass  op <gripper-subtype>_</gripper-subtype> : MraSubType -> PartItem [format (ni++ o -- o) ] .
---- Otherwise circular dependency between mra.maude and part.maude
+  op <gripper-subtype>_</gripper-subtype> : MraSubType -> PartItem [format (ni++ o -- o) ] .
   op <grip-pos1>_</grip-pos1> : Position -> PartItem [format (ni++ o -- o) ] .
   op <grip-pos2>_</grip-pos2> : Position -> PartItem [format (ni++ o -- o) ] .
   op <grip-pos3>_</grip-pos3> : Position -> PartItem [format (ni++ o -- o) ] .
-    op <prange>_</prange> : Float -> PartItem [format (ni++ o -- o) ] .
   op <part-position>_</part-position> : Position -> PartItem [format (ni++ o -- o) ] .
   op <part-angle>_</part-angle> : Angle -> PartItem [format (ni++ o -- o) ] .
 
