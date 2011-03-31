@@ -36,6 +36,7 @@ mod MRA-ITEM is
   op <subtype>_</subtype> : MraSubType -> MraItem [format (ni o d o) ] .
   op <interfaces>_</interfaces> : Set{Interface} -> MraItem [format (ni o d o) ] .
   op <skills>_</skills> : Set{Skill} -> MraItem [format (ni o d o) ] .
+  op <required-skills>_</required-skills> : Set{Skill} -> MraItem [format (ni o d o) ] .
   op <name>_</name> : MraName -> MraItem [format (ni o d o) ].
   op <position>_</position> : Position -> MraItem [format (ni o d o) ] .
   op <angle>_</angle> : Angle -> MraItem [format (ni o d o) ] .

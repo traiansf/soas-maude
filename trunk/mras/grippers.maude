@@ -20,6 +20,7 @@ mod GRIPPERS is
            <range> 5.0 </range> 
           </skill>
        </skills>
+        <required-skills> empty </required-skills>
         <interfaces> circular(+ true) </interfaces>
       </mra>
   .
@@ -32,6 +33,7 @@ mod GRIPPERS is
            <range> 7.0 </range> 
           </skill>
         </skills>
+        <required-skills> empty </required-skills>
         <interfaces> circular(+ true) </interfaces>
       </mra>
   .
@@ -44,6 +46,7 @@ mod GRIPPERS is
            <range> 14.0 </range> 
           </skill>
         </skills>
+        <required-skills> empty </required-skills>
         <interfaces> circular(+ true) </interfaces>
       </mra> 
   .
@@ -56,6 +59,7 @@ mod GRIPPERS is
            <range> 14.0 </range> 
           </skill>
         </skills>
+        <required-skills> empty </required-skills>
         <interfaces> circular(+ true) </interfaces>
       </mra> 
   .

@@ -22,7 +22,7 @@ set trace substitution off .
 --- this is to see where the program is stuck:
 --- search instance =>! X:[Config] .
 
-rew instance .
+ rew[1] instance .
 
 --- changes made:
 --- human3 added

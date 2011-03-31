@@ -17,7 +17,12 @@ mod BASE-AXES is
         <skills> 
           <skill> <type> move </type> <subtype> linear-horizontal </subtype> 
             <range> 50.0 </range> </skill> 
-        </skills>
+          <skill> <type> hold </type> </skill>		
+	  <skill> <type> base-hold </type>   </skill>		
+	</skills>		
+	<required-skills> 
+            <skill> <type> position-carrier </type> </skill> 
+        </required-skills>
         <interfaces> square(- true) triangular(- true) straight(- true) </interfaces>
      </mra>
   .
@@ -27,8 +32,13 @@ mod BASE-AXES is
         <skills> 
           <skill> <type> move </type> <subtype> rotational-vertical </subtype> 
             <range> 90.0 </range> </skill> 
-        </skills>
-        <interfaces> square(- true)  triangular(- true) straight(- true) </interfaces>
+          <skill> <type> hold </type> </skill>		
+	  <skill> <type> base-hold </type>   </skill>		
+	</skills>
+	<required-skills> 
+           <skill> <type> position-carrier </type> </skill> </required-skills>
+        <interfaces> 
+           square(- true)  triangular(- true) straight(- true) </interfaces>
      </mra>
   .
   eq a3 =
@@ -37,8 +47,13 @@ mod BASE-AXES is
         <skills> 
           <skill> <type> move </type> <subtype> linear-vertical </subtype> 
             <range> 40.0 </range> </skill> 
-        </skills>
-        <interfaces> square(- true)  triangular(- true) straight(- true) </interfaces>
+          <skill> <type> hold </type> </skill>		
+	  <skill> <type> base-hold </type>   </skill>		
+	</skills>
+	<required-skills> 
+           <skill> <type> position-carrier </type> </skill> </required-skills>
+        <interfaces> 
+            square(- true)  triangular(- true) straight(- true) </interfaces>
      </mra>
   .
 endm

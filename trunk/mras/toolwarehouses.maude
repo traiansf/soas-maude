@@ -18,6 +18,7 @@ mod TOOLWAREHOUSES is
           <skill> <type> store </type> <subtype> grippers </subtype>
            <count> 2 </count> </skill>
         </skills>
+        <required-skills> empty </required-skills>
         <interfaces> diamond (+ true) </interfaces>
       </mra> 
   .
@@ -28,6 +29,7 @@ mod TOOLWAREHOUSES is
           <skill> <type> store </type> <subtype> grippers </subtype>
            <count> 3 </count> </skill>
         </skills>
+        <required-skills> empty </required-skills>
         <interfaces> diamond(+ true) </interfaces>
       </mra> 
   .
