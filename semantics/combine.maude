@@ -42,7 +42,7 @@ mod ASSIGN-TASKS is
 
 
  var TName : TaskName . var MName : MraName .  var GName : GapName .
- vars MSkills MSkills1 MSkills2 : Set{Skill} .
+ vars MSkills MSkills1 MSkills2  RSkills : Set{Skill} .
  vars Mra : Set{MraItem} . var Mras Mras1 Mras2 : Set{Mra} .
  vars Agent Agent1 Agent2 : Set{AgentItem} .
  var IFaces IFaces1 IFaces2 : Set{Interface} .
@@ -72,7 +72,8 @@ mod ASSIGN-TASKS is
      </gaps>
      <mras> 
        <mra> <name> MName </name>
-         <interfaces> IFaces </interfaces> <skills> MSkills </skills> Mra
+         <interfaces> IFaces </interfaces> <skills> MSkills </skills> 
+         <required-skills> RSkills </required-skills> Mra
        </mra> 
        Mras 
      </mras>
@@ -94,7 +95,8 @@ mod ASSIGN-TASKS is
      </gaps>
      <mras> 
        <mra> <name> MName </name>
-         <interfaces> IFaces </interfaces> <skills> MSkills </skills> Mra
+         <interfaces> IFaces </interfaces> <skills> MSkills </skills> 
+         <required-skills> RSkills </required-skills> Mra
        </mra> 
        Mras 
      </mras> 
@@ -102,7 +104,7 @@ mod ASSIGN-TASKS is
        <agent>
          <task-id> GName -> TName </task-id>
          <provided-skills> MSkills </provided-skills>
-         <required-ops> decompose(Operations) \ decompose(MSkills) </required-ops>
+         <required-ops> (decompose(Operations) \ decompose(MSkills)) <operation> RSkills </operation> </required-ops>
          <open-interfaces> IFaces </open-interfaces>
          <coalition> MName </coalition>
         </agent> 
@@ -113,7 +115,8 @@ mod ASSIGN-TASKS is
  --- this rule combines two agents for the same task if together they can achieve more than stand-alone.
  ceq <mras> 
        <mra> <name> MName </name>
-         <interfaces> IType(+ true) IFaces1 </interfaces> <skills> MSkills1 </skills> Mra
+         <interfaces> IType(+ true) IFaces1 </interfaces> <skills> MSkills1 </skills> 
+         <required-skills> RSkills </required-skills> Mra
        </mra> 
        Mras
      </mras>
@@ -137,7 +140,7 @@ mod ASSIGN-TASKS is
       <agent>
         <task-id> TaskId </task-id>
         <provided-skills> MSkills2 MSkills1 </provided-skills>
-        <required-ops> Operations \ decompose(MSkills1) </required-ops>
+        <required-ops> (Operations \ decompose(MSkills1)) (<operation> RSkills  \ decompose(MSkills2)</operation>) </required-ops>
         <open-interfaces>  IFaces1 IFaces2 </open-interfaces>
         <coalition> MName MNames </coalition>
       </agent>

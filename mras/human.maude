@@ -18,6 +18,7 @@ mod HUMAN is
           <skill> <type> load </type> </skill>
           <skill> <type> unload </type> </skill>
        </skills>
+        <required-skills> empty </required-skills>
        <interfaces> empty </interfaces>
      </mra> .
   eq human2 =
@@ -27,6 +28,7 @@ mod HUMAN is
           <skill> <type> load </type> </skill>
           <skill> <type> unload </type> </skill>
        </skills>
+        <required-skills> empty </required-skills>
        <interfaces> empty </interfaces>
      </mra> .
   eq human3 =
@@ -36,6 +38,7 @@ mod HUMAN is
           <skill> <type> load </type> </skill>
           <skill> <type> unload </type> </skill>
        </skills>
+        <required-skills> empty </required-skills>
        <interfaces> empty </interfaces>
      </mra> .
 endm

@@ -18,6 +18,7 @@ mod POSITIONING-DEVICES is
           <skill> <type> position-carrier </type>
            <accuracy> 1 </accuracy> </skill>
         </skills>
+        <required-skills> empty </required-skills>
         <interfaces> straight(+ true) oval(- true) </interfaces>
       </mra>
   .
@@ -28,6 +29,7 @@ mod POSITIONING-DEVICES is
           <skill> <type> position-carrier </type>
            <accuracy> 2 </accuracy> </skill>
         </skills>
+        <required-skills> empty </required-skills>
         <interfaces> straight(+ true) oval(- true) </interfaces>
       </mra> 
   .
@@ -38,6 +40,7 @@ mod POSITIONING-DEVICES is
           <skill> <type> position-carrier </type>
            <accuracy> 3 </accuracy> </skill>
         </skills>
+        <required-skills> empty </required-skills>
         <interfaces> straight(+ true) oval(- true) </interfaces>
       </mra> 
   .
