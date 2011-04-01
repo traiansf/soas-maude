@@ -4,6 +4,7 @@ load skill
 load operation
 load patterns --- 1
 load combine --- 1 and 2
+load part 
 ---(
 load composite --- 3
 load match --- 4

@@ -17,7 +17,7 @@ mod GRIPPERS is
         <skills> 
           <skill> 
            <type> open-close </type> 
-           <range> 5.0 </range> 
+---           <range> 5.0 </range> 
           </skill>
        </skills>
         <required-skills> empty </required-skills>

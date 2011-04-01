@@ -1,0 +1,6 @@
+mod PART-TYPE is
+  sorts PartType .
+  ops carrier body-case tape-roll screw : -> PartType [ctor format (! o) ] .
+endm
+
+

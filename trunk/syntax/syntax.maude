@@ -7,6 +7,8 @@ load list
 load set
 load position
 load angle
+load part-type
+load mra-types
 load skill
 load interface
 load mra
