@@ -13,11 +13,6 @@ mod PART-NAME is
 ---  op _+_ : PartName PartName -> PartName [assoc comm format (d r o d)] .
 endm
 
-mod PART-TYPE is
-  sorts PartType .
-  ops carrier body-case tape-roll screw : -> PartType [ctor format (! o) ] .
-endm
-
 mod MATERIAL is
   sort Material .
   ops plastic metal rubber wood : -> Material [ctor format (! o) ] .

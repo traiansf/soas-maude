@@ -26,7 +26,8 @@ mod OBJECT is
 --- an object can consist of one or several parts (that is, a subassembly)
   sorts ObjectName .
   subsort PartName < ObjectName .
-  op _+_ : ObjectName ObjectName -> ObjectName [assoc comm format (d r o d)] .
+  op _+_ : ObjectName ObjectName -> ObjectName [assoc id: none format (d r o d)] .
+  op none : -> ObjectName .
 endm
 
 mod TASK-ITEM is 

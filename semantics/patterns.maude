@@ -28,6 +28,8 @@ mod PATTERNS is
     and second has  <skill> <type> transport </type> <subtype> linear </subtype> </skill> .
     first has  <skill> <type> move </type> </skill> 
     and second has <skill> <type> position-carrier </type> </skill> .
+    first has  <skill> <type> feed </type> </skill> 
+    and second has <skill> <type> move </type> </skill> .
   ) .
 
   op pattern-match : Set{Skill} Set{Skill} Set{Pattern} -> [Bool] .

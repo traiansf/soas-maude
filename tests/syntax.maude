@@ -8,9 +8,10 @@ load ../assembly/gap2.maude
 mod CONFIG is including CONFIGURATION .
 ---  including GAP1 .
   including GAP2 .
+  including PARTS .
   op instance : -> Config .
 ---  eq instance =  <config> <mras> mras </mras> <gaps> gap1 </gaps> </config> .
-  eq instance =  <config> <mras> mras </mras> <gaps> gap2 </gaps> </config> .
+  eq instance =  <config> <mras> mras </mras> <gaps> gap2 </gaps> <parts> parts </parts> </config> .
 
 --- config contains 2 cells: mras and gap - they interact
 

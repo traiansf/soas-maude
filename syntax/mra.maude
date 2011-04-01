@@ -6,23 +6,6 @@ load skill
 load interface
 ---)
 
-mod MRA-NAME is
-  sort MraName .
-  op _+_ : MraName MraName -> MraName [assoc comm format (d r o d)] .
-endm
-view MraName from TRIV to MRA-NAME is sort Elt to MraName . endv
-
-mod MRA-TYPE is
-  sorts MraType .
-  ops gripper axis robot conveyor positioning-device feeder human ending
-   toolwarehouse : -> MraType [ctor format (! o) ] .
-endm
-
-mod MRA-SUBTYPE is
-  sort MraSubType .
-  ops 2finger magnetic vacuum screw-driver : -> MraSubType [ctor format (! o)] . 
-endm
-
 mod MRA-ITEM is 
   including MRA-TYPE .
   including MRA-SUBTYPE .
@@ -41,8 +24,8 @@ mod MRA-ITEM is
   op <position>_</position> : Position -> MraItem [format (ni o d o) ] .
   op <angle>_</angle> : Angle -> MraItem [format (ni o d o) ] .
 
-  op position : MraName -> Position .
-  op angle : MraName -> Angle .
+  op position : MraType -> Position .
+  op angle : MraType -> Angle .
 endm
 view MraItem from TRIV to MRA-ITEM is sort Elt to MraItem . endv
 

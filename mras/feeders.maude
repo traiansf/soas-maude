@@ -15,7 +15,7 @@ load ../syntax/mra
     <mra> 
         <name> f1 </name> <type> feeder </type> 
         <skills>
-          <skill> <type> feed </type> </skill>
+          <skill> <type> feed </type> <subtype> feeds(body-case) </subtype> </skill>
         </skills>
         <required-skills> empty </required-skills>
         <interfaces> triangular(+ true) </interfaces>
@@ -25,7 +25,7 @@ load ../syntax/mra
      <mra> 
         <name> f2 </name> <type> feeder </type> 
         <skills>
-          <skill> <type> feed </type> </skill>
+          <skill> <type> feed </type>  <subtype> feeds(tape-roll) </subtype> </skill>
         </skills>
         <required-skills> empty </required-skills>
       </mra> 
@@ -34,7 +34,7 @@ load ../syntax/mra
      <mra> 
         <name> f3 </name> <type> feeder </type>
         <skills>
-          <skill> <type> feed </type> </skill>
+          <skill> <type> feed </type>  <subtype> feeds(screw) </subtype> </skill>
         </skills>
         <required-skills> empty </required-skills>
         <interfaces> triangular(+ true) </interfaces>
@@ -44,7 +44,7 @@ load ../syntax/mra
      <mra> 
         <name> f4 </name> <type> feeder </type>
         <skills>
-          <skill> <type> feed </type> </skill>
+          <skill> <type> feed </type>  <subtype> feeds(body-case) </subtype> </skill>
         </skills>
         <required-skills> empty </required-skills>
         <interfaces> triangular(+ true) </interfaces>

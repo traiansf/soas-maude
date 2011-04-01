@@ -16,9 +16,11 @@ load gap
 mod CONFIG-ITEM is 
   including SET{Mra} .
   including SET{Gap} .
+  including SET{Part} .
   sort ConfigItem .
   op <gaps>_</gaps> : Set{Gap} -> ConfigItem [format (ni++ o n-- o) ] .
   op <mras>_</mras> : Set{Mra} -> ConfigItem [format (ni++ o n-- o) ] .
+  op <parts>_</parts> : Set{Part} ->  ConfigItem [format (ni++ o n-- o) ] .
 endm
 view ConfigItem from TRIV to CONFIG-ITEM is sort Elt to ConfigItem . endv
 

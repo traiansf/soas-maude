@@ -51,8 +51,9 @@ mod ASSIGN-TASKS is
  var Operations Operations1 Operations2 : Set{Operation} . 
  var Gap : Set{GapItem} . var Gaps : Set{Gap} .  var TaskId : TaskId .
  var Agents : Set{Agent} . var MNames : Set{MraName} .
+ var Config : Set{ConfigItem} .
 
- rl [start-agents] : <config> <gaps> Gaps </gaps> <mras> Mras </mras> </config>
+ rl [start-agents] : <config> <gaps> Gaps </gaps> <mras> Mras </mras> Config </config>
                   => <config> <gaps> Gaps </gaps> <mras> Mras </mras> <agents> empty </agents> </config> .
 
  --- this rule transforms a mra into an agent looking for partners to a task
@@ -113,10 +114,14 @@ mod ASSIGN-TASKS is
   if not(match(MName, GName -> TName, Agents)) /\ match(decompose(MSkills),decompose(Operations)) .
 
  --- this rule combines two agents for the same task if together they can achieve more than stand-alone.
+
+ vars IS1 IS2 : InterfaceSign .
  ceq <mras> 
        <mra> <name> MName </name>
-         <interfaces> IType(+ true) IFaces1 </interfaces> <skills> MSkills1 </skills> 
-         <required-skills> RSkills </required-skills> Mra
+         <interfaces> IType(IS1 true) IFaces1 </interfaces> 
+         <skills> MSkills1 </skills> 
+         <required-skills> RSkills </required-skills> 
+         Mra
        </mra> 
        Mras
      </mras>
@@ -125,14 +130,17 @@ mod ASSIGN-TASKS is
         <task-id> TaskId </task-id>
         <provided-skills> MSkills2 </provided-skills>
         <required-ops> Operations </required-ops>
-        <open-interfaces>  IType(- true) IFaces2 </open-interfaces>
+        <open-interfaces>  IType(IS2 true) IFaces2 </open-interfaces>
         <coalition> MNames </coalition>
       </agent>
       Agents
      </agents>
    = <mras> 
        <mra> <name> MName </name>
-         <interfaces> IType(+ true) IFaces1 </interfaces> <skills> MSkills1 </skills> Mra
+         <interfaces> IType(IS1 true) IFaces1 </interfaces> 
+         <skills> MSkills1 </skills> 
+         <required-skills> RSkills </required-skills> 
+         Mra
        </mra> 
        Mras
      </mras>
@@ -148,12 +156,13 @@ mod ASSIGN-TASKS is
         <task-id> TaskId </task-id>
         <provided-skills> MSkills2 </provided-skills>
         <required-ops> Operations </required-ops>
-        <open-interfaces>  IType(- true) IFaces2 </open-interfaces>
+        <open-interfaces>  IType(IS2 true) IFaces2 </open-interfaces>
         <coalition> MNames </coalition>
       </agent>
       Agents
      </agents>
   if not(MName in MNames) 
+  /\ IS1 =/= IS2
   /\ not(match(MName MNames, TaskId, Agents)) 
   /\ match(decompose(MSkills1), Operations) 
   /\ pattern-match(decompose(MSkills1), decompose(MSkills2), patterns) .
@@ -229,6 +238,8 @@ eq pruneAgents( <agent> <coalition> Coalition </coalition> Agent </agent> Agents
    then <agent> <coalition> Coalition </coalition> Agent </agent> 
    else empty fi 
    pruneAgents(Agents,MNames) .
+
+eq pruneAgents(empty, MNames) = empty .
 endm
 
 
