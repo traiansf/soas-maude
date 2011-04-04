@@ -16,7 +16,7 @@ mod TOP-AXES is
         <name> a7 </name> <type> axis </type>
         <skills> 
           <skill> <type> move </type> <subtype> linear-horizontal </subtype>
-           <range> 15.0 </range> </skill>
+           <range> 150.0 </range> </skill>
         </skills>
         --- needs hold (connection to middle axis which will require base axis) 
         --- ... or base-hold (=connection to base axis), 
@@ -46,7 +46,7 @@ mod TOP-AXES is
           <skill> <type> move </type> <subtype> rotational-vertical </subtype>
            <range> 280.0 </range> </skill>
           <skill> <type> move </type> <subtype> linear-vertical </subtype>
-           <range> 5.0 </range> </skill>
+           <range> 550.0 </range> </skill>
         </skills>
         --- needs hold (connection to middle axis which will require base axis) 
         --- ... or base-hold (=connection to base axis), 

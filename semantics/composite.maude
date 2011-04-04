@@ -1,3 +1,10 @@
 mod COMPOSITE is 
  including SET{Skill} .
+--- where should the following go?
+--- combination of angular and linear ranges
+--- move rotational-vertical or rotational-horizontal with angular range alpha
+--- move linear-horizontal or linear-vertical with linear range x
+--- combined movement is equal-sided triangle with angle alpha, two sides x, third side y
+--- combined linear range y = 2 * x * sin(alpha / 2)
+--- y must be bigger than / equal to the distance to be overcome by the robot / coalition of axes
 endm

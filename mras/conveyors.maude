@@ -16,7 +16,7 @@ mod CONVEYORS is
         <name> c1 </name> <type> conveyor </type> 
         <skills>
           <skill> <type> transport </type> <subtype> linear </subtype>
-            <range> 80.0 </range> </skill>
+            <range> 800.0 </range> </skill>
         </skills>
         <required-skills> empty </required-skills>
         <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
@@ -27,7 +27,7 @@ mod CONVEYORS is
         <name> c2 </name> <type> conveyor </type> 
         <skills>
           <skill> <type> transport </type> <subtype> linear </subtype>
-            <range> 60.0 </range> </skill>
+            <range> 600.0 </range> </skill>
         </skills>
         <required-skills> empty </required-skills>
         <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
@@ -38,7 +38,7 @@ mod CONVEYORS is
         <name> c3 </name> <type> conveyor </type> 
         <skills>
           <skill> <type> transport </type> <subtype> linear </subtype>
-            <range> 70.0 </range> </skill>
+            <range> 700.0 </range> </skill>
         </skills>
         <required-skills> empty </required-skills>
         <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
@@ -49,7 +49,7 @@ mod CONVEYORS is
         <name> c4 </name> <type> conveyor </type> 
         <skills>
           <skill> <type> transport </type> <subtype> junction </subtype>
-            <range> 20.0 </range> </skill>
+            <range> 2000.0 </range> </skill>
         </skills>
         <required-skills> empty </required-skills>
         <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
@@ -60,7 +60,7 @@ mod CONVEYORS is
         <name> c5 </name> <type> conveyor </type> 
         <skills>
           <skill> <type> transport </type> <subtype> corner </subtype>
-            <range> 30.0 </range> </skill>
+            <range> 1200.0 </range> </skill>
         </skills>
         <required-skills> empty </required-skills>
         <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>

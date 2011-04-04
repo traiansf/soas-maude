@@ -17,11 +17,11 @@ mod CARTESIAN-ROBOT is
      <name> r1 </name> <type> robot </type>
      <skills> 
        <skill> <type> move </type> <subtype> linear-horizontal </subtype>
-         <range> 25.0 </range> </skill>
+         <range> 225.0 </range> </skill>
        <skill> <type> move </type> <subtype> linear-horizontal </subtype>
-         <range> 20.0 </range> </skill>
+         <range> 220.0 </range> </skill>
        <skill> <type> move </type> <subtype> linear-vertical </subtype>
-         <range> 25.0 </range> </skill>
+         <range> 125.0 </range> </skill>
      </skills>
      <required-skills> 
         <skill> <type> position-carrier </type> </skill> </required-skills>
