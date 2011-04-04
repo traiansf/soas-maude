@@ -49,6 +49,12 @@ mod PART-ITEM is
 
   op position : PartName -> Position .
   op angle : PartName -> Angle .
+
+--- not sure this is the right place to define the following…? and how to do it correctly?
+--- part-range = squarroot( (grip-pos2(x) - grip-pos1(x))^2 + (grip-pos2(y) - grip-pos1(y))^2 + (grip-pos2(z) - grip-pos1(z))^2 )
+--- where x is the first argument of grip-pos, y the second, and z the third
+--- then compare part-range to grange (2-finger gripper opening range)
+
 endm
 view PartItem from TRIV to PART-ITEM is sort Elt to PartItem . endv
 

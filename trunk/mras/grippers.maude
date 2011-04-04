@@ -9,15 +9,15 @@ load ../syntax/mra
 ---)
 mod GRIPPERS is
   including MRA .
-  ops g1 g2 g3 g4 : -> MraName .
-  ops g1 g2 g3 g4 : -> Mra .
+  ops g1 g2 g3 g4 g5 : -> MraName .
+  ops g1 g2 g3 g4 g5 : -> Mra .
   eq g1 = 
  	<mra> 
         <name> g1 </name> <type> gripper </type> <subtype> 2finger </subtype>
         <skills> 
           <skill> 
            <type> open-close </type> 
----           <range> 5.0 </range> 
+         <range> 55 </range> 
           </skill>
        </skills>
         <required-skills> empty </required-skills>
@@ -30,7 +30,7 @@ mod GRIPPERS is
         <skills> 
           <skill> 
            <type> open-close </type> 
-           <range> 7.0 </range> 
+      ---     <range> 7.0 </range> 
           </skill>
         </skills>
         <required-skills> empty </required-skills>
@@ -43,7 +43,7 @@ mod GRIPPERS is
         <skills> 
           <skill> 
            <type> open-close </type> 
-           <range> 14.0 </range> 
+      ---     <range> 14.0 </range> 
           </skill>
         </skills>
         <required-skills> empty </required-skills>
@@ -52,16 +52,30 @@ mod GRIPPERS is
   .
   eq g4 = 
      <mra> 
-        <name> g4 </name> <type> gripper </type> <subtype> magnetic </subtype>
+        <name> g4 </name> <type> gripper </type> <subtype> crew-driver </subtype>
         <skills> 
           <skill> 
            <type> open-close </type> 
-           <range> 14.0 </range> 
+--- a screw-driver doesn't really open-close, but it's a gripper type, and thus it formally needs to have this skill
+ ---          <range> 14.0 </range> 
           </skill>
         </skills>
         <required-skills> empty </required-skills>
         <interfaces> circular(+ true) </interfaces>
       </mra> 
+  .
+  eq g5 = 
+ 	<mra> 
+        <name> g1 </name> <type> gripper </type> <subtype> 2finger </subtype>
+        <skills> 
+          <skill> 
+           <type> open-close </type> 
+          <range> 75 </range> 
+          </skill>
+       </skills>
+        <required-skills> empty </required-skills>
+        <interfaces> circular(+ true) </interfaces>
+      </mra>
   .
 endm
 

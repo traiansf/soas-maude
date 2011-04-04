@@ -8,14 +8,15 @@
   eq p1 = 
     <part> 
         <name> p1 </name> <type> body-case </type> 
-        <material> plastic </material>
+        <material> plastic, metal </material> --- metallic insertion allows for magnetic gripper
         <weight> 300 </weight>         
 	  <x-dimension> 50 </x-dimension>
 	  <y-dimension> 70 </y-dimension>
 	  <z-dimension> 20 </z-dimension>
 	  <gripper-subtype> 2finger </gripper-subtype>
 	  <grip-pos1> (25,0,10) </grip-pos1>
- 	  <grip-pos2> (25,50,10) </grip-pos2>
+ 	  <grip-pos2> (25,60,10) </grip-pos2>
+--- part-range = squarroot( 0 + (0-60)^2 + 0 ) = 60
    </part> 
   .
   eq p2 = 
@@ -29,6 +30,7 @@
 	  <gripper-subtype> 2finger </gripper-subtype>
 	  <grip-pos1> (20,0,10) </grip-pos1>
  	  <grip-pos2> (20,40,10) </grip-pos2>
+--- part-range = squarroot( 0 + 40^2 + 0 ) = 40
    </part> 
   .
   eq p3 = 
@@ -42,6 +44,7 @@
 	  <gripper-subtype> 2finger </gripper-subtype>
 	  <grip-pos1> (25,0,9) </grip-pos1>
  	  <grip-pos2> (25,50,9) </grip-pos2>
+--- part-range = squarroot( 0 + (0-50)^2 + 0 ) = 50
    </part> 
   .
   eq p4 = 
@@ -53,7 +56,9 @@
 	  <y-dimension> 5 </y-dimension>
 	  <z-dimension> 15 </z-dimension>
 	  <gripper-subtype> screw-driver </gripper-subtype>
-	  <grip-pos1> (2,2,15) </grip-pos1>
+	  <grip-pos1> (2,2,15) </grip-pos1> 
+--- this is a screw and therefore the screw-driver has only one point of contact; 
+--- this grip-pos could also be deleted
    </part> 
   .
   eq carrier = 

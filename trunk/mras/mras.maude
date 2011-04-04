@@ -43,7 +43,7 @@ mod MRAS is
     a7 --- a8 a9 --- top axes 
     c1 c2 c3 c4 c5 
     f1 f2 f3 
-    g1 g2 g3 g4
+    g1 g2 g3 g4 g5
     pd1 --- pd2 pd3
     w1 w2
     human1 human2 human3

@@ -3,7 +3,7 @@ load ../syntax/syntax
 load ../parts/parts.maude
 load ../mras/mras
 ---)
---- this is hopefully correct now
+--- gap1 includes only 2 parts; gap2 includes all 4!
 
 --- type: pick&place transport feeding other
 --- operation: all skills
@@ -90,7 +90,7 @@ eq t5 =
  	<task> 
         <name> t6 </name> 
   		<type> other </type> 
-         	<object> wpca + p1 + p2 </object> --- now with the assembled product on top 
+         	<object> wpca + p1 + p2 +p3 + p4 </object> --- now with the assembled product on top 
 		<operations> <operation> <skill> <type> unload </type> </skill> </operation> </operations>
 		<start-point> position(wpca) </start-point> 
 		<end-point> (100, 100, -20) </end-point> 
