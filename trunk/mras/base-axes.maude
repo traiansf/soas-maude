@@ -16,7 +16,7 @@ mod BASE-AXES is
         <name> a1 </name> <type> axis </type>
         <skills> 
           <skill> <type> move </type> <subtype> linear-horizontal </subtype> 
-            <range> 50.0 </range> </skill> 
+            <range> 150.0 </range> </skill> 
           <skill> <type> hold </type> </skill>		
 	  <skill> <type> base-hold </type>   </skill>		
 	</skills>		
@@ -46,7 +46,7 @@ mod BASE-AXES is
         <name> a3 </name> <type> axis </type>
         <skills> 
           <skill> <type> move </type> <subtype> linear-vertical </subtype> 
-            <range> 40.0 </range> </skill> 
+            <range> 240.0 </range> </skill> 
           <skill> <type> hold </type> </skill>		
 	  <skill> <type> base-hold </type>   </skill>		
 	</skills>

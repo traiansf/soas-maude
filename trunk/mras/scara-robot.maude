@@ -16,7 +16,7 @@ mod SCARA-ROBOT is
         <name> r2 </name> <type> robot </type>
         <skills> 
           <skill> <type> move </type> <subtype> linear-vertical </subtype>
-           <range> 30.0 </range> </skill>
+           <range> 300.0 </range> </skill>
           <skill> <type> move </type> <subtype> rotational-horizontal </subtype>
            <range> 180.0 </range> </skill>
           <skill> <type> move </type> <subtype> rotational-horizontal </subtype>

@@ -16,7 +16,7 @@ mod MIDDLE-AXES is
         <name> a4 </name> <type> axis </type>
         <skills> 
           <skill> <type> move </type> <subtype> linear-horizontal </subtype>
-           <range> 25.0 </range> </skill>
+           <range> 250.0 </range> </skill>
           <skill> <type> move </type> <subtype> rotational-vertical </subtype>
            <range> 180.0 </range> </skill>
 	  <skill> <type> hold </type> </skill>
@@ -32,7 +32,7 @@ mod MIDDLE-AXES is
         <name> a5 </name> <type> axis </type>
         <skills> 
           <skill> <type> move </type> <subtype> linear-horizontal </subtype>
-           <range> 25.0 </range> </skill>
+           <range> 200.0 </range> </skill>
 	  <skill> <type> hold </type> </skill>
         </skills>
         <required-skills> 
