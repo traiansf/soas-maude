@@ -1,0 +1,18 @@
+mod MRA-NAME is
+  sort MraName .
+  op _+_ : MraName MraName -> MraName [assoc comm format (d r o d)] .
+endm
+view MraName from TRIV to MRA-NAME is sort Elt to MraName . endv
+
+mod MRA-TYPE is
+  sorts MraType .
+  ops gripper axis robot conveyor positioning-device feeder human ending
+   toolwarehouse : -> MraType [ctor format (! o) ] .
+endm
+
+mod MRA-SUBTYPE is
+  sort MraSubType .
+  ops 2finger magnetic vacuum screw-driver : -> MraSubType [ctor format (! o)] . 
+endm
+
+
