@@ -38,10 +38,10 @@ search instance =>! X:Config .
 
 ----(  Solution for gap2
   task1: human1
-  task2: r3 g2 f1 pd1
+  task2: r3 f1 g2 pd1
   task3: r2 f2 g1 pd2
-  task4: r1 pd3 f3 g5
-  task5: a1 a7 f4 pd4 g4
+  task4: r1 f4 g5 pd3
+  task5: a1 a7 f3 pd4 g4
   task6: human2
 
 ---)
