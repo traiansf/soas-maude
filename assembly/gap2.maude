@@ -21,7 +21,7 @@ mod GAP2 is
   eq gap2 = 
  	<gap> 
         <name> gap2 </name> 
-		<tasks> t1 t2 --- t3 t4 t5 t6 
+		<tasks> t1 t2 t3 t4 t5 t6 
                 </tasks> 
         	<number> 10 </number> 
       </gap>
@@ -90,7 +90,7 @@ eq t5 =
  	<task> 
         <name> t6 </name> 
   		<type> other </type> 
-         	<object> wpca + p1 + p2 +p3 + p4 </object> --- now with the assembled product on top 
+         	<object> wpca + p1 + p2 + p3 + p4 </object> --- now with the assembled product on top 
 		<operations> <operation> <skill> <type> unload </type> </skill> </operation> </operations>
 		<start-point> position(wpca) </start-point> 
 		<end-point> (100, 100, -20) </end-point> 
