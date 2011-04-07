@@ -8,7 +8,8 @@
   eq p1 = 
     <part> 
         <name> p1 </name> <type> body-case </type> 
-        <material> plastic, metal </material> --- metallic insertion allows for magnetic gripper
+        <material> plastic </material>
+---        <material> metal </material> --- metallic insertion allows for magnetic gripper
         <weight> 300 </weight>         
 	  <x-dimension> 50 </x-dimension>
 	  <y-dimension> 70 </y-dimension>
@@ -41,7 +42,7 @@
 	  <x-dimension> 50 </x-dimension>
 	  <y-dimension> 70 </y-dimension>
 	  <z-dimension> 18 </z-dimension>
-	  <gripper-subtype> 2finger </gripper-subtype>
+	  <gripper-subtype> vacuum </gripper-subtype>
 	  <grip-pos1> (25,0,9) </grip-pos1>
  	  <grip-pos2> (25,50,9) </grip-pos2>
 --- part-range = squarroot( 0 + (0-50)^2 + 0 ) = 50

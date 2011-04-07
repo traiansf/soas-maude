@@ -17,7 +17,7 @@ mod GRIPPERS is
         <skills> 
           <skill> 
            <type> open-close </type> 
-         <range> 55 </range> 
+         <range> 55.0 </range> 
           </skill>
        </skills>
         <required-skills> empty </required-skills>
@@ -52,7 +52,7 @@ mod GRIPPERS is
   .
   eq g4 = 
      <mra> 
-        <name> g4 </name> <type> gripper </type> <subtype> crew-driver </subtype>
+        <name> g4 </name> <type> gripper </type> <subtype> screw-driver </subtype>
         <skills> 
           <skill> 
            <type> open-close </type> 
@@ -66,11 +66,11 @@ mod GRIPPERS is
   .
   eq g5 = 
  	<mra> 
-        <name> g1 </name> <type> gripper </type> <subtype> 2finger </subtype>
+        <name> g5 </name> <type> gripper </type> <subtype> 2finger </subtype>
         <skills> 
           <skill> 
            <type> open-close </type> 
-          <range> 75 </range> 
+          <range> 75.0 </range> 
           </skill>
        </skills>
         <required-skills> empty </required-skills>

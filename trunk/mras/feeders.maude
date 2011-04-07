@@ -28,6 +28,7 @@ load ../syntax/mra
           <skill> <type> feed </type>  <subtype> feeds(tape-roll) </subtype> </skill>
         </skills>
         <required-skills> empty </required-skills>
+        <interfaces> triangular(+ true) </interfaces>
       </mra> 
   .
   eq f3 = 

@@ -21,8 +21,8 @@ mod PATTERNS is
     first has <skill> <type> move </type> </skill> 
     and second has  <skill> <type> move </type> </skill>  .
     first has  <skill> <type> move </type> </skill> 
-    and second has <skill> <type> open-close </type> </skill> .
-    first has  <skill> <type> open-close </type> </skill>  <skill> <type> move </type> </skill>
+    and second has <skill> <type> grip </type> </skill> .
+    first has  <skill> <type> grip </type> </skill>  <skill> <type> move </type> </skill>
     and second has <skill> <type> store </type> <subtype> grippers </subtype> </skill> .
     first has <skill> <type> transport </type> <subtype> linear </subtype> </skill> 
     and second has  <skill> <type> transport </type> <subtype> linear </subtype> </skill> .

@@ -5,9 +5,10 @@ mod SKILL-TYPE is
   sort SkillType .
   ops open-close move transport feed position-carrier store pick&place 
       load unload index-carrier-for-task load-unload-gripper 
-      hold base-hold
+      hold base-hold 
+      grip 
    : -> SkillType [format (! o) ctor] .
-  op grips : MraSubType -> SkillType .
+---  op grips : MraSubType -> SkillType .
 endm
 view SkillType from TRIV to SKILL-TYPE is sort Elt to SkillType . endv
 
@@ -42,6 +43,8 @@ mod SKILL-ITEM is
   op <open-range>_</open-range> : Float -> SkillItem .
   --- type of part for the "feed" skill
   op <part-type>_</part-type> : PartType -> SkillItem .
+  ---  type of gripper for the  "grip" skill
+  op <gripper-type>_</gripper-type> : MraSubType -> SkillItem .
 endm
 view SkillItem from TRIV to SKILL-ITEM is sort Elt to SkillItem . endv
 
