@@ -93,6 +93,7 @@ mod PART-MATCH-GRIPPER is
 
  eq  <parts> Parts
        <part> Part
+         <name> PN </name> 
           <gripper-subtype> 2finger </gripper-subtype>   
           <grip-pos1> P1 </grip-pos1>
  	  <grip-pos2> P2 </grip-pos2>
@@ -117,6 +118,7 @@ mod PART-MATCH-GRIPPER is
      </gaps>
    =   <parts> Parts
        <part> Part
+         <name> PN </name> 
           <gripper-subtype> 2finger </gripper-subtype>   
           <grip-pos1> P1 </grip-pos1>
  	  <grip-pos2> P2 </grip-pos2>
