@@ -1,0 +1,214 @@
+--- The part needs a specific gripper.  Attempt to address that here by using adding some required-skill to the operations of the task. 
+mod PART-MATCH-GRIPPER is
+ including CONFIGURATION .
+ including  MATCH-OPERATIONS .
+ ceq <parts> Parts
+       <part> Part 
+         <name> PN </name> 
+         <gripper-subtype> MST </gripper-subtype> 
+        </part> 
+     </parts>
+     <gaps> Gaps
+       <gap> Gap
+         <tasks> Tasks
+            <task> Task 
+               <object> PN + ON </object> 
+               <operations> Ops 
+               </operations> 
+            </task>
+         </tasks>
+       </gap>
+     </gaps>
+   = <parts> Parts
+       <part> Part 
+         <name> PN </name> 
+         <gripper-subtype> MST </gripper-subtype> 
+        </part> 
+     </parts>
+     <gaps> Gaps
+       <gap> Gap
+         <tasks> Tasks
+            <task> Task 
+               <object> PN + ON </object> 
+               <operations> Ops  
+                  <operation> 
+                     <skill> <type> grip </type>
+                        <gripper-type> MST </gripper-type> 
+                     </skill>
+                  </operation>
+               </operations> 
+            </task>
+         </tasks>
+       </gap>
+     </gaps>
+  if not match(<skill> <type> grip </type> <gripper-type> MST </gripper-type> <range> Infinity </range> </skill>, Ops)  .
+
+ ceq <mra> Mra
+       <type> gripper </type>
+       <subtype> MST </subtype>
+       <skills> Skills </skills>
+     </mra>
+    = <mra> Mra
+       <type> gripper </type>
+       <subtype> MST </subtype>
+       <skills> Skills  <skill> <type> grip </type>
+                           <gripper-type> MST </gripper-type> 
+                        </skill>
+       </skills>
+     </mra>
+  if not match(<skill> <type> grip </type>
+                           <gripper-type> MST </gripper-type> 
+<range> Infinity </range> </skill>, Skills) .
+
+  eq  <mra> Mra
+       <type> gripper </type>
+       <subtype> MST </subtype>
+       <skills> Skills 
+         <skill> <type> open-close </type> <range> F </range> </skill>
+         <skill> <type> grip </type>
+                 <gripper-type> MST </gripper-type> 
+         </skill>
+       </skills>
+     </mra>
+   =  <mra> Mra
+       <type> gripper </type>
+       <subtype> MST </subtype>
+       <skills> Skills 
+---         <skill> <type> open-close </type> </skill>
+         <skill> <type> grip </type>
+                 <gripper-type> MST </gripper-type> 
+                 <range> F </range> 
+         </skill>
+       </skills>
+     </mra>
+.
+  var F : Float .
+
+
+
+--- not sure this is the right place to define the followingÉ? and how to do it correctly?
+--- part-range = distance(grip-pos1,grip-pos2)
+--- then compare part-range to grange (2-finger gripper opening range)
+
+
+ eq  <parts> Parts
+       <part> Part
+          <gripper-subtype> 2finger </gripper-subtype>   
+          <grip-pos1> P1 </grip-pos1>
+ 	  <grip-pos2> P2 </grip-pos2>
+       </part>
+     </parts>
+     <gaps> Gaps
+       <gap> Gap
+         <tasks> Tasks
+            <task> Task 
+               <object> PN + ON </object> 
+               <operations> Ops  
+                  <operation> 
+                     <skill> 
+                        <type> grip </type> 
+                        <gripper-type> 2finger </gripper-type> 
+                      </skill>
+                  </operation>
+               </operations> 
+            </task>
+         </tasks>
+       </gap>
+     </gaps>
+   =   <parts> Parts
+       <part> Part
+          <gripper-subtype> 2finger </gripper-subtype>   
+          <grip-pos1> P1 </grip-pos1>
+ 	  <grip-pos2> P2 </grip-pos2>
+       </part>
+     </parts>
+     <gaps> Gaps
+       <gap> Gap
+         <tasks> Tasks
+            <task> Task 
+               <object> PN + ON </object> 
+               <operations> Ops  
+                  <operation> 
+                     <skill>  <type> grip </type> 
+                        <gripper-type> 2finger </gripper-type> 
+                        <range> distance(P1,P2) </range>
+                    </skill>
+                  </operation>
+               </operations> 
+            </task>
+         </tasks>
+       </gap>
+     </gaps>
+.
+
+  vars P1 P2 : Position .
+  
+
+--- not sure this is the right place to define the followingÉ? and how to do it correctly?
+--- part-range = squarroot( (grip-pos2(x) - grip-pos1(x))^2 + (grip-pos2(y) - grip-pos1(y))^2 + (grip-pos2(z) - grip-pos1(z))^2 )
+--- where x is the first argument of grip-pos, y the second, and z the third
+--- then compare part-range to grange (2-finger gripper opening range)
+
+
+
+
+  var Ops : Set{Operation} . var MST : MraSubType . var PN : PartName . var Task : Set{TaskItem} .  var Tasks : Set{Task} . var Gap : Set{GapItem} . var Gaps : Set{Gap} .  var Part : Set{PartItem} . var Parts : Set{Part} .  var Skills : Set{Skill} .  var Mra : Set{MraItem} .  var ON : ObjectName .
+endm
+
+mod PART-MATCH-FEEDER is
+ including CONFIGURATION .
+ including  MATCH-OPERATIONS .
+ ceq <parts> Parts
+       <part> Part 
+         <name> PN </name> 
+         <type> PT </type>
+        </part> 
+     </parts>
+     <gaps> Gaps
+       <gap> Gap
+         <tasks> Tasks
+            <task> Task 
+               <object> PN </object> 
+               <start-point> position(feeder) </start-point>
+               <operations> Ops 
+               </operations> 
+            </task>
+         </tasks>
+       </gap>
+     </gaps>
+   = <parts> Parts
+       <part> Part 
+         <name> PN </name> 
+         <type> PT </type>
+        </part> 
+     </parts>
+     <gaps> Gaps
+       <gap> Gap
+         <tasks> Tasks
+            <task> Task 
+               <object> PN </object> 
+               <start-point> position(feeder) </start-point>
+               <operations> Ops 
+                 <operation> 
+                   <skill> 
+                     <type> feed </type> 
+                     <subtype> feeds(PT) </subtype>
+                   </skill> 
+                 </operation>
+               </operations> 
+            </task>
+         </tasks>
+       </gap>
+     </gaps>
+  if not match( <skill> 
+                     <type> feed </type> 
+                     <subtype> feeds(PT) </subtype>
+                   </skill> 
+          , Ops)  .
+
+  var Ops : Set{Operation} . var MST : MraSubType . var PN : PartName . var Task : Set{TaskItem} .  var Tasks : Set{Task} . var Gap : Set{GapItem} . var Gaps : Set{Gap} .  var Part : Set{PartItem} . var Parts : Set{Part} .  var Skills : Set{Skill} .  var Mra : Set{MraItem} .  var ON : ObjectName .  var PT : PartType .
+ 
+endm
+
+
+
