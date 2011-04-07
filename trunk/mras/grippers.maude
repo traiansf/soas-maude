@@ -39,7 +39,7 @@ mod GRIPPERS is
   .
   eq g3 = 
      <mra> 
-        <name> g3 </name> <type> gripper </type> <subtype> magnetic </subtype>
+        <name> g3 </name> <type> gripper </type> <subtype> vacuum </subtype>
         <skills> 
           <skill> 
            <type> open-close </type> 
