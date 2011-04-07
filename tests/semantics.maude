@@ -21,10 +21,14 @@ search instance =>! X:Config .
 --- get only one result
 --- search [1] instance =>! X:Config .
 
+--- use this to get all coalitions
+--- rewrite[1] instance .
+
+--- use this to get all valid coalitions (required-ops is empty)
+--- rewrite[2] instance .
+
 --- this is to see where the program is stuck:
 --- search instance =>! X:[Config] .
-
---- rewrite[1] instance .
 
 --- changes made:
 --- human3 added
