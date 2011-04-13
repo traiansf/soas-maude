@@ -11,9 +11,9 @@ mod GRIPPERS is
   including MRA .
   ops g1 g2 g3 g4 g5 : -> MraName .
   ops g1 g2 g3 g4 g5 : -> Mra .
-  eq g1 = 
+  eq g2 = 
  	<mra> 
-        <name> g1 </name> <type> gripper </type> <subtype> 2finger </subtype>
+        <name> g2 </name> <type> gripper </type> <subtype> 2finger </subtype>
         <skills> 
           <skill> 
            <type> open-close </type> 
@@ -24,9 +24,9 @@ mod GRIPPERS is
         <interfaces> circular(+ true) </interfaces>
       </mra>
   .
-  eq g2 =
+  eq g1 =
      <mra> 
-        <name> g2 </name> <type> gripper </type> <subtype> 2finger </subtype>
+        <name> g1 </name> <type> gripper </type> <subtype> 2finger </subtype>
         <skills> 
           <skill> 
            <type> open-close </type> 

@@ -25,8 +25,8 @@ mod ABB-ROBOT is
             <subtype> rotational-horizontal </subtype>
             <range> 280.0 </range>
           </skill>
-        </skills>
-        <required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>
+	</skills>
+           <required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>
         <interfaces> circular(- true)  triangular(- true) straight(- true) diamond(- true) </interfaces>
      </mra>
   .

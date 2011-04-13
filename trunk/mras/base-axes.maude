@@ -20,9 +20,7 @@ mod BASE-AXES is
           <skill> <type> hold </type> </skill>		
 	  <skill> <type> base-hold </type>   </skill>		
 	</skills>		
-	<required-skills> 
-            <skill> <type> position-carrier </type> </skill> 
-        </required-skills>
+	<required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>
         <interfaces> square(- true) triangular(- true) straight(- true) </interfaces>
      </mra>
   .
@@ -35,8 +33,7 @@ mod BASE-AXES is
           <skill> <type> hold </type> </skill>		
 	  <skill> <type> base-hold </type>   </skill>		
 	</skills>
-	<required-skills> 
-           <skill> <type> position-carrier </type> </skill> </required-skills>
+	<required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>
         <interfaces> 
            square(- true)  triangular(- true) straight(- true) </interfaces>
      </mra>
@@ -50,8 +47,7 @@ mod BASE-AXES is
           <skill> <type> hold </type> </skill>		
 	  <skill> <type> base-hold </type>   </skill>		
 	</skills>
-	<required-skills> 
-           <skill> <type> position-carrier </type> </skill> </required-skills>
+	<required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>
         <interfaces> 
             square(- true)  triangular(- true) straight(- true) </interfaces>
      </mra>
