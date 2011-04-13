@@ -39,7 +39,7 @@ mod MRAS is
   eq mras = 
     abb-robot cartesian-robot scara-robot
     a1 --- a2 a3 --- base axes
----   a4 a5 a6 --- middle axes
+    a4 --- a5 a6 --- middle axes
     a7 --- a8 a9 --- top axes 
 ---    c1 c2 c3 c4 c5 
     f1 f2 f3 f4

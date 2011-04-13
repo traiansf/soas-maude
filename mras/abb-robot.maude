@@ -26,7 +26,8 @@ mod ABB-ROBOT is
             <range> 280.0 </range>
           </skill>
 	</skills>
-           <required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>
+           <required-skills> <skill> <type> </type> </skill> </required-skills>
+--- <required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>
         <interfaces> circular(- true)  triangular(- true) straight(- true) diamond(- true) </interfaces>
      </mra>
   .
