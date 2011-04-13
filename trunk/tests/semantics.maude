@@ -35,7 +35,7 @@ set trace substitution off .
    task1: human1
    task2: r1    f1 g1 pd1
    task3: r2    f2 g2 pd2
-   task4: r3    f4 g3 pd3
+   task4: r3    f3 g3 pd3
    task5: a1 a7 f4 g4 pd4 
    task6: human2
 )---
