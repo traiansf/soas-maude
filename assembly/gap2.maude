@@ -21,7 +21,8 @@ mod GAP2 is
   eq gap2 = 
  	<gap> 
         <name> gap2 </name> 
-		<tasks> t1 t2 t3 t4 t5 t6 
+		<tasks>  t2 t3 t4 t5 
+	---	<tasks> t1 t2 t3 t4 t5 t6 
                 </tasks> 
         	<number> 10 </number> 
       </gap>

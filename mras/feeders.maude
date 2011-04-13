@@ -31,9 +31,9 @@ load ../syntax/mra
         <interfaces> triangular(+ true) </interfaces>
       </mra> 
   .
-  eq f3 = 
+  eq f4 = 
      <mra> 
-        <name> f3 </name> <type> feeder </type>
+        <name> f4 </name> <type> feeder </type>
         <skills>
           <skill> <type> feed </type>  <subtype> feeds(screw) </subtype> </skill>
         </skills>
@@ -41,9 +41,9 @@ load ../syntax/mra
         <interfaces> triangular(+ true) </interfaces>
       </mra> 
   .
-  eq f4 = 
+  eq f3 = 
      <mra> 
-        <name> f4 </name> <type> feeder </type>
+        <name> f3 </name> <type> feeder </type>
         <skills>
           <skill> <type> feed </type>  <subtype> feeds(body-case) </subtype> </skill>
         </skills>

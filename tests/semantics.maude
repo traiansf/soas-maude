@@ -16,7 +16,7 @@ set trace substitution off .
 ---)
 
 --- this is the normal running command to get all results:
-search instance =>! X:Config .
+ search instance =>! X:Config .
 
 --- get only one result
 --- search [1] instance =>! X:Config .
@@ -30,18 +30,12 @@ search instance =>! X:Config .
 --- this is to see where the program is stuck:
 --- search instance =>! X:[Config] .
 
---- changes made:
---- human3 added
---- gripper3 and gripper 4 added
---- a7 added
 
-
-----(  Solution for gap2
-  task1: human1
-  task2: r3 f1 g2 pd1
-  task3: r2 f2 g1 pd2
-  task4: r1 f4 g5 pd3
-  task5: a1 a7 f3 pd4 g4
-  task6: human2
-
----)
+---( Solution for gap2
+   task1: human1
+   task2: r1    f1 g1 pd1
+   task3: r2    f2 g2 pd2
+   task4: r3    f4 g3 pd3
+   task5: a1 a7 f4 g4 pd4 
+   task6: human2
+)---
