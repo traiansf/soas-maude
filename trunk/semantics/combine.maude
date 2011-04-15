@@ -207,8 +207,8 @@ mod ASSIGN-TASKS is
 
 --- we have a set of tasks and a set of free agents, so we assign a task to each agent
  op assignCoalitions : Set{TaskId} Set{Agent} -> [Set{Agent}] .
- eq assignCoalitions(empty, Agents) = empty .
---- when all the tasks are assigned, we have finished
+ eq assignCoalitions(empty, Agents) = <state> layout </state> .
+--- when all the tasks are assigned, we have finished and need to move to layout
 
 
 --- this is the source of trouble - main rule:

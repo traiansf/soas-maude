@@ -6,6 +6,7 @@ mod TEST is
   including ASSIGN-TASKS . 
   including PART-MATCH-GRIPPER .
   including PART-MATCH-FEEDER .
+  including LAYOUT .
 --- 
 endm
 
@@ -16,10 +17,10 @@ set trace substitution off .
 ---)
 
 --- this is the normal running command to get all results:
- search instance =>! X:Config .
+--- search instance =>! X:Config .
 
 --- get only one result
---- search [1] instance =>! X:Config .
+ search [1] instance =>! X:Config .
 
 --- use this to get all coalitions
 --- rewrite[1] instance .

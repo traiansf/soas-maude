@@ -10,9 +10,10 @@ load operation
 load part
 ---)
 
-mod TASK-NAME is
+mod TASK-NAME is  including NAT .
   sort TaskName .
   op _+_ : TaskName TaskName -> TaskName [assoc comm] .
+  op t : Nat -> TaskName .
 endm
 
 mod TASK-TYPE is
@@ -39,6 +40,7 @@ mod TASK-ITEM is
   including ANGLE .
   including MRA .
   sort TaskItem . 
+
   op <name>_</name> : TaskName -> TaskItem [format (ni o d o) ] .
   op <type>_</type> : TaskType -> TaskItem [format (ni o d o) ] .
   op <start-point>_</start-point> : Position -> TaskItem [format (ni++ o -- o) ] .

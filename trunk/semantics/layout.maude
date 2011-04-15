@@ -1,6 +1,158 @@
 --- lets the modules / coalitions choose positions in the layout
 
 mod LAYOUT is 
- including 
+ including SET{Agent} .
+ including LIST{Agent} .
+ including AGENTS .
+ ops mra-length mra-width : -> Int .
+ eq mra-length = 50 .
+ eq mra-width = 50 .
 
+ ops conveyor-length  conveyor-width : -> Int .
+ eq conveyor-length = 300 .
+ eq conveyor-width = 50 .
+
+ sort LayoutDirection .
+ ops north south east west : -> LayoutDirection .
+
+
+  op  lessThan : Agent Agent -> Bool .
+  eq lessThan(<agent> <task-id>  GapName -> t(N1) </task-id> AgentIs1 </agent>,<agent> <task-id>  GapName -> t(N2) </task-id> AgentIs2 </agent>) 
+   = N1 < N2 .
+
+ op sortedList : Set{Agent} -> List{Agent} .
+ eq sortedList(empty) = nil .
+ eq sortedList(SAgents) = sortedList(SAgents, minimalAgent(SAgents)) [owise] .
+
+ op sortedList : Set{Agent} Agent -> List{Agent} .
+ eq sortedList(SAgents Agent, Agent) = Agent,sortedList(SAgents) .
+
+ op minimalAgent : Set{Agent} -> Agent .
+ eq minimalAgent(Agent SAgents) = minimalAgent(SAgents, Agent) .
+
+ op minimalAgent : Set{Agent} Agent -> Agent .
+ eq minimalAgent(empty, Agent) = Agent .
+ eq minimalAgent(Agent' SAgents, Agent) 
+  = if lessThan(Agent', Agent) then  minimalAgent(SAgents, Agent')
+    else  minimalAgent(SAgents, Agent) fi .
+
+ op assignPositions : Set{Agent} Position -> [Set{Agent}] .
+ eq assignPositions(SAgents, FloorEnd)
+  = assignPositions(sortedList(SAgents), empty, (0,0,0), east, FloorEnd) .
+ 
+ op assignPositions : List{Agent} Set{Agent} Position LayoutDirection Position -> [Set{Agent}] .
+
+ eq assignPositions(nil, PAgents, (X, Y, Z), D, (XE, YE, ZE))
+  = PAgents .
+
+ceq assignPositions(Agents, PAgents, (X, Y, Z), east, (XE, YE, ZE))
+  = assignPositions(Agents, PAgents
+       <agent> 
+        <layout-mra> 
+          <type> conveyor </type> 
+          <subtype> corner </subtype> 
+          <position> (X,Y,Z) </position> 
+          <angle> [0,0,0] </angle>
+        </layout-mra> 
+      </agent> 
+      <agent> 
+        <layout-mra> 
+          <type> conveyor </type> 
+          <subtype> linear </subtype> 
+          <position> (X,Y + conveyor-width,Z) </position> 
+          <angle> [-90,0,0] </angle>
+        </layout-mra> 
+      </agent>
+      <agent> 
+        <layout-mra> 
+          <type> conveyor </type> 
+          <subtype> corner </subtype> 
+          <position> (X,Y + conveyor-width + conveyor-length,Z) </position> 
+          <angle> [-90,0,0] </angle>
+        </layout-mra> 
+      </agent> 
+   , (X, Y + conveyor-length + 2 * conveyor-width, Z), west, (XE, YE, ZE))
+ if X + conveyor-length + conveyor-width > XE 
+ /\ Y + conveyor-length + 2 * conveyor-width <= YE .
+
+ceq assignPositions(Agents, PAgents, (X, Y, Z), west, (XE, YE, ZE))
+  = assignPositions(Agents, PAgents
+       <agent> 
+        <layout-mra> 
+          <type> conveyor </type> 
+          <subtype> corner </subtype> 
+          <position> (X - conveyor-width,Y - conveyor-width,Z) </position> 
+          <angle> [90,0,0] </angle>
+        </layout-mra> 
+      </agent> 
+      <agent> 
+        <layout-mra> 
+          <type> conveyor </type> 
+          <subtype> linear </subtype> 
+          <position> (X - conveyor-width,Y,Z) </position> 
+          <angle> [-90,0,0] </angle>
+        </layout-mra> 
+      </agent>
+      <agent> 
+        <layout-mra> 
+          <type> conveyor </type> 
+          <subtype> corner </subtype> 
+          <position> (X - conveyor-width,Y + conveyor-length,Z) </position> 
+          <angle> [180,0,0] </angle>
+        </layout-mra> 
+      </agent> 
+   , (X, Y + conveyor-length, Z), east, (XE, YE, ZE))
+ if X - conveyor-length - conveyor-width < 0 
+ /\ Y + conveyor-length + conveyor-width <= YE .
+
+
+ceq assignPositions((<agent>  <task-id> TID </task-id> AgentIs1 </agent>,Agents), PAgents, (X, Y, Z), east, (XE, YE, ZE))
+  = assignPositions(Agents, PAgents
+    <agent>
+       <task-id> TID </task-id> 
+      <layout-mra>
+        <type> conveyor </type>
+        <subtype> linear </subtype>
+        <position> (X,Y,Z) </position>
+        <angle> [0,0,0] </angle>
+      </layout-mra>
+    </agent>
+    <agent> AgentIs1  <task-id> TID </task-id> 
+      <layout-mra>
+        <position> ((X + conveyor-length) - 2 * mra-width,Y + conveyor-width,Z) </position>
+        <angle> [0,0,0] </angle>
+      </layout-mra>
+    </agent>
+,   (X + conveyor-length, Y,Z), east, (XE, YE, ZE))
+ if  X + conveyor-length + conveyor-width <= XE .
+
+
+ceq  assignPositions((<agent> <task-id> TID </task-id> AgentIs1 </agent>,Agents), PAgents, (X, Y, Z), west, (XE, YE, ZE))
+  = assignPositions(Agents, PAgents
+    <agent>
+       <task-id> TID </task-id> 
+      <layout-mra>
+        <type> conveyor </type>
+        <subtype> linear </subtype>
+        <position> (X - conveyor-length,Y - conveyor-width,Z) </position>
+        <angle> [180,0,0] </angle>
+      </layout-mra>
+    </agent>
+    <agent>  <task-id> TID </task-id> AgentIs1
+      <layout-mra>
+        <position> (X - conveyor-length,Y - conveyor-width - mra-width,Z) </position>
+        <angle> [180,0,0] </angle>
+      </layout-mra>
+    </agent>
+ ,  (X - conveyor-length, Y,Z), west, (XE, YE, ZE))
+ if  X - conveyor-length - conveyor-width >= 0 .
+
+
+---()
+  rl <config> <agents> <state> layout </state> SAgents </agents> Cfg </config>
+  => <config> <agents> assignPositions(SAgents, (1000,10000,0)) </agents> Cfg </config> .
+---()
+
+  var Agents : List{Agent} . var PAgents SAgents : Set{Agent} . var Agent Agent' : Agent . var X Y Z XE YE ZE : Int . var FloorEnd : Position .  var D : LayoutDirection .  var N1 N2 : Nat . var AgentIs1 AgentIs2 : Set{AgentItem} .
+var GapName : GapName .  var Cfg : Set{ConfigItem} .  var TID : TaskId .
 endm

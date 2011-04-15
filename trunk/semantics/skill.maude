@@ -11,11 +11,13 @@ mod DECOMPOSE-SKILLS is
  
   var Skill : Skill . var Skills : Set{Skill} . 
   var SItems : Set{SkillItem} .
-  vars I1 I2 I3 : Int .  vars F1 F2 F3 : Float .
+  vars I1 I2 I3 : Int .  vars F1 F2 F3 : Float . var D : Direction .
 
   op getMoveItems : Set{SkillItem} -> Set{SkillItem} .
   eq getMoveItems(<move-range> F1 </move-range> SItems)
    = <range> F1 </range> getMoveItems(SItems) .
+  eq getMoveItems(<direction> D </direction> SItems)
+   = <direction> D </direction> getMoveItems(SItems) .
   eq getMoveItems(SItems) = empty [owise] .
   
   op getOCItems : Set{SkillItem} -> Set{SkillItem} .
@@ -36,7 +38,9 @@ mod DECOMPOSE-SKILLS is
   eq decompose1(<skill> <type> pick&place </type> SItems </skill>) 
    = --- <skill> <type> open-close </type> getOCItems(SItems) </skill>
      --- now this is achieved through the part
-     <skill> <type> move </type> getMoveItems(SItems) </skill> .
+     <skill> <type> move </type> getMoveItems(SItems) </skill> 
+     <skill> <type> move </type> <direction> vertical </direction> </skill> 
+     .
   eq decompose1(<skill> <type> load-unload-gripper </type> SItems </skill>)
    = decompose1(<skill> <type> pick&place </type> SItems </skill>)
      <skill> <type> store </type> <subtype> grippers </subtype> getStoreItems(SItems) </skill> .
@@ -83,7 +87,7 @@ mod SUBSTRACT-SKILLS is
    = substract(Skills1 \ largestMove(Skills1, Any(I)), Skills2) . 
 ---)
   ceq substract(<skill> <type> SType </type> SItems1 </skill> Skills1, <skill> <type> SType </type> SItems2 </skill> Skills2)
-    = substract(Skills1, Skills2) 
+    = substract(Skills1,  <skill> <type> SType </type> SItems2 </skill> Skills2) 
    if matchSkillItems(SItems2, SItems1) .
   eq substract(Skills1, Skills2) = Skills1 [owise] .
  

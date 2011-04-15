@@ -13,6 +13,7 @@ endm
 mod MRA-SUBTYPE is
   sort MraSubType .
   ops 2finger magnetic vacuum screw-driver : -> MraSubType [ctor format (! o)] . 
+  ops linear corner : -> MraSubType [ctor format (! o)] .
 endm
 
 
