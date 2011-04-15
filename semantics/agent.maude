@@ -14,13 +14,15 @@ mod AGENT-ITEM is
   op <required-ops>_</required-ops> : Set{Operation} -> AgentItem [format (ni++ o -- o) ] . 
 --- what is still needed?
 
+  op <layout-mra>_</layout-mra> : Set{MraItem} -> AgentItem  [format (ni++ o -- o) ] . 
+
+
   op <provided-skills>_</provided-skills> 
 --- combined skills of all the mras which are already in the coalition
 
      :  Set{Skill} -> AgentItem [format (ni++ o -- o) ] .
   op <coalition>_</coalition> : Set{MraName} -> AgentItem [format (ni++ o n--i o)].
 --- these are the names of all the mras in the coalition
-
 endm
 
 view AgentItem from TRIV to AGENT-ITEM is sort Elt to AgentItem . endv
@@ -32,6 +34,10 @@ mod AGENT is
   including SET{AgentItem} .
   sort Agent .
   op <agent>_</agent> : Set{AgentItem} -> Agent [format (ni++ o n--i o) ] . 
+  sort State .
+  op <state>_</state> : State -> Agent .
+  op layout : -> State .
+
 endm
 view Agent from TRIV to AGENT is sort Elt to Agent . endv
 

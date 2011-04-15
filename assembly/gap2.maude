@@ -16,7 +16,6 @@ mod GAP2 is
   op gap2 : -> GapName .
   op gap2 : -> Gap .
   ops t1 t2 t3 t4 t5 t6 : -> Task .
-  ops t1 t2 t3 t4 t5 t6 : -> TaskName .
  
   eq gap2 = 
  	<gap> 
@@ -29,7 +28,7 @@ mod GAP2 is
   .
   eq t1 = 
  	<task> 
-        <name> t1 </name> 
+        <name> t(1) </name> 
   		<type> other </type> 
          	<object> wpca </object> 
                 <operations> <operation> <skill> <type> load </type> </skill> </operation> </operations>
@@ -41,7 +40,7 @@ mod GAP2 is
   .
   eq t2 = 
  	<task> 
-        <name> t2 </name> 
+        <name> t(2) </name> 
   		<type> pick&place </type> 
  	      	<object> p1 </object> 
 		<operations> <operation> <skill> <type> pick&place </type> </skill> </operation> </operations>  
@@ -53,7 +52,7 @@ mod GAP2 is
   .
   eq t3 = 
  	<task> 
-        <name> t3 </name> 
+        <name> t(3) </name> 
   		<type> pick&place </type> 
  	      	<object> p2 </object> 
 		<operations> <operation> <skill> <type> pick&place </type> </skill> </operation> </operations>
@@ -65,7 +64,7 @@ mod GAP2 is
   .
 eq t4 = 
  	<task> 
-        <name> t4 </name> 
+        <name> t(4) </name> 
   		<type> pick&place </type> 
  	      	<object> p3 </object> 
 		<operations> <operation> <skill> <type> pick&place </type> </skill> </operation> </operations>
@@ -77,7 +76,7 @@ eq t4 =
   .
 eq t5 = 
  	<task> 
-        <name> t5 </name> 
+        <name> t(5) </name> 
   		<type> pick&place </type> 
  	      	<object> p4 </object> 
 		<operations> <operation> <skill> <type> pick&place </type> </skill> </operation> </operations>
@@ -89,7 +88,7 @@ eq t5 =
   .
  eq t6 = 
  	<task> 
-        <name> t6 </name> 
+        <name> t(6) </name> 
   		<type> other </type> 
          	<object> wpca + p1 + p2 + p3 + p4 </object> --- now with the assembled product on top 
 		<operations> <operation> <skill> <type> unload </type> </skill> </operation> </operations>

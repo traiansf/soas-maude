@@ -16,18 +16,24 @@ mod SKILL-SUBTYPE is
   including PART-TYPE .
   sort SkillSubType .
   ops 
-   linear-horizontal linear-vertical  --- subtype for move
-   rotational-horizontal rotational-vertical --- subtype for move
-   linear junction corner --- subtype for transport type
+   linear rotational --- subtype for move
+   junction corner --- subtype for transport type
    grippers  --- subtype for the store type.
    : -> SkillSubType [ctor format (! o)] .
    op feeds : PartType -> SkillSubType .
 endm
 
 
+mod DIRECTION is
+  sort Direction .
+  ops vertical horizontal : -> Direction .
+endm
+
+
 mod SKILL-ITEM is
   including SKILL-TYPE .
   including SKILL-SUBTYPE .
+  including DIRECTION .
   including PART-TYPE .
   including FLOAT .
   including INT .
@@ -35,6 +41,7 @@ mod SKILL-ITEM is
   op <type>_</type> : SkillType -> SkillItem .
   op <subtype>_</subtype> : SkillSubType -> SkillItem .
   --- basic skills 
+  op <direction>_</direction> : Direction -> SkillItem .  --- for move skills
   op <range>_</range> : Float -> SkillItem .
   op <count>_</count> : Int -> SkillItem .
   op <accuracy>_</accuracy> : Int -> SkillItem . --- for positioning devices

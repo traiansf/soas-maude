@@ -17,21 +17,22 @@ mod ABB-ROBOT is
         <skills> 
           <skill>
             <type> move </type>
-            <subtype> rotational-vertical </subtype>
+            <subtype> rotational </subtype>
+            <direction> vertical </direction>
             <range> 220.0 </range>
           </skill>
           <skill>
             <type> move </type>
-            <subtype> rotational-horizontal </subtype>
+            <subtype> rotational </subtype> <direction> horizontal </direction>
             <range> 280.0 </range>
           </skill>
           <skill>
             <type> move </type>
-            <subtype> rotational-horizontal </subtype>
+            <subtype> rotational </subtype> <direction> horizontal </direction>
             <range> 60.0 </range>
           </skill>
 	</skills>
-           <required-skills> <skill> <type> </type> </skill> </required-skills>
+           <required-skills> empty </required-skills>
 --- <required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>
         <interfaces> circular(- true)  triangular(- true) straight(- true) diamond(- true) </interfaces>
      </mra>
