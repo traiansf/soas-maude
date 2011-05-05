@@ -67,8 +67,8 @@
         <name> wpca </name> <type> carrier </type> 
         <material> metal </material>
         <weight> 350 </weight>         
-	  <x-dimension> 100 </x-dimension>
-	  <y-dimension> 100 </y-dimension>
+	  <x-dimension> 50 </x-dimension>
+	  <y-dimension> 50 </y-dimension>
 	  <z-dimension> 30 </z-dimension>
    </part> 
   .

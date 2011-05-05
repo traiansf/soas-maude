@@ -20,7 +20,10 @@ mod CONFIG-ITEM is
   sort ConfigItem .
   op <gaps>_</gaps> : Set{Gap} -> ConfigItem [format (ni++ o n-- o) ] .
   op <mras>_</mras> : Set{Mra} -> ConfigItem [format (ni++ o n-- o) ] .
+  op <passive-gaps>_</passive-gaps> : Set{Gap} -> ConfigItem [format (ni++ o n-- o) ] .
+  op <passive-mras>_</passive-mras> : Set{Mra} -> ConfigItem [format (ni++ o n-- o) ] .
   op <parts>_</parts> : Set{Part} ->  ConfigItem [format (ni++ o n-- o) ] .
+  op <passive-parts>_</passive-parts> : Set{Part} ->  ConfigItem [format (ni++ o n-- o) ] .
 endm
 view ConfigItem from TRIV to CONFIG-ITEM is sort Elt to ConfigItem . endv
 

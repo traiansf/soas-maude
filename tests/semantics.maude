@@ -7,6 +7,7 @@ mod TEST is
   including PART-MATCH-GRIPPER .
   including PART-MATCH-FEEDER .
   including LAYOUT .
+  including DERIVE-LSAI .
 --- 
 endm
 
@@ -20,7 +21,7 @@ set trace substitution off .
 --- search instance =>! X:Config .
 
 --- get only one result
- search [1] instance =>! X:Config .
+--- search [1] instance =>! X:Config .
 
 --- use this to get all coalitions
 --- rewrite[1] instance .
@@ -30,6 +31,10 @@ set trace substitution off .
 
 --- this is to see where the program is stuck:
 --- search instance =>! X:[Config] .
+
+
+--- this is to see only one instance where the program is stuck:
+search [1] instance =>! X:[Config] .
 
 
 ---( Solution for gap2

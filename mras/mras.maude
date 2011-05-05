@@ -46,7 +46,8 @@ mod MRAS is
     g1 g2 g3 g4 --- g5
     pd1 pd2 pd3 pd4
 ---    w1 w2
-    human1 human2 --- human3
+    generic-human
+---    human1 human2 --- human3
 ---    ending-in ending-out
   .
 endm

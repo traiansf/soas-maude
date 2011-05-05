@@ -51,10 +51,10 @@ mod ASSIGN-TASKS is
  var Operations Operations1 Operations2 : Set{Operation} . 
  var Gap : Set{GapItem} . var Gaps : Set{Gap} .  var TaskId : TaskId .
  var Agents : Set{Agent} . var MNames : Set{MraName} .
- var Config : Set{ConfigItem} .
+ var Config : Set{ConfigItem} .  var Parts : Set{Part} .
 
- rl [start-agents] : <config> <gaps> Gaps </gaps> <mras> Mras </mras> Config </config>
-                  => <config> <gaps> Gaps </gaps> <mras> Mras </mras> <agents> empty </agents> </config> .
+ rl [start-agents] : <config> <gaps> Gaps </gaps> <mras> Mras </mras> <parts> Parts </parts> </config>
+                  => <config> <gaps> Gaps </gaps> <mras> Mras </mras> <agents> empty </agents> <passive-parts> Parts </passive-parts> </config> .
 
  --- this rule transforms a mra into an agent looking for partners to a task
  ceq <gaps>
@@ -170,7 +170,7 @@ mod ASSIGN-TASKS is
 
 
 --- here the assignment procedure is started
-  rl <config> <gaps> Gaps </gaps> <mras> Mras </mras> <agents> Agents </agents> </config> => <config> <agents> assignCoalitions(getTasks(Gaps),completeCoalitions(Agents)) </agents> </config> .
+  rl <config> <gaps> Gaps </gaps> <mras> Mras </mras> <agents> Agents </agents> Config </config> => <config> <agents> assignCoalitions(getTasks(Gaps),completeCoalitions(Agents)) </agents>  <passive-gaps> Gaps </passive-gaps> <passive-mras> Mras </passive-mras> Config </config> .
 
 --- this rule would only get complete coalitions but not assign them (to be used if maude hangs)
 ---  rl <config> <gaps> Gaps </gaps> <mras> Mras </mras> <agents> Agents </agents> </config> => <config> <agents> completeCoalitions(Agents)) </agents> </config> .
@@ -216,6 +216,11 @@ mod ASSIGN-TASKS is
 --- so we can assign one of the free pruned agents
 --- if there are still enough agents around (if it is feasible)
 --- then add the mras to the assigned ones and remove the task from the open ones
+
+ eq assignCoalitions(TId TIds,  <agent> <task-id> TId </task-id> <coalition> unassigned-human </coalition> Agent </agent> Agents)
+  =  <agent> <task-id> TId </task-id> <coalition> unassigned-human </coalition> Agent </agent> assignCoalitions(TIds, Agents) .
+
+
 crl assignCoalitions(TId TIds, <agent> <task-id> TId </task-id> <coalition> Coalition </coalition> Agent </agent> Agents)
  => <agent> <task-id> TId </task-id> <coalition> Coalition </coalition> Agent </agent> assignCoalitions(TIds, pruneAgents(Agents,Coalition)) 
  if isFeasible(TIds, pruneAgents(Agents,Coalition)) .
