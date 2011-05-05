@@ -36,7 +36,9 @@ mod SKILL-ITEM is
   including DIRECTION .
   including PART-TYPE .
   including FLOAT .
-  including INT .
+  including POSITION .
+  including ANGLE .
+
   sort SkillItem .
   op <type>_</type> : SkillType -> SkillItem .
   op <subtype>_</subtype> : SkillSubType -> SkillItem .
@@ -52,6 +54,9 @@ mod SKILL-ITEM is
   op <part-type>_</part-type> : PartType -> SkillItem .
   ---  type of gripper for the  "grip" skill
   op <gripper-type>_</gripper-type> : MraSubType -> SkillItem .
+  op <from>_</from> : Position -> SkillItem .
+  op <to>_</to> : Position -> SkillItem .
+  op <rotation-angle>_</rotation-angle> : Angle -> SkillItem .
 endm
 view SkillItem from TRIV to SKILL-ITEM is sort Elt to SkillItem . endv
 

@@ -20,7 +20,7 @@ mod GAP2 is
   eq gap2 = 
  	<gap> 
         <name> gap2 </name> 
-		<tasks>  t2 t3 t4 t5 
+		<tasks>  t1 t2 t3 t4 t5 t6
 	---	<tasks> t1 t2 t3 t4 t5 t6 
                 </tasks> 
         	<number> 10 </number> 
@@ -33,9 +33,9 @@ mod GAP2 is
          	<object> wpca </object> 
                 <operations> <operation> <skill> <type> load </type> </skill> </operation> </operations>
 		<start-point> (-10, 50, -20) </start-point> --- this is the part's current position
-  		<end-point> (0, 0, 0) </end-point> --- this is the part's position after the operation
+---  		<end-point> (0, 0, 0) </end-point> --- this is the part's position after the operation
   		<start-orientation> [0, 0, 0] </start-orientation> 
-  		<end-orientation> [0, 0, 0] </end-orientation>
+---  		<end-orientation> [0, 0, 0] </end-orientation>
       </task>
   .
   eq t2 = 
