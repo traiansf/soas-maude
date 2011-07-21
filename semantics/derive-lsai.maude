@@ -6,6 +6,18 @@ endm
 
 --- takes the gap and the layout incl. transports => derive the LSAI
 
+
+---(
+  TODO:  verify if the conveyor movement is defined.  Define converor procedure as a move skill from the previous conveyor to the robot, and one from the robot to the next conveyor once the task is done.
+  
+  TODO: derive the LSAI procedure for pick and place
+          -  translate pick and place in a concrete movements and open/closing of grippers executed by the MRAs coalition
+
+  TODO: derive the LSAI procedure for unload  (similar to load)
+
+  TODO: simulate the execution of the LSAI
+---)
+
 mod DERIVE-LSAI is 
  including SET{Agent} .
  including LIST{Agent} .
