@@ -43,6 +43,11 @@ mod AGENT is
   var Agent : Set{AgentItem} .
   var TID : TaskId .
 
+
+  op getProvidedSkills : Agent -> Set{Skill} .
+  eq getProvidedSkills(<agent> Agent <provided-skills> Skills </provided-skills> </agent>) = Skills .
+
+  var Skills : Set{Skill} .
 endm
 view Agent from TRIV to AGENT is sort Elt to Agent . endv
 

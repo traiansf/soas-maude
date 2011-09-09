@@ -16,6 +16,7 @@ mod SKILL-SUBTYPE is
   including PART-TYPE .
   sort SkillSubType .
   ops 
+   open close --- subtype for open-close
    linear rotational --- subtype for move
    junction corner --- subtype for transport type
    grippers  --- subtype for the store type.
