@@ -10,8 +10,6 @@ endm
 ---(
   TODO:  verify if the conveyor movement is defined.  Define converor procedure as a move skill from the previous conveyor to the robot, and one from the robot to the next conveyor once the task is done.
   
-  TODO: derive the LSAI procedure for pick and place
-          -  translate pick and place in a concrete movements and open/closing of grippers executed by the MRAs coalition
 
   TODO: derive the LSAI procedure for unload  (similar to load)
 
@@ -24,6 +22,9 @@ mod DERIVE-LSAI is
  including LIST{Skill} .
  including AGENTS .
  including PRODUCT .
+
+ op deltaz : -> Int .
+ eq  deltaz = 60 .
  
  op <procedure>_</procedure> : List{Skill} -> AgentItem .
 
@@ -40,6 +41,11 @@ mod DERIVE-LSAI is
  eq deriveLSAI((<agent> <task-id> GapName -> TaskName </task-id> <coalition> MraNames </coalition> AgentIs </agent>, Agents), SAgents, <passive-gaps> <gap> <name> GapName </name> <tasks> <task> <name> TaskName </name> <object> PartName </object> Task </task> Tasks </tasks> Gap </gap>  Gaps </passive-gaps> <passive-parts> <part> <name> PartName </name> Part </part> Parts </passive-parts> <passive-mras> Mras </passive-mras> Cfg, Product)
   =  deriveLSAI(Agents, SAgents, <passive-gaps> <gap> <name> GapName </name> <tasks> <task> <name> TaskName </name> <object> PartName </object> Task </task> Tasks </tasks> Gap </gap>  Gaps </passive-gaps> <passive-parts> <part> <name> PartName </name> Part </part> Parts </passive-parts> <passive-mras> Mras </passive-mras> Cfg, 
   createMovements(<agent> <task-id> GapName -> TaskName </task-id> <coalition> MraNames </coalition> AgentIs </agent>, <task> <name> TaskName </name> <object> PartName </object> Task </task>,  <part> <name> PartName </name> Part </part>, Product, getMras(Mras, MraNames), Agents)) .
+
+---( TODO: movements for conveyors
+ eq deriveLSAI((<agent> <layout-mra> <type> conveyor </type> Mra </layout-mra> AgentIs </agent>, Agents), SAgents, <passive-gaps> Gaps </passive-gaps>)
+---)
+
 
  op deriveLSAI : List{Agent} Set{Agent} Set{ConfigItem} AgentProductPair -> [Set{Agent}] .
 
@@ -63,6 +69,98 @@ ceq createMovements(<agent> AgentIs </agent>, <task> Task <operations> <operatio
      <product> <part> Part <name> PartName </name> <x-dimension> X </x-dimension> <y-dimension> Y </y-dimension> <part-position> P </part-position> <part-angle> [ZA2, XA2,YA2] </part-angle> </part> </product> } 
  if P := middlePlacement(X,Y, getInitialPosition((X2,Y2,Z2),  [ZA2, XA2,YA2])) .
 
+---(  TODO: movements for pick&place )
+
+eq createMovements(Agent, <task> Task <operations> <operation> <skill> <type> pick&place </type> Skill </skill> Skills </operation> Operations </operations> <start-point> position(feeder) </start-point> <start-orientation> angle(feeder) </start-orientation>  <end-point> position(PlacePartName) </end-point> <end-orientation> angle(PlacePartName) </end-orientation>   </task>, <part> Part <name> PartName </name> <x-dimension> X </x-dimension> <y-dimension> Y </y-dimension> <z-dimension> Z </z-dimension> </part>, <product> <part> PlacePart <name> PlacePartName </name> </part> Parts </product>, Mras, (<agent> AgentIs' <layout-mra> Mra <position> (X2,Y2,Z2) </position> <angle> [ZA2, XA2,YA2] </angle> </layout-mra> </agent>, Agents)) 
+ = {
+    createP&PMovements(Agent, addZOffset(getFeederPosition(Agent), Z / 2), addZOffset(getConveyorPosition(Agent), getZ(getPlacePosition(PlacePart)) + Z / 2), getProvidedSkills(Agent))
+    ,
+    <product>
+      <part> Part <name> PartName </name> <x-dimension> X </x-dimension> <y-dimension> Y </y-dimension> <z-dimension> Z </z-dimension> <part-position> middlePlacement(X, Y, getPlacePosition(PlacePart)) </part-position> <part-angle> [0,0,0] </part-angle> </part>
+      <part> PlacePart <name> PlacePartName </name> </part> Parts </product>
+   } .
+
+  op getPlacePosition : Set{PartItem} -> Position .
+  eq getPlacePosition(Part <part-position> (X1,Y1,Z1) </part-position> <x-dimension> X2 </x-dimension> <y-dimension> Y2 </y-dimension> <z-dimension> Z2 </z-dimension>) = (X1 + X2 / 2, Y1 + Y2 / 2, Z1 + Z2 / 2) .
+
+  op getFeederPosition : Agent -> Position .
+  eq getFeederPosition(<agent> AgentIs' <layout-mra> Mra <position> (X2,Y2,Z2) </position> <angle> [0, 0, 0] </angle> </layout-mra> </agent>) = (X2 + mra-length / 2, Y2 + mra-width / 2, Z2) .
+  eq getFeederPosition(<agent> AgentIs' <layout-mra> Mra <position> (X2,Y2,Z2) </position> <angle> [180, 0, 0] </angle> </layout-mra> </agent>) = (X2 + mra-length + mra-length / 2, Y2 + mra-width / 2, Z2) .
+
+  op getConveyorPosition : Agent -> Position .
+  eq getConveyorPosition(<agent> AgentIs' <layout-mra> Mra <position> (X2,Y2,Z2) </position> <angle> [0, 0, 0] </angle> </layout-mra> </agent>) = (X2 + mra-length + mra-length / 2, Y2 - conveyor-width / 2, Z2) .
+  eq getConveyorPosition(<agent> AgentIs' <layout-mra> Mra <position> (X2,Y2,Z2) </position> <angle> [180, 0, 0] </angle> </layout-mra> </agent>) = (X2 + mra-length / 2, Y2 + mra-width + conveyor-width / 2, Z2) .
+
+  op createP&PMovements : Agent Position Position Set{Skill} ~> Agent .
+
+---(  TODO: derive the LSAI procedure for pick and place
+          -  translate pick and place in a concrete movements and open/closing of grippers executed by the MRAs coalition
+(start at B, open), move to A, at A: close, 
+move to B-C-D, at D: open, move to C-B
+
+positions:  A : position of (middle of the feeder)
+            B : position deltaz above A
+            C : position deltaz above D
+            D : position of (middle of beginning of conveyor and top of the current product)
+---)
+
+  eq createP&PMovements(<agent> AgentIs </agent>, AP, DP, Skills) 
+    =  <agent> AgentIs <procedure> moveDown(AP,Skills),<skill> <type> open-close </type> <subtype> close </subtype> </skill>,moveUp(AP, Skills), moveFromTo(AP, DP, Skills, -1.0), 
+moveDown(DP, Skills), <skill> <type> open-close </type> <subtype> open </subtype> </skill>, moveUp(DP, Skills), moveFromTo(DP, AP, Skills, 1.0) </procedure> </agent> .
+
+
+ op moveUp : Position Set{Skill} -> List{Skill} .
+--- moveUp moves from argument (X,Y,Z) to (X,Y,deltaz) 
+ceq moveUp((X,Y,Z), Skills <skill> Skill <type> move </type> <subtype> linear </subtype> <direction> vertical </direction>
+         <range> Range </range> </skill>)
+  = <skill> Skill <type> move </type> <subtype> linear </subtype> <direction> vertical </direction>
+         <range> float(deltaz - Z) </range> </skill>
+ if Range >= float(deltaz - Z) .
+ceq moveUp((X,Y,Z), Skills <skill> Skill <type> move </type> <subtype> rotational </subtype> <direction> vertical </direction>
+           <range> Range </range> </skill>)
+ = <skill> Skill <type> move </type> <subtype> rotational </subtype> <direction> vertical </direction>
+           <range> MRange </range> </skill>
+ if MRange := 2.0 * asin(float(deltaz - Z) / float(2 * mra-length)) * 180.0 / pi 
+ /\ Range >= abs(MRange) .
+
+ op moveDown : Position Set{Skill} -> List{Skill} .
+--- moveDown moves from  (X,Y,deltaz) to argument (X,Y,Z)
+ceq moveDown((X,Y,Z), Skills <skill> Skill <type> move </type> <subtype> linear </subtype> <direction> vertical </direction>
+         <range> Range </range> </skill>)
+  = <skill> Skill <type> move </type> <subtype> linear </subtype> <direction> vertical </direction>
+         <range> float(deltaz - Z) </range> </skill>
+ if rat(Range) > - deltaz + Z .
+ceq moveDown((X,Y,Z),  Skills <skill> Skill <type> move </type> <subtype> rotational </subtype> <direction> vertical </direction>
+           <range> Range </range> </skill>)
+ = <skill> Skill <type> move </type> <subtype> rotational </subtype> <direction> vertical </direction>
+           <range> MRange </range> </skill>
+ if MRange := - 2.0 * asin(float(deltaz - Z) / float(2 * mra-length)) * 180.0 / pi 
+ /\ Range >= abs(MRange) .
+
+ op moveFromTo : Position Position Set{Skill} Float -> List{Skill} .
+--- moveFromTo takes as argument two positions (X1,Y1,Z1) and (X2,Y2,Z2) and moves from (X1,Y1,deltaz) to (X2,Y2,deltaz)
+ceq moveFromTo((X1,Y1,Z1),(X2,Y2,Z2), Skills
+   <skill> Skill <type> move </type> <subtype> rotational </subtype> <direction> horizontal </direction>
+           <range> Range </range> </skill>, Direction)
+  = <skill> Skill <type> move </type> <subtype> rotational </subtype> <direction> horizontal </direction>
+           <range> 90.0 * Direction </range> </skill>
+  if Range >= 90.0 .
+ceq moveFromTo((X1,Y1,Z1),(X2,Y2,Z2), Skills
+   <skill> Skill1 <type> move </type> <subtype> linear </subtype> <direction> horizontal </direction>
+           <range> Range1 </range> </skill>
+    <skill> Skill2 <type> move </type> <subtype> linear </subtype> <direction> horizontal </direction>
+           <range> Range2 </range> </skill>, Direction)
+  =  <skill> Skill1 <type> move </type> <subtype> linear </subtype> <direction> horizontal </direction>
+           <range> float(X2 - X1) </range> </skill>,
+    <skill> Skill2 <type> move </type> <subtype> linear </subtype> <direction> horizontal </direction>
+           <range> float(Y2 - Y1) </range> </skill>
+  if Range1 >= abs(float(X2 - X1)) 
+  /\ Range2 >= abs(float(Y2 - Y1)) .
+--- the two linear horizontal skill were supposed to be ortogonal but this is left unspecified at the moment.
+
+
+
+
  op rotate? : Angle -> List{Skill} .
  eq rotate?([0,0,0]) = nil .
  eq rotate?([ZA,XA,YA]) = <skill> <type> move </type> <subtype> rotational </subtype> <rotation-angle> [ZA,XA,YA] </rotation-angle> </skill> [owise] .
@@ -77,8 +175,8 @@ ceq createMovements(<agent> AgentIs </agent>, <task> Task <operations> <operatio
  eq middlePlacement(X1, Y1, (X2, Y2, Z2)) = (X2 - X1 / 2, Y2 - Y1 / 2, Z2) .
 
 
- var Cfg : Set{ConfigItem} .  var SAgents : Set{Agent} . var Agents : List{Agent} . var GapName : GapName . var TaskName : TaskName . var Agent : Agent . var AgentIs AgentIs' : Set{AgentItem} . var PartName : PartName . var Task : Set{TaskItem} . var Tasks : Set{Task} . var Gap : Set{GapItem} . var Gaps : Set{Gap} . var Part : Set{PartItem} . var Parts : Set{Part} . var Product : Product . var MraNames : Set{MraName} . var MraName : MraName . var Mra : Set{MraItem} . var Mras : Set{Mra} .  var Skill : Set{SkillItem} . var Skills : Set{Skill} .  var Operations : Set{Operation} .  var P : Position .
- var X Y Z X1 Y1 Z1 X2 Y2 Z2 XA YA ZA ZA1 ZA2 XA1 XA2 YA1 YA2 : Int .
+ var Cfg : Set{ConfigItem} .  var SAgents : Set{Agent} . var Agents : List{Agent} . var GapName : GapName . var TaskName : TaskName . var Agent : Agent . var AgentIs AgentIs' : Set{AgentItem} . var PlacePartName PartName : PartName . var Task : Set{TaskItem} . var Tasks : Set{Task} . var Gap : Set{GapItem} . var Gaps : Set{Gap} . var PlacePart Part : Set{PartItem} . var Parts : Set{Part} . var Product : Product . var MraNames : Set{MraName} . var MraName : MraName . var Mra : Set{MraItem} . var Mras : Set{Mra} .  var Skill Skill1 Skill2 : Set{SkillItem} . var Skills : Set{Skill} .  var Operations : Set{Operation} .  
+var P PartP AP DP : Position .  var A : Angle .
+ var X Y Z X1 Y1 Z1 X2 Y2 Z2 XA YA ZA ZA1 ZA2 XA1 XA2 YA1 YA2 : Int .  var Direction Range Range1 Range2  MRange : Float .
 ---  
-
 endm
