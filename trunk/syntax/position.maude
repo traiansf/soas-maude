@@ -15,7 +15,7 @@ mod POSITION is
   eq addZOffset((X1,Y1,Z1),Z2) = (X1, Y1, Z1 + Z2) .
 
   op sum : Position Position -> Position .
-  eq sum((X1, Y1, Z1),(X2,Y2,Z2)) = (X1 + X2, Y1 + Y2, Z1 + Z1) . 
+  eq sum((X1, Y1, Z1),(X2,Y2,Z2)) = (X1 + X2, Y1 + Y2, Z1 + Z2) . 
   
 
   vars X1 X2 Y1 Y2 Z1 Z2 : Int .
