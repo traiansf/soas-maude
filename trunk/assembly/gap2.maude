@@ -47,7 +47,7 @@ mod GAP2 is
 	      	<start-point> position(feeder) </start-point> 
   		<end-point> position(wpca) </end-point> 
   		<start-orientation> angle(feeder) </start-orientation> 
-  		<end-orientation> angle(p1) </end-orientation>
+  		<end-orientation> angle(wpca) </end-orientation>
      </task>
   .
   eq t3 = 
@@ -59,7 +59,7 @@ mod GAP2 is
 	      	<start-point> position(feeder) </start-point> 
   		<end-point> position(p1) </end-point> 
   		<start-orientation> angle(feeder) </start-orientation> 
-  		<end-orientation> angle(p2) </end-orientation>
+  		<end-orientation> angle(p1) </end-orientation>
      </task>
   .
 eq t4 = 
@@ -71,7 +71,7 @@ eq t4 =
 	      	<start-point> position(feeder) </start-point> 
   		<end-point> position(p2) </end-point> 
   		<start-orientation> angle(feeder) </start-orientation> 
-  		<end-orientation> angle(p3) </end-orientation>
+  		<end-orientation> angle(p2) </end-orientation>
      </task>
   .
 eq t5 = 
@@ -83,7 +83,7 @@ eq t5 =
 	      	<start-point> position(feeder) </start-point> 
   		<end-point> position(p3) </end-point> 
   		<start-orientation> angle(feeder) </start-orientation> 
-  		<end-orientation> angle(p4) </end-orientation>
+  		<end-orientation> angle(p3) </end-orientation>
      </task>
   .
  eq t6 = 
