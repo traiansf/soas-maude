@@ -92,10 +92,10 @@ eq t5 =
   		<type> other </type> 
          	<object> wpca + p1 + p2 + p3 + p4 </object> --- now with the assembled product on top 
 		<operations> <operation> <skill> <type> unload </type> </skill> </operation> </operations>
-		<start-point> position(wpca) </start-point> 
-		<end-point> (100, 100, -20) </end-point> 
-  		<start-orientation> angle(wpca) </start-orientation> 
-  		<end-orientation> [0, 0, 0] </end-orientation>
+---		<start-point> position(wpca) </start-point> 
+---		<end-point> (100, 100, -20) </end-point> 
+---  		<start-orientation> angle(wpca) </start-orientation> 
+---  		<end-orientation> [0, 0, 0] </end-orientation>
       </task>
   .
 endm
