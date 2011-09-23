@@ -64,7 +64,7 @@ view SkillItem from TRIV to SKILL-ITEM is sort Elt to SkillItem . endv
 mod SKILL is 
   including SET{SkillItem} .
   sort Skill .
-  op <skill>_</skill> : Set{SkillItem} -> Skill [ctor prec 0] .
+  op <skill>_</skill> : Set{SkillItem} -> Skill [ctor prec 0 format (ni d d d)] .
 endm
 view Skill from TRIV to SKILL is sort Elt to Skill . endv
 
