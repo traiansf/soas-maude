@@ -8,14 +8,186 @@ load ../assembly/gap2.maude
 mod CONFIG is including CONFIGURATION .
 ---  including GAP1 .
   including GAP2 .
-  including PARTS .
   op instance : -> Config .
 ---  eq instance =  <config> <mras> mras </mras> <gaps> gap1 </gaps> </config> .
-  eq instance =  <config> <mras> mras </mras> <gaps> gap2 </gaps> <parts> parts </parts> </config> .
+  eq instance =  <config> <mras> mras </mras> <gaps> gap2 </gaps> </config> .
 
 --- config contains 2 cells: mras and gap - they interact
 
 endm
 
----red instance .
+red instance .
+
+
+
+eof
+
+<gaps> 
+  <gap> 
+    <name> Id </name> 
+    <number> Nat </number> 
+    <tasks> 
+      <task> 
+        <name> Id </name> 
+        <type> Id </type> 
+        <start-point> (-10,50,-20) </start-point> 
+        <end-point> (0,0,0) </end-point> 
+        <start-orientation> [0,0,0] </start-orientation> 
+        <end-orientation> [0,0,0] </end-orientation> 
+        <object> wpca </object> 
+        <operations> 
+          <operation> <skill> <type> load </type> </skill>
+          </operation> </operations>
+      </task> 
+      <task> 
+        <name> t3 </name> 
+        <type> pick&place </type> 
+        <start-point> position((f2).MraName) </start-point> 
+        <end-point> position((p1).PartName) </end-point> 
+        <start-orientation> angle((f2).MraName) </start-orientation> 
+        <end-orientation> angle((p2).PartName) </end-orientation> 
+        <object> p2 </object> 
+        <operations> 
+          <operation> <skill> <type> pick&place </type> </skill>
+          </operation> </operations>
+      </task> 
+      <task> 
+        <name> t4 </name> 
+        <type> pick&place </type> 
+        <start-point> position((f3).MraName) </start-point> 
+        <end-point> position((p2).PartName) </end-point> 
+        <start-orientation> angle((f3).MraName) </start-orientation> 
+        <end-orientation> angle((p3).PartName) </end-orientation> 
+        <object> p3 </object> 
+        <operations> 
+          <operation> <skill> <type> pick&place </type> </skill>
+          </operation> </operations>
+      </task> 
+      <task> 
+        <name> t5 </name> 
+        <type> pick&place </type> 
+        <start-point> position((f4).MraName) </start-point> 
+        <end-point> position((p3).PartName) </end-point> 
+        <start-orientation> angle((f4).MraName) </start-orientation> 
+        <end-orientation> angle((p4).PartName) </end-orientation> 
+        <object> p4 </object> 
+        <operations> 
+          <operation> <skill> <type> pick&place </type> </skill>
+          </operation> </operations>
+      </task> 
+      <task> 
+        <name> t6 </name> 
+        <type> other </type> 
+        <start-point> position(wpca) </start-point> 
+        <end-point> (100,100,-20) </end-point> 
+        <start-orientation> angle(wpca) </start-orientation> 
+        <end-orientation> [0,0,0] </end-orientation> 
+        <object> p1 + p2 + wpca </object> 
+        <operations> 
+          <operation> <skill> <type> unload </type> </skill>
+          </operation> </operations>
+      </task> 
+      <task> 
+        <name> t2 </name> 
+        <type> pick&place </type> 
+        <start-point> position((f1).MraName) </start-point> 
+        <end-point> position(wpca) </end-point> 
+        <start-orientation> angle((f1).MraName) </start-orientation> 
+        <end-orientation> angle((p1).PartName) </end-orientation> 
+        <object> p1 </object> 
+        <operations> 
+          <operation> <skill> <type> pick&place </type> </skill>
+          </operation> </operations> <trange> 4.5e+1 </trange>
+      </task>
+    </tasks>
+  </gap>
+</gaps> 
+<mras> 
+  <mra> 
+    <interfaces> empty </interfaces> 
+    <skills> <skill> <type> load </type> </skill> <skill> <type> unload </type> </skill>
+    </skills> 
+    <name> human1 </name>
+  </mra> 
+  <mra> 
+    <interfaces> empty </interfaces> 
+    <skills> <skill> <type> load </type> </skill> <skill> <type> unload </type> </skill>
+    </skills> 
+    <name> human2 </name>
+  </mra> 
+  <mra> 
+    <interfaces> empty </interfaces> 
+    <skills> <skill> <type> load </type> </skill> <skill> <type> unload </type> </skill>
+    </skills> 
+    <name> human3 </name>
+  </mra> 
+  <mra> 
+    <type> gripper </type> 
+    <subtype> 2finger </subtype> 
+    <interfaces> circular(+ true) </interfaces> 
+    <skills> <skill> <type> open-close </type> <range> 5.0 </range> </skill> </skills> 
+    <name> g1 </name>
+  </mra> 
+  <mra> 
+    <type> gripper </type> 
+    <subtype> magnetic </subtype> 
+    <interfaces> circular(+ true) </interfaces> 
+    <skills> <skill> <type> open-close </type> <range> 1.4e+1 </range> </skill> </skills> 
+    <name> g3 </name>
+  </mra> 
+  <mra> 
+    <type> gripper </type> 
+    <subtype> magnetic </subtype> 
+    <interfaces> circular(+ true) </interfaces> 
+    <skills> <skill> <type> open-close </type> <range> 1.4e+1 </range> </skill> </skills> 
+    <name> g4 </name>
+  </mra> 
+  <mra> 
+    <type> gripper </type> 
+    <subtype> vacuum </subtype> 
+    <interfaces> circular(+ true) </interfaces> 
+    <skills> <skill> <type> open-close </type> <range> 7.0 </range> </skill> </skills> 
+    <name> g2 </name>
+  </mra> 
+  <mra> 
+    <type> axis </type> 
+    <interfaces> circular(- true) square(+ true) </interfaces> 
+    <skills> <skill> <type> move </type> <subtype> linear-horizontal </subtype> <range>
+    1.5e+1 </range> </skill> </skills> 
+    <name> a7 </name> <required-skills> <skill> <type> hold </type> </skill>
+    </required-skills>
+  </mra> 
+  <mra> 
+    <type> robot </type> 
+    <interfaces> circular(- true) triangular(- true) straight(- true) diamond(- true)
+    </interfaces> 
+    <skills> <skill> <type> move </type> <subtype> rotational-horizontal </subtype>
+    <range> 1.8e+2 </range> </skill> <skill> <type> move </type> <subtype>
+    rotational-vertical </subtype> <range> 1.2e+2 </range> </skill> </skills> 
+    <name> r3 </name> <required-skills> <skill> <type> position-carrier </type> </skill>
+    </required-skills>
+  </mra> 
+  <mra> 
+    <type> robot </type> 
+    <interfaces> circular(- true) triangular(- true) straight(- true) diamond(- true)
+    </interfaces> 
+    <skills> <skill> <type> move </type> <subtype> linear-horizontal </subtype> <range>
+    2.0e+1 </range> </skill> <skill> <type> move </type> <subtype> linear-horizontal
+    </subtype> <range> 2.5e+1 </range> </skill> <skill> <type> move </type> <subtype>
+    linear-vertical </subtype> <range> 2.5e+1 </range> </skill> </skills> 
+    <name> r1 </name> <required-skills> <skill> <type> position-carrier </type> </skill>
+    </required-skills>
+  </mra> 
+  <mra> 
+    <type> robot </type> 
+    <interfaces> circular(- true) triangular(- true) straight(- true) diamond(- true)
+    </interfaces> 
+    <skills> <skill> <type> move </type> <subtype> linear-vertical </subtype> <range>
+    3.0e+1 </range> </skill> <skill> <type> move </type> <subtype> rotational-horizontal
+    </subtype> <range> 9.0e+1 </range> </skill> <skill> <type> move </type> <subtype>
+    rotational-horizontal </subtype> <range> 1.8e+2 </range> </skill> </skills> 
+    <name> r2 </name> <required-skills> <skill> <type> position-carrier </type> </skill>
+    </required-skills>
+  </mra>
+</mras> </config>
 

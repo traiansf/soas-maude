@@ -7,15 +7,12 @@ mod AGENT-ITEM is
   op _->_ : GapName TaskName -> TaskId .
   op <task-id>_</task-id> : TaskId -> AgentItem [format (ni o o o) ] .
 --- which task it is about?
-  
+
   op <open-interfaces>_</open-interfaces> : Set{Interface} -> AgentItem [format (ni++ o -- o) ] .
 --- can they connect?
 
   op <required-ops>_</required-ops> : Set{Operation} -> AgentItem [format (ni++ o -- o) ] . 
 --- what is still needed?
-
-  op <layout-mra>_</layout-mra> : Set{MraItem} -> AgentItem  [format (ni++ o -- o) ] . 
-
 
   op <provided-skills>_</provided-skills> 
 --- combined skills of all the mras which are already in the coalition
@@ -23,6 +20,7 @@ mod AGENT-ITEM is
      :  Set{Skill} -> AgentItem [format (ni++ o -- o) ] .
   op <coalition>_</coalition> : Set{MraName} -> AgentItem [format (ni++ o n--i o)].
 --- these are the names of all the mras in the coalition
+
 endm
 
 view AgentItem from TRIV to AGENT-ITEM is sort Elt to AgentItem . endv
@@ -34,54 +32,10 @@ mod AGENT is
   including SET{AgentItem} .
   sort Agent .
   op <agent>_</agent> : Set{AgentItem} -> Agent [format (ni++ o n--i o) ] . 
-  sort State .
-  op <state>_</state> : State -> Agent .
-  ops layout derive-lsai : -> State .
-
-  op getTaskId : Agent -> TaskId .
-  eq getTaskId(<agent> <task-id>  TID </task-id> Agent </agent>) = TID .
-  var Agent : Set{AgentItem} .
-  var TID : TaskId .
-
-
-  op getProvidedSkills : Agent -> Set{Skill} .
-  eq getProvidedSkills(<agent> Agent <provided-skills> Skills </provided-skills> </agent>) = Skills .
-
-  var Skills : Set{Skill} .
 endm
 view Agent from TRIV to AGENT is sort Elt to Agent . endv
 
 mod AGENTS is 
   including SET{Agent} .
-  including LIST{Agent} .
-  including RAT .
-  op t : Rat -> TaskName [ditto] .
-
   op <agents>_</agents> : Set{Agent} -> ConfigItem .
-
-
-  op lessThan : Agent Agent -> Bool .
-  eq lessThan(<agent> <task-id>  GapName -> t(N1) </task-id> AgentIs1 </agent>,<agent> <task-id>  GapName -> t(N2) </task-id> AgentIs2 </agent>) 
-   = N1 < N2 .
-
- op sortedList : Set{Agent} -> List{Agent} .
- eq sortedList(empty) = nil .
- eq sortedList(SAgents) = sortedList(SAgents, minimalAgent(SAgents)) [owise] .
-
- op sortedList : Set{Agent} Agent -> List{Agent} .
- eq sortedList(SAgents Agent, Agent) = Agent,sortedList(SAgents) .
- eq sortedList(SAgents Agent, Agent:[Agent]) = Agent,sortedList(SAgents) [owise] .
-
- op minimalAgent : Set{Agent} -> Agent .
- eq minimalAgent(Agent SAgents) = minimalAgent(SAgents, Agent) .
-
- op minimalAgent : Set{Agent} Agent -> Agent .
- eq minimalAgent(empty, Agent) = Agent .
- eq minimalAgent(Agent' SAgents, Agent) 
-  = if lessThan(Agent', Agent) then  minimalAgent(SAgents, Agent')
-    else  minimalAgent(SAgents, Agent) fi .
-
-
-  var N1 N2 : Rat . var SAgents : Set{Agent} . var Agent Agent' : Agent .
-  var AgentIs1 AgentIs2 : Set{AgentItem} .  var GapName : GapName .
 endm

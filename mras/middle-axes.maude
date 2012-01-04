@@ -15,15 +15,15 @@ mod MIDDLE-AXES is
        <mra>
         <name> a4 </name> <type> axis </type>
         <skills> 
-          <skill> <type> move </type> <subtype> linear </subtype> <direction> horizontal </direction>
-           <range> 250.0 </range> </skill>
-          <skill> <type> move </type> <subtype> rotational </subtype> <direction> vertical </direction>
+          <skill> <type> move </type> <subtype> linear-horizontal </subtype>
+           <range> 25.0 </range> </skill>
+          <skill> <type> move </type> <subtype> rotational-vertical </subtype>
            <range> 180.0 </range> </skill>
-	  <skill> <type> hold </type> </skill>
-        </skills>
-        --- a middle axis needs to be carried by a base axis		
-        <required-skills> 
-            <skill> <type> base-hold </type> </skill> </required-skills>
+	<skill> <type> hold </type> </skill>
+       </skills>
+	
+       --- a middle axis needs to be carried by a base axis
+       <required-skills> <skill> <type> base-hold </type> </skill> </required-skills>  
         <interfaces> square(+ true) square(- true) </interfaces>
      </mra>
   .
@@ -31,12 +31,12 @@ mod MIDDLE-AXES is
      <mra>
         <name> a5 </name> <type> axis </type>
         <skills> 
-          <skill> <type> move </type> <subtype> linear </subtype> <direction> horizontal </direction>
-           <range> 200.0 </range> </skill>
-	  <skill> <type> hold </type> </skill>
-        </skills>
-        <required-skills> 
-            <skill> <type> base-hold </type> </skill> </required-skills>
+          <skill> <type> move </type> <subtype> linear-horizontal </subtype>
+           <range> 25.0 </range> </skill>
+	<skill> <type> hold </type> </skill>
+       </skills>
+	
+       <required-skills> <skill> <type> base-hold </type> </skill> </required-skills>  
         <interfaces> square(+ true) square(- true) </interfaces>
      </mra>
   .
@@ -44,12 +44,12 @@ mod MIDDLE-AXES is
      <mra>
         <name> a6 </name> <type> axis </type>
         <skills> 
-          <skill> <type> move </type> <subtype> rotational </subtype> <direction> horizontal </direction>
+          <skill> <type> move </type> <subtype> rotational-horizontal </subtype>
            <range> 270.0 </range> </skill>
-	  <skill> <type> hold </type> </skill>
-        </skills>
-        <required-skills> 
-            <skill> <type> base-hold </type> </skill> </required-skills>
+	<skill> <type> hold </type> </skill>
+       </skills>
+	
+       <required-skills> <skill> <type> base-hold </type> </skill> </required-skills>  
         <interfaces> square(+ true) square(- true) </interfaces>
      </mra>
   .

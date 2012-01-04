@@ -4,44 +4,27 @@ load ../semantics/semantics.maude
 mod TEST is 
   including CONFIG .
   including ASSIGN-TASKS . 
-  including PART-MATCH-GRIPPER .
-  including PART-MATCH-FEEDER .
-  including LAYOUT .
-  including DERIVE-LSAI .
 --- 
 endm
 
----(
-set trace on .
-set trace condition off .
-set trace substitution off .
----)
+---set trace on .
+---set trace condition off .
+---set trace substitution off .
+---
 
 --- this is the normal running command to get all results:
-search instance =>! X:Config .
+--- search instance =>! X:Config .
 
 --- get only one result
 --- search [1] instance =>! X:Config .
 
---- use this to get all coalitions
---- rewrite[1] instance .
-
---- use this to get all valid coalitions (required-ops is empty)
---- rewrite[2] instance .
-
 --- this is to see where the program is stuck:
 --- search instance =>! X:[Config] .
 
+rew instance .
+quit
 
---- this is to see only one instance where the program is stuck:
----search [1] instance =>! X:[Config] .
-
-
----( Solution for gap2
-   task1: human1
-   task2: r1    f1 g1 pd1
-   task3: r2    f2 g2 pd2
-   task4: r3    f3 g3 pd3
-   task5: a1 a7 f4 g4 pd4 
-   task6: human2
-)---
+--- changes made:
+--- human3 added
+--- gripper3 and gripper 4 added
+--- a7 added

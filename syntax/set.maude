@@ -49,4 +49,8 @@ fmod SET{X :: TRIV} is
   eq empty subset S' = true .
   eq (E S) subset S' = E in S' and-then S subset S' .
   eq S psubset S' = S =/= S' and-then S subset S' .
+
+  op unique : Set{X} -> Set{X} .
+  eq unique(empty) = empty .
+  eq unique(E S) = if E in S then S else E S fi .
 endfm

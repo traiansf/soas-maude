@@ -16,15 +16,14 @@ mod CARTESIAN-ROBOT is
     <mra>
      <name> r1 </name> <type> robot </type>
      <skills> 
-       <skill> <type> move </type> <subtype> linear </subtype> <direction> horizontal </direction>
-         <range> 225.0 </range> </skill>
-       <skill> <type> move </type> <subtype> linear </subtype> <direction> horizontal </direction>
-         <range> 220.0 </range> </skill>
-       <skill> <type> move </type> <subtype> linear </subtype> <direction> vertical </direction>
-         <range> 125.0 </range> </skill>
+       <skill> <type> move </type> <subtype> linear-horizontal </subtype>
+         <range> 25.0 </range> </skill>
+       <skill> <type> move </type> <subtype> linear-horizontal </subtype>
+         <range> 20.0 </range> </skill>
+       <skill> <type> move </type> <subtype> linear-vertical </subtype>
+         <range> 25.0 </range> </skill>
      </skills>
-     <required-skills> empty </required-skills>
---- <required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>
+     <required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>      
      <interfaces> circular(- true) triangular(- true) straight(- true) diamond(- true) </interfaces>
    </mra> 
   .

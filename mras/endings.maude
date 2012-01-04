@@ -15,7 +15,6 @@ mod ENDING is
     <mra> 
         <name> ending-in </name> <type> ending </type> 
         <skills> empty </skills>
-        <required-skills> empty </required-skills>
         <interfaces> star(- true) </interfaces>
       </mra> 
   .
@@ -23,7 +22,6 @@ mod ENDING is
      <mra> 
         <name> ending-out </name> <type> ending </type> 
         <skills> empty </skills>
-        <required-skills> empty </required-skills>
         <interfaces> star(+ true) </interfaces>
       </mra> 
   .

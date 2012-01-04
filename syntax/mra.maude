@@ -1,38 +1,113 @@
+--- load part 
 ---(
+
 load set
+
 load position
+
 load angle
+
 load skill
+
 load interface
+
 ---)
 
-mod MRA-ITEM is 
-  including MRA-TYPE .
-  including MRA-SUBTYPE .
-  including MRA-NAME .
-  including POSITION .
-  including ANGLE .
-  including SET{Skill} .
-  including SET{Interface} .
-  sort MraItem . 
-  op <type>_</type> : MraType -> MraItem [format (ni o d o) ] .
-  op <subtype>_</subtype> : MraSubType -> MraItem [format (ni o d o) ] .
-  op <interfaces>_</interfaces> : Set{Interface} -> MraItem [format (ni o d o) ] .
-  op <skills>_</skills> : Set{Skill} -> MraItem [format (ni o d o) ] .
-  op <required-skills>_</required-skills> : Set{Skill} -> MraItem [format (ni o d o) ] .
-  op <name>_</name> : MraName -> MraItem [format (ni o d o) ].
-  op <position>_</position> : Position -> MraItem [format (ni o d o) ] .
-  op <angle>_</angle> : Angle -> MraItem [format (ni o d o) ] .
 
-  op position : MraType -> Position .
-  op angle : MraType -> Angle .
+
+mod MRA-NAME is
+
+  sort MraName .
+
+  op _+_ : MraName MraName -> MraName [assoc comm format (d r o d)] .
+
 endm
+
+view MraName from TRIV to MRA-NAME is sort Elt to MraName . endv
+
+
+
+mod MRA-TYPE is
+
+  sorts MraType .
+
+  ops gripper axis robot conveyor positioning-device feeder human ending
+
+   toolwarehouse : -> MraType [ctor format (! o) ] .
+
+endm
+
+
+
+mod MRA-SUBTYPE is
+
+  sort MraSubType .
+
+  ops 2finger magnetic vacuum screw-driver : -> MraSubType [ctor format (! o)] . 
+
+endm
+
+
+
+mod MRA-ITEM is 
+
+  including MRA-TYPE .
+
+  including MRA-SUBTYPE .
+
+  including MRA-NAME .
+
+  including POSITION .
+
+  including ANGLE .
+
+  including SET{Skill} .
+
+  including SET{Interface} .
+
+---  including PART-ITEM .
+  sort MraItem . 
+
+  op <type>_</type> : MraType -> MraItem [format (ni o d o) ] .
+
+  op <subtype>_</subtype> : MraSubType -> MraItem [format (ni o d o) ] .
+
+  op <interfaces>_</interfaces> : Set{Interface} -> MraItem [format (ni o d o) ] .
+
+  op <skills>_</skills> : Set{Skill} -> MraItem [format (ni o d o) ] .
+
+  op <name>_</name> : MraName -> MraItem [format (ni o d o) ].
+
+  op <position>_</position> : Position -> MraItem [format (ni o d o) ] .
+
+  op <angle>_</angle> : Angle -> MraItem [format (ni o d o) ] .
+  ---TODO: from set of required skills get MRA Item .
+
+  op <required-skills>_</required-skills> : Set{Skill} -> MraItem .
+
+  op position : MraName -> Position .
+
+  op angle : MraName -> Angle .
+--- feeders need to know which part they deliver. specified as follows:
+---  op <deliverables>_</deliverables> : PartItem -> PartItem . 
+
+endm
+
 view MraItem from TRIV to MRA-ITEM is sort Elt to MraItem . endv
 
+
+
 mod MRA is including SET{MraItem} .
+
   sort Mra .
+
   op <mra>_</mra> : Set{MraItem} -> Mra [format (ni++ o n--i o) ] . 
+
 endm
+
 view Mra from TRIV to MRA is sort Elt to Mra . endv 
+
+
+
 
 

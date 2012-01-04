@@ -11,13 +11,11 @@ mod DECOMPOSE-SKILLS is
  
   var Skill : Skill . var Skills : Set{Skill} . 
   var SItems : Set{SkillItem} .
-  vars I1 I2 I3 : Int .  vars F1 F2 F3 : Float . var D : Direction .
+  vars I1 I2 I3 : Int .  vars F1 F2 F3 : Float .
 
   op getMoveItems : Set{SkillItem} -> Set{SkillItem} .
   eq getMoveItems(<move-range> F1 </move-range> SItems)
    = <range> F1 </range> getMoveItems(SItems) .
-  eq getMoveItems(<direction> D </direction> SItems)
-   = <direction> D </direction> getMoveItems(SItems) .
   eq getMoveItems(SItems) = empty [owise] .
   
   op getOCItems : Set{SkillItem} -> Set{SkillItem} .
@@ -36,11 +34,8 @@ mod DECOMPOSE-SKILLS is
   eq decompose(Skill Skills) = decompose1(Skill) decompose(Skills) .
   eq decompose(empty) = empty .
   eq decompose1(<skill> <type> pick&place </type> SItems </skill>) 
-   = --- <skill> <type> open-close </type> getOCItems(SItems) </skill>
-     --- now this is achieved through the part
-     <skill> <type> move </type> getMoveItems(SItems) </skill> 
-     <skill> <type> move </type> <direction> vertical </direction> </skill> 
-     .
+   = <skill> <type> open-close </type> getOCItems(SItems) </skill>
+     <skill> <type> move </type> getMoveItems(SItems) </skill> .
   eq decompose1(<skill> <type> load-unload-gripper </type> SItems </skill>)
    = decompose1(<skill> <type> pick&place </type> SItems </skill>)
      <skill> <type> store </type> <subtype> grippers </subtype> getStoreItems(SItems) </skill> .
@@ -53,8 +48,8 @@ endm
 mod MATCH-SKILLS is
   including SET{Skill} .
 
+  var F1 F2 : Float .
   var I1 I2 : Int . 
-  var F1 F2 : Float . 
   vars Skills1 Skills2 : Set{Skill} . var Skill : Skill .
   vars Skill1 Skill2 : Set{SkillItem} .  var SItem : SkillItem .
   var SType : SkillType .
@@ -64,13 +59,15 @@ mod MATCH-SKILLS is
   ceq match(<skill> <type> SType </type> Skill1 </skill> Skills1, <skill> <type> SType </type> Skill2 </skill> Skills2) = true
    if matchSkillItems(Skill1, Skill2) .
 --- add more matching rules here by need.
-  eq match(Skills1, Skills2) = false [owise] .
+eq match(Skills1, Skills2) = false [owise] .
 
   op matchSkillItems : Set{SkillItem} Set{SkillItem} -> [Bool] .
   eq matchSkillItems(Skill1, empty) = true .
   eq matchSkillItems(SItem Skill1, SItem Skill2) = matchSkillItems(Skill1, Skill2) .
-  eq matchSkillItems(<range> F1 </range> Skill1, <range> F2 </range> Skill2)
-   = if F1 >= F2 then matchSkillItems(Skill1,Skill2) else false fi .
+  eq matchSkillItems(<range> F1 </range> Skill1, <range> F2 </range> Skill2 )
+   = if F1 > F2 then matchSkillItems(Skill1,Skill2) else false fi .
+--- F1 is the gripper's opening range
+--- F2 is the distance between the gripping points on the part to be gripped
 endm
 
 mod SUBSTRACT-SKILLS is
@@ -87,8 +84,9 @@ mod SUBSTRACT-SKILLS is
    = substract(Skills1 \ largestMove(Skills1, Any(I)), Skills2) . 
 ---)
   ceq substract(<skill> <type> SType </type> SItems1 </skill> Skills1, <skill> <type> SType </type> SItems2 </skill> Skills2)
-    = substract(Skills1,  <skill> <type> SType </type> SItems2 </skill> Skills2) 
+    = substract(Skills1, Skills2) 
    if matchSkillItems(SItems2, SItems1) .
+---	if vgl(SItems2, SItems1) .
   eq substract(Skills1, Skills2) = Skills1 [owise] .
  
 ---( 

@@ -9,73 +9,55 @@ load ../syntax/mra
 ---)
 mod GRIPPERS is
   including MRA .
-  ops g1 g2 g3 g4 g5 : -> MraName .
-  ops g1 g2 g3 g4 g5 : -> Mra .
-  eq g2 = 
+  ops g1 g2 g3 g4 : -> MraName .
+  ops g1 g2 g3 g4 : -> Mra .
+  eq g1 = 
  	<mra> 
-        <name> g2 </name> <type> gripper </type> <subtype> 2finger </subtype>
-        <skills> 
-          <skill> 
-           <type> open-close </type> 
-         <range> 55.0 </range> 
-          </skill>
-       </skills>
-        <required-skills> empty </required-skills>
-        <interfaces> circular(+ true) </interfaces>
-      </mra>
-  .
-  eq g1 =
-     <mra> 
         <name> g1 </name> <type> gripper </type> <subtype> 2finger </subtype>
         <skills> 
           <skill> 
            <type> open-close </type> 
-           <range> 70.0 </range> 
+           <range> 5.0 </range> 
+          </skill>
+       </skills>
+        <interfaces> circular(+ true) </interfaces>
+      </mra>
+  .
+  eq g2 =
+     <mra> 
+        <name> g2 </name> <type> gripper </type> <subtype> vacuum </subtype>
+        <skills> 
+          <skill> 
+           <type> open-close </type> 
+           <range> 7.0 </range> 
           </skill>
         </skills>
-        <required-skills> empty </required-skills>
         <interfaces> circular(+ true) </interfaces>
       </mra>
   .
   eq g3 = 
      <mra> 
-        <name> g3 </name> <type> gripper </type> <subtype> vacuum </subtype>
+        <name> g3 </name> <type> gripper </type> <subtype> magnetic </subtype>
         <skills> 
           <skill> 
            <type> open-close </type> 
-      ---     <range> 14.0 </range> 
+           <range> 14.0 </range> 
           </skill>
         </skills>
-        <required-skills> empty </required-skills>
         <interfaces> circular(+ true) </interfaces>
       </mra> 
   .
   eq g4 = 
      <mra> 
-        <name> g4 </name> <type> gripper </type> <subtype> screw-driver </subtype>
+        <name> g4 </name> <type> gripper </type> <subtype> magnetic </subtype>
         <skills> 
           <skill> 
            <type> open-close </type> 
---- a screw-driver doesn't really open-close, but it's a gripper type, and thus it formally needs to have this skill
- ---          <range> 14.0 </range> 
+           <range> 14.0 </range> 
           </skill>
         </skills>
-        <required-skills> empty </required-skills>
         <interfaces> circular(+ true) </interfaces>
       </mra> 
-  .
-  eq g5 = 
- 	<mra> 
-        <name> g5 </name> <type> gripper </type> <subtype> 2finger </subtype>
-        <skills> 
-          <skill> 
-           <type> open-close </type> 
-          <range> 75.0 </range> 
-          </skill>
-       </skills>
-        <required-skills> empty </required-skills>
-        <interfaces> circular(+ true) </interfaces>
-      </mra>
   .
 endm
 

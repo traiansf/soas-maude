@@ -1,11 +1,2 @@
 ---load ../syntax/syntax
 load tape-roller
-
-
-mod PARTS is
-  including TAPE-ROLLER .
-  including SET{Part} .
-
-  op parts : -> Set{Part} .
-  eq parts = p1 p2 p3 p4 carrier .
-endm 

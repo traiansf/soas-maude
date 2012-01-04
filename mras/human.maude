@@ -10,7 +10,7 @@ load ../syntax/mra
 mod HUMAN is
   including MRA .
   ops human1 human2 human3 : -> MraName .
-  ops human1 human2 human3 generic-human : -> Mra .
+  ops human1 human2 human3 : -> Mra .
   eq human1 =
     <mra>
         <name> human1 </name> 
@@ -18,17 +18,6 @@ mod HUMAN is
           <skill> <type> load </type> </skill>
           <skill> <type> unload </type> </skill>
        </skills>
-        <required-skills> empty </required-skills>
-       <interfaces> empty </interfaces>
-     </mra> .
-  eq generic-human =
-    <mra>
-        <name> unassigned-human </name> 
-        <skills> 
-          <skill> <type> load </type> </skill>
-          <skill> <type> unload </type> </skill>
-       </skills>
-        <required-skills> empty </required-skills>
        <interfaces> empty </interfaces>
      </mra> .
   eq human2 =
@@ -38,7 +27,6 @@ mod HUMAN is
           <skill> <type> load </type> </skill>
           <skill> <type> unload </type> </skill>
        </skills>
-        <required-skills> empty </required-skills>
        <interfaces> empty </interfaces>
      </mra> .
   eq human3 =
@@ -48,7 +36,6 @@ mod HUMAN is
           <skill> <type> load </type> </skill>
           <skill> <type> unload </type> </skill>
        </skills>
-        <required-skills> empty </required-skills>
        <interfaces> empty </interfaces>
      </mra> .
 endm

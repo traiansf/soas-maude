@@ -11,14 +11,19 @@ mod CONVEYORS is
   including MRA .
   ops c1 c2 c3 c4 c5 : -> MraName .
   ops c1 c2 c3 c4 c5 : -> Mra .
-  eq c1 = 
+
+---TODO: when the layout is being concluded and the transportation links are being established, 
+ ---no STAR interface (+ or -) may be left open; conveyors are either connected to peers or to IN or OUT. 
+  
+ --- there must be at least one IN and and OUT in the layout
+ --- there must be a continuous connection between all of them
+ eq c1 = 
     <mra> 
         <name> c1 </name> <type> conveyor </type> 
         <skills>
           <skill> <type> transport </type> <subtype> linear </subtype>
-            <range> 800.0 </range> </skill>
+            <range> 80.0 </range> </skill>
         </skills>
-        <required-skills> empty </required-skills>
         <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
       </mra> 
   .
@@ -27,9 +32,8 @@ mod CONVEYORS is
         <name> c2 </name> <type> conveyor </type> 
         <skills>
           <skill> <type> transport </type> <subtype> linear </subtype>
-            <range> 600.0 </range> </skill>
+            <range> 60.0 </range> </skill>
         </skills>
-        <required-skills> empty </required-skills>
         <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
       </mra> 
   .
@@ -38,9 +42,8 @@ mod CONVEYORS is
         <name> c3 </name> <type> conveyor </type> 
         <skills>
           <skill> <type> transport </type> <subtype> linear </subtype>
-            <range> 700.0 </range> </skill>
+            <range> 70.0 </range> </skill>
         </skills>
-        <required-skills> empty </required-skills>
         <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
       </mra> 
   .
@@ -49,9 +52,8 @@ mod CONVEYORS is
         <name> c4 </name> <type> conveyor </type> 
         <skills>
           <skill> <type> transport </type> <subtype> junction </subtype>
-            <range> 2000.0 </range> </skill>
+            <range> 20.0 </range> </skill>
         </skills>
-        <required-skills> empty </required-skills>
         <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
       </mra>
   .
@@ -60,9 +62,8 @@ mod CONVEYORS is
         <name> c5 </name> <type> conveyor </type> 
         <skills>
           <skill> <type> transport </type> <subtype> corner </subtype>
-            <range> 1200.0 </range> </skill>
+            <range> 30.0 </range> </skill>
         </skills>
-        <required-skills> empty </required-skills>
         <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
      </mra>
   .
