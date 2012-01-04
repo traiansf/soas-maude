@@ -1,0 +1,46 @@
+--- load list
+--- load skill
+mod SKILL-TYPE is 
+  sort SkillType .
+  ops open-close move feed transport position-carrier store pick&place load unload index-carrier-for-task load-unload-gripper hold base-hold
+   : -> SkillType [format (! o) ctor] .
+endm
+view SkillType from TRIV to SKILL-TYPE is sort Elt to SkillType . endv
+
+mod SKILL-SUBTYPE is
+  sort SkillSubType .
+  ops 
+   linear-horizontal linear-vertical  --- subtype for move
+   rotational-horizontal rotational-vertical --- subtype for move
+   linear junction corner --- subtype for transport type
+   grippers  --- subtype for the store type.
+   : -> SkillSubType [ctor format (! o)] .
+endm
+
+
+mod SKILL-ITEM is
+  including SKILL-TYPE .
+  including SKILL-SUBTYPE .
+  including FLOAT .
+  including INT .
+  sort SkillItem .
+  op <type>_</type> : SkillType -> SkillItem .
+  op <subtype>_</subtype> : SkillSubType -> SkillItem .
+  --- basic skills 
+  op <range>_</range> : Float -> SkillItem .
+  op <count>_</count> : Int -> SkillItem .
+  op <accuracy>_</accuracy> : Int -> SkillItem . --- for positioning devices
+  --- composite skills
+  op <move-range>_</move-range> : Float -> SkillItem .
+  op <open-range>_</open-range> : Float -> SkillItem .
+endm
+view SkillItem from TRIV to SKILL-ITEM is sort Elt to SkillItem . endv
+
+mod SKILL is 
+  including SET{SkillItem} .
+  sort Skill .
+  op <skill>_</skill> : Set{SkillItem} -> Skill [ctor prec 0] .
+endm
+view Skill from TRIV to SKILL is sort Elt to Skill . endv
+
+

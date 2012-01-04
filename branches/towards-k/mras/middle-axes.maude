@@ -1,0 +1,56 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+mod MIDDLE-AXES is
+  including MRA .
+  ops a4 a5 a6 : -> MraName .
+  ops a4 a5 a6 : -> Mra .
+  eq a4 =
+       <mra>
+        <name> a4 </name> <type> axis </type>
+        <skills> 
+          <skill> <type> move </type> <subtype> linear-horizontal </subtype>
+           <range> 25.0 </range> </skill>
+          <skill> <type> move </type> <subtype> rotational-vertical </subtype>
+           <range> 180.0 </range> </skill>
+	<skill> <type> hold </type> </skill>
+       </skills>
+	
+       --- a middle axis needs to be carried by a base axis
+       <required-skills> <skill> <type> base-hold </type> </skill> </required-skills>  
+        <interfaces> square(+ true) square(- true) </interfaces>
+     </mra>
+  .
+  eq a5 =
+     <mra>
+        <name> a5 </name> <type> axis </type>
+        <skills> 
+          <skill> <type> move </type> <subtype> linear-horizontal </subtype>
+           <range> 25.0 </range> </skill>
+	<skill> <type> hold </type> </skill>
+       </skills>
+	
+       <required-skills> <skill> <type> base-hold </type> </skill> </required-skills>  
+        <interfaces> square(+ true) square(- true) </interfaces>
+     </mra>
+  .
+  eq a6 = 
+     <mra>
+        <name> a6 </name> <type> axis </type>
+        <skills> 
+          <skill> <type> move </type> <subtype> rotational-horizontal </subtype>
+           <range> 270.0 </range> </skill>
+	<skill> <type> hold </type> </skill>
+       </skills>
+	
+       <required-skills> <skill> <type> base-hold </type> </skill> </required-skills>  
+        <interfaces> square(+ true) square(- true) </interfaces>
+     </mra>
+  .
+endm

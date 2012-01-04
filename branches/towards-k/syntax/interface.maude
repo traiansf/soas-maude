@@ -1,0 +1,28 @@
+mod INTERFACE is
+  including BOOL .
+  sorts InterfaceType Interface InterfaceSign .
+  ops + - : -> InterfaceSign [format (r o)].
+  ops circular square triangular oval straight diamond star
+   : -> InterfaceType [format (! o)] .
+
+  op _`(__`) : InterfaceType InterfaceSign Bool -> Interface [prec 0] .
+endm
+view Interface from TRIV to INTERFACE is sort Elt to Interface . endv
+
+--- true = free interface
+--- false = occupied
+
+
+--- this is the only place we did not use cells for a set of things
+--- this is why we have this : _`(__`)
+--- interface has an interface type and a sign
+--- example: circular(+ true)
+--- example of set: circular(+ true) square(+ false)
+
+--- <interfaces> circular(+ true) square(+ false) </interfaces>
+--- with cells it would look like this: 
+
+--- <interfaces> 
+---     <interface> circular(+ true) </interface>
+---     <interface> square(+ false) </interface>
+--- </interfaces>

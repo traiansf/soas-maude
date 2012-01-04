@@ -1,0 +1,128 @@
+--- the LSAI will be a result, not an input... however, we need to have an idea of what it will look like... 
+--- we also have to define a kind of template which will be filled in by derivation from the GAP
+
+mod LSAI is
+  including PART . 
+  including TASK . 
+  including OPERATION .
+  including OBJECT .
+  including ACTOR .
+  including TO .
+  including FROM .
+  including REF-PT .
+  including ORIENT .
+ops lsai1 : -> Name .
+  ops t1 tA t2 t2-1 t3 t3-1 tB t4 : -> Tasks .
+  var In Pt1 Pt2 WorkPt1 WorkPt2 Out Theta1 Psi1 Phi1 Theta2 Psi2 Phi2 : Int . 
+
+  eq lsai1 = 
+ 	<lsai> 
+        <name> lsai1 </name> 
+		<tasks> t1 t2 t2-1 t3 t3-1 t4 t5 t6 </tasks> 
+        	<number> 10 </number> 
+      </lsai>
+  .
+  eq t1 = 
+ 	<task> 
+        <name> t1 </name> 
+		<operation> load </operation> 
+        	<object> wpca </object> 
+        	<actor> human </actor> 
+        	<to> In </to> 
+      </task>
+  .
+  eq tA = 
+ 	<task> 
+        <name> tA </name> 
+		<operation> transport </operation> 
+        	<object> wpca </object> 
+        	<actor> conveyor-coalition1 </actor> 
+        	<from> In </from> 
+        	<to> WorkPt1 </to> 
+---         <ref-pt>  </ref-pt> 
+---        	<orient>  </orient> 
+     </task>
+  .
+  eq t2-1 = 
+ 	<task> 
+        <name> t2-1 </name> 
+		<operation> feed </operation> 
+        	<object> p1 </object> 
+         	<actor> f1 </actor> 
+ ---      	<from>  </from> 
+ ---       	<to>  </to> 
+         	<ref-pt> Pt3 </ref-pt> 
+        	<orient> Theta3,Phi3,Psi3 </orient> 
+     </task>
+  .
+  eq t2 = 
+ 	<task> 
+        <name> t2 </name> 
+		<operation> pick place </operation> 
+          	<actor> coalition1 </actor> 
+      	<object> p1 </object> 
+        	<from> f1 </from> 
+        	<to> WorkPt2 </to> 
+         	<ref-pt> Pt2 </ref-pt> 
+        	<orient> Theta2,Phi2,Psi2 </orient> 
+     </task>
+  .
+  eq t3-1 = 
+ 	<task> 
+        <name> t3-1 </name> 
+		<operation> feed </operation> 
+          	<actor> f2 </actor> 
+      	<object> p2 </object> 
+---        	<from>  </from> 
+---        	<to>  </to> 
+         	<ref-pt> Pt4 </ref-pt> 
+        	<orient> Theta4,Phi4,Psi4 </orient> 
+     </task>
+  .
+  eq t3 = 
+ 	<task> 
+        <name> t3 </name> 
+		<operation> pick place </operation> 
+         	<actor> coalition1 </actor> 
+       	<object> p2 </object> 
+        	<from> f2 </from> 
+        	<to> WorkPt3 </to> 
+         	<ref-pt> Pt5 </ref-pt> 
+        	<orient> Theta5,Phi5,Psi5 </orient> 
+     </task>
+  .
+  eq tB = 
+ 	<task> 
+        <name> tB </name> 
+		<operation> transport </operation> 
+        	<object>  </object> 
+         	<actor> conveyor-coalition2 </actor> 
+       	<from> WorkPt3 </from> 
+        	<to> Out </to> 
+ ---       	<ref-pt>  </ref-pt> 
+ ---       	<orient>  </orient> 
+     </task>
+  .
+  eq t4 = 
+ 	<task> 
+        <name> t4 </name> 
+        	<from> Out </from> 
+        	<actor> human </actor> 
+		<operation> unload </operation> 
+        	<object> (p1 p2) wpca </object> 
+      </task>
+  .
+endm
+
+
+--- number is the number of products to be assembled according to this gap
+
+--- a GAP is a set of TASKS
+--- a TASK is a set of OPERATIONS
+--- an OPERATION is a set of SKILLS (here without specific arguments) applied on PARTS
+
+--- later: from the GAP we derive the LSAI
+--- the LSAI is a set of TASKS applied to a layout
+
+
+--- specify: parts, operation, task, gap

@@ -1,0 +1,58 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+mod BASE-AXES is
+  including MRA .
+  ops a1 a2 a3 : -> MraName .
+  ops a1 a2 a3 : -> Mra .
+  eq a1 = 
+       <mra>
+        <name> a1 </name> <type> axis </type>
+        <skills> 
+          <skill> <type> move </type> <subtype> linear </subtype> <direction> horizontal </direction> 
+            <range> 150.0 </range> </skill> 
+          <skill> <type> hold </type> </skill>		
+	  <skill> <type> base-hold </type>   </skill>		
+	</skills>		
+	<required-skills> empty </required-skills>
+--- <required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>
+        <interfaces> square(- true) triangular(- true) straight(- true) </interfaces>
+     </mra>
+  .
+  eq a2 = 
+     <mra>
+        <name> a2 </name> <type> axis </type>
+        <skills> 
+          <skill> <type> move </type> <subtype> rotational </subtype> <direction> vertical </direction> 
+            <range> 90.0 </range> </skill> 
+          <skill> <type> hold </type> </skill>		
+	  <skill> <type> base-hold </type>   </skill>		
+	</skills>
+	<required-skills> empty </required-skills>
+--- <required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>
+        <interfaces> 
+           square(- true)  triangular(- true) straight(- true) </interfaces>
+     </mra>
+  .
+  eq a3 =
+     <mra>
+        <name> a3 </name> <type> axis </type>
+        <skills> 
+          <skill> <type> move </type> <subtype> linear </subtype> <direction> vertical </direction> 
+            <range> 240.0 </range> </skill> 
+          <skill> <type> hold </type> </skill>		
+	  <skill> <type> base-hold </type>   </skill>		
+	</skills>
+	<required-skills> empty </required-skills>
+--- <required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>
+        <interfaces> 
+            square(- true)  triangular(- true) straight(- true) </interfaces>
+     </mra>
+  .
+endm

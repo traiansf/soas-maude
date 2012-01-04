@@ -1,0 +1,54 @@
+mod MATCH is 
+ including CONFIGURATION .
+ including PATTERNS .
+ including COMPOSITE .
+ including SET .
+ including COMBINE .
+ including PART .
+ including OPERATION .
+ including TASK .
+ including GAP .
+ including MATCH-SELECTION-RULES .
+  var A B Others : Name . 
+  var Skills1 Skills2 Skills : Set{Skill} .
+  var Rest Rest1 Rest2 : Set{ModuleItem} .
+  var Modules Modules' : Set{Module} .
+  var I1 I2 : Int . 
+
+---
+--- an operation may correspond to a (simple of composite) skill which already exists, or it may require several skills to be composed
+---
+
+ crl [match] :
+--- if there is a task
+     <task> 
+	   <name> A </name> 
+	   <operation> Skills(I1) </operation> 
+ 	   <found> Others </found> 
+         Rest1
+    </task>
+--- and a suitable coalition or module 
+ <modules>
+    <module> 
+         <name> B </name> 
+         <skills> Skills1(I2) </skills>
+         Rest2
+    </module>
+if I2 >= I1
+
+
+--- and (Skills1) included in (Skills)
+--- /\ Skills1 in Skills
+--- then search for partners
+--- when Skills == Skills1 + Skills2 + Skills-x 
+--- then read MATCH-SELECTION-RULES and 
+--- then continue as below
+
+   =>
+--- then write it into the task
+     <task> <name> A </name> 
+	   <operation> Skills </operation> 
+ 	   <found> B Others </found> 
+         Rest1
+    </task>
+endm

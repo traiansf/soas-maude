@@ -1,0 +1,71 @@
+--- load list
+--- load skill
+mod SKILL-TYPE is 
+  including MRA-SUBTYPE .
+  sort SkillType .
+  ops open-close move transport feed position-carrier store pick&place 
+      load unload index-carrier-for-task load-unload-gripper 
+      hold base-hold 
+      grip 
+   : -> SkillType [format (! o) ctor] .
+---  op grips : MraSubType -> SkillType .
+endm
+view SkillType from TRIV to SKILL-TYPE is sort Elt to SkillType . endv
+
+mod SKILL-SUBTYPE is
+  including PART-TYPE .
+  sort SkillSubType .
+  ops 
+   open close --- subtype for open-close
+   linear rotational --- subtype for move
+   junction corner --- subtype for transport type
+   grippers  --- subtype for the store type.
+   : -> SkillSubType [ctor format (! o)] .
+   op feeds : PartType -> SkillSubType .
+endm
+
+
+mod DIRECTION is
+  sort Direction .
+  ops vertical horizontal : -> Direction .
+endm
+
+
+mod SKILL-ITEM is
+  including SKILL-TYPE .
+  including SKILL-SUBTYPE .
+  including DIRECTION .
+  including PART-TYPE .
+  including FLOAT .
+  including POSITION .
+  including ANGLE .
+
+  sort SkillItem .
+  op <type>_</type> : SkillType -> SkillItem .
+  op <subtype>_</subtype> : SkillSubType -> SkillItem .
+  --- basic skills 
+  op <direction>_</direction> : Direction -> SkillItem .  --- for move skills
+  op <range>_</range> : Float -> SkillItem .
+  op <count>_</count> : Int -> SkillItem .
+  op <accuracy>_</accuracy> : Int -> SkillItem . --- for positioning devices
+  --- composite skills
+  op <move-range>_</move-range> : Float -> SkillItem .
+  op <open-range>_</open-range> : Float -> SkillItem .
+  --- type of part for the "feed" skill
+  op <part-type>_</part-type> : PartType -> SkillItem .
+  ---  type of gripper for the  "grip" skill
+  op <gripper-type>_</gripper-type> : MraSubType -> SkillItem .
+  op <from>_</from> : Position -> SkillItem .
+  op <to>_</to> : Position -> SkillItem .
+  op <rotation-angle>_</rotation-angle> : Angle -> SkillItem .
+endm
+view SkillItem from TRIV to SKILL-ITEM is sort Elt to SkillItem . endv
+
+mod SKILL is 
+  including SET{SkillItem} .
+  sort Skill .
+  op <skill>_</skill> : Set{SkillItem} -> Skill [ctor prec 0 format (ni d d d)] .
+endm
+view Skill from TRIV to SKILL is sort Elt to Skill . endv
+
+

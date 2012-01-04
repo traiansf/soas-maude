@@ -1,0 +1,323 @@
+---(
+load ../syntax/syntax
+load agent
+load skill
+load operation
+load patterns
+---)
+
+mod MATCH-MRAS-TASK is
+--- this makes sure that the agent does not exist yet
+--- an agent represents a (partial) coalition looking for a task
+
+  including GAP .
+  including AGENTS .
+  var MNames : Set{MraName} . var Tid : TaskId . 
+  var Agents : Set{Agent} .  var Agent : Set{AgentItem} .
+  op match : Set{MraName} TaskId Set{Agent} -> Bool .
+  eq match(MNames, Tid, <agent> <task-id> Tid </task-id> <coalition>  MNames </coalition> Agent </agent> Agents) = true .
+  eq match(MNames, Tid, Agents) = false [owise] .
+endm
+
+
+
+mod ASSIGN-TASKS is
+ including DECOMPOSE-OPERATIONS .
+
+ including MATCH-OPERATIONS .
+--- this compares offered skills with required skills
+
+ including MATCH-MRAS-TASK .
+--- see above
+
+ including SUBSTRACT-OPERATIONS .
+--- inside the agent, from the operations we remove the skills which can be provided by the coalition
+--- if it becomes empty, the operation is removed 
+
+ including PATTERNS .
+--- this is still used in a simple way
+
+ including SET{TaskId} .
+
+
+
+ var TName : TaskName . var MName : MraName .  var GName : GapName .
+ vars MSkills MSkills1 MSkills2 : Set{Skill} .
+ vars Mra : Set{MraItem} . var Mras Mras1 Mras2 : Set{Mra} .
+ vars Agent Agent1 Agent2 : Set{AgentItem} .
+ var IFaces IFaces1 IFaces2 : Set{Interface} .
+ var Tasks Tasks1 Tasks2 : Set{Task} .  var Task : Set{TaskItem} .
+ var IType : InterfaceType .  
+ var Operations Operations1 Operations2 : Set{Operation} . 
+ var Gap : Set{GapItem} . var Gaps : Set{Gap} .  var TaskId : TaskId .
+ var Agents : Set{Agent} . var MNames : Set{MraName} .
+ var TaskItem1 : TaskItem .
+ var TaskItems : Set{TaskItem} .
+ var t : SkillType .
+ rl [start-agents] : <config> <gaps> Gaps </gaps> <mras> Mras </mras> </config>
+                  => <config> <gaps> Gaps </gaps> <mras> Mras </mras> <agents> empty </agents> </config> .
+ var f : Float .
+ var MSkill : Skill .
+ var TRange : Float .
+ var MSkillSubType : SkillSubType .
+ --- Extract Skills from Operation
+ op getSkills : Set{Operation} -> Set{Skill} .
+ eq getSkills(<operation> MSkills </operation>) = MSkills .
+--- eq getSkills(empty) = empty .
+
+ var si : SkillItem .
+ var sis : Set{SkillItem} .
+
+--- Create set of skills from skillitems. 
+ op getSkills : Set{SkillItem} -> Set{Skill} .
+ eq getSkills(si) = <skill> si </skill> .
+ eq getSkills(si sis) = <skill> si </skill> getSkills(sis) .
+
+--- stupid way of filtering out non-type skillitems such as range, subtype.
+ op getOnlyType : SkillItem -> SkillItem .
+ eq getOnlyType(empty) = empty .
+ eq getOnlyType(<range> f </range> ) = empty .
+ eq getOnlyType(<subtype> MSkillSubType </subtype>) = empty .
+ eq getOnlyType(si) = si .
+
+--- Extract only type skillitem from skill.
+ op getSkillItem : Skill -> SkillItem .
+ eq getSkillItem(<skill> si </skill> MSkill) = si getSkillItem(MSkill) .
+ eq getSkillItem(<skill> sis </skill>) = getOnlyTypes(sis) .
+ eq getSkillItem(<skill> si </skill>) = si .
+
+--- For set..
+ op getSkillItem : Set{Skill} -> Set{SkillItem} .
+ eq getSkillItem(empty) = empty .
+ eq getSkillItem(MSkill MSkills) = getSkillItem(MSkill) getSkillItem(MSkills) .
+
+--- For set of SkillItems.
+ op getOnlyTypes : Set{SkillItem} -> Set{SkillItem} .
+ eq getOnlyTypes(empty) = empty .
+ eq getOnlyTypes(si sis) = getOnlyType(si) getOnlyTypes(sis) .
+
+--- Get only types of skill's skillitems 
+ op getSkillTypes : Set{Skill} -> Set{SkillItem} .
+ eq getSkillTypes(empty) = empty .
+ eq getSkillTypes(MSkills) = getOnlyTypes(getSkillItem(MSkills)) .
+
+--- Return intersection of mras skills and gap operations. If intersection is empty, return MSkills.
+ op getRequiredSkills : Set{Skill} Set{Operation} Set{TaskItem} -> Set{Skill} .
+ op getRequiredSkills : Set{Skill} Set{Operation} -> Set{Skill} .
+ eq getRequiredSkills(MSkills, Operations) = empty .
+ eq getRequiredSkills(empty, Operations, Task) = empty .
+ eq getRequiredSkills(ProvidedSkill MSkills, Operations, Task) = getRightSkills(ProvidedSkill, Operations, Task) getRequiredSkills(MSkills, Operations, Task) .
+---eq getRequiredSkills(MSkills, Operations, Task) = unique(intersection(getSkills(getSkillTypes(MSkills)), decompose(getSkills(Operations)))) .
+
+ var ProvidedSkill : Skill .
+ var RequiredSkills : Set{Operation} .
+ var RequiredRange : Float .
+ 
+--- If provided skills in required skills and range in the task is greater than range in the provided skill => decompose required skills.
+--- Basically it tries to compare ranges in order to find right skills 
+ op getRightSkills : Skill Set{Operation} Set{TaskItem} -> Set{Skill} .
+ eq getRightSkills(ProvidedSkill, RequiredSkills, Task) = if getSkills(getSkillTypes(ProvidedSkill)) in decompose(getSkills(RequiredSkills)) and getTRange(Task) > getRange(ProvidedSkill) then decompose(getSkills(RequiredSkills)) else empty fi .
+--- eq getRightSkills(ProvidedSkill, RequiredSkills, Task) = if getSkills(getSkillTypes(ProvidedSkill)) in decompose(getSkills(RequiredSkills)) then decompose(getSkills(RequiredSkills)) else empty fi .
+--- eq getRightSkills(ProvidedSkills, RequiredSkills, RequiredRange) = empty .
+
+ var f1 : Float .
+ --- Get trange from TaskItem(s) as float..
+ op getTRange : TaskItem -> Float . 
+ eq getTRange(<trange> f1 </trange>) = f1 .
+ eq getTRange(TaskItem1) = 0.0 .
+ op getTRange : Set{TaskItem} -> Float .
+ eq getTRange(TaskItem1 TaskItems) = getTRange(TaskItem1) + getTRange(TaskItems) .
+
+ var SkillItem1 : SkillItem . 
+ var SkillItems : Set{SkillItem} .
+ var MSkill1 : Skill .
+
+ op getRange : SkillItem -> Float .
+ eq getRange(<range> f1 </range>) = f1 .
+ eq getRange(SkillItem1) = 0.0 .
+
+ op getRange : Skill -> Float .
+ eq getRange(<skill> SkillItems </skill>) = getRange(SkillItems) . 
+ op getRange : Set{SkillItem} -> Float .
+ eq getRange(SkillItem1 SkillItems) = getRange(SkillItem1) + getRange(SkillItems) .
+
+ eq getRange(MSkill1) = 0.0 .
+ op getRange : Set{Skill} -> Float .
+ eq getRange(MSkill1 MSkills) = getRange(MSkill1) + getRange(MSkills) . 
+--- this rule transforms a mra into an agent looking for partners to a task
+ ceq <gaps>
+       <gap>
+        <name> GName </name>
+        <tasks> 
+          <task> <name> TName </name>
+             <operations> Operations </operations>
+             Task 
+          </task>
+          Tasks 
+        </tasks>
+        Gap
+       </gap>
+       Gaps
+     </gaps>
+     <mras> 
+       <mra> <name> MName </name>
+         <interfaces> IFaces </interfaces> <skills> MSkills </skills> Mra
+       </mra> 
+       Mras 
+     </mras>
+     <agents> Agents </agents>
+  = 
+     <gaps>
+       <gap>
+        <name> GName </name>
+        <tasks> 
+          <task> <name> TName </name>
+             <operations> Operations </operations>
+             Task 
+          </task>
+          Tasks 
+        </tasks>
+        Gap
+       </gap>
+       Gaps
+     </gaps>
+     <mras> 
+       <mra> <name> MName </name>
+         <interfaces> IFaces </interfaces> <skills> MSkills </skills> Mra
+       </mra> 
+       Mras 
+     </mras> 
+     <agents>
+       <agent>
+         <task-id> GName -> TName </task-id>
+         --- unique there is a workaround, otherwise duplicated skills will be returned. 
+         <provided-skills> unique(getRequiredSkills(MSkills, Operations, Task)) </provided-skills>
+         <required-ops> decompose(Operations) \ decompose(MSkills) </required-ops>
+         <open-interfaces> IFaces </open-interfaces>
+         <coalition> MName </coalition>
+        </agent> 
+        Agents
+     </agents>
+  if not(match(MName, GName -> TName, Agents)) /\ match(decompose(MSkills),decompose(Operations)) .
+
+ --- this rule combines two agents for the same task if together they can achieve more than stand-alone.
+ ceq <mras> 
+       <mra> <name> MName </name>
+         <interfaces> IType(+ true) IFaces1 </interfaces> <skills> MSkills1 </skills> Mra
+       </mra> 
+       Mras
+     </mras>
+     <agents>
+      <agent>
+        <task-id> TaskId </task-id>
+        <provided-skills> MSkills2 </provided-skills>
+        <required-ops> Operations </required-ops>
+        <open-interfaces>  IType(- true) IFaces2 </open-interfaces>
+        <coalition> MNames </coalition>
+      </agent>
+      Agents
+     </agents>
+   = <mras> 
+       <mra> <name> MName </name>
+         <interfaces> IType(+ true) IFaces1 </interfaces> <skills> MSkills1 </skills> Mra
+       </mra> 
+       Mras
+     </mras>
+     <agents>
+      <agent>
+        <task-id> TaskId </task-id>
+        <provided-skills> MSkills2 MSkills1 </provided-skills>
+        <required-ops> Operations \ decompose(MSkills1) </required-ops>
+        <open-interfaces>  IFaces1 IFaces2 </open-interfaces>
+        <coalition> MName MNames </coalition>
+      </agent>
+      <agent>
+        <task-id> TaskId </task-id>
+        <provided-skills> MSkills2 </provided-skills>
+        <required-ops> Operations </required-ops>
+        <open-interfaces>  IType(- true) IFaces2 </open-interfaces>
+        <coalition> MNames </coalition>
+      </agent>
+      Agents
+     </agents>
+  if not(MName in MNames) 
+  /\ not(match(MName MNames, TaskId, Agents)) 
+  /\ match(decompose(MSkills1), Operations) 
+  /\ pattern-match(decompose(MSkills1), decompose(MSkills2), patterns) .
+
+
+
+--- here the assignment procedure is started
+  rl <config> <gaps> Gaps </gaps> <mras> Mras </mras> <agents> Agents </agents> </config> => <config> <agents> assignCoalitions(getTasks(Gaps),completeCoalitions(Agents)) </agents> </config> .
+
+--- this rule would only get complete coalitions but not assign them (to be used if maude hangs)
+---  rl <config> <gaps> Gaps </gaps> <mras> Mras </mras> <agents> Agents </agents> </config> => <config> <agents> completeCoalitions(Agents)) </agents> </config> .
+
+
+--- we delete all (partial) coalitions which haven't fully satisfied a task
+--- that is, if their required operations are empty
+  op completeCoalitions : Set{Agent} -> Set{Agent} .
+  eq completeCoalitions(<agent> <required-ops> empty </required-ops> Agent </agent> Agents)
+   = <agent> Agent </agent> 
+     completeCoalitions(Agents) .
+  eq completeCoalitions(Agents) = empty [owise] .
+
+
+--- calls all the tasks in a gap 
+  op getTasks : Set{Gap} -> Set{TaskId} .
+  eq getTasks(<gap> <name> GName </name> <tasks> Tasks </tasks> Gap </gap> Gaps)
+   = getGapTasks(GName, Tasks) getTasks(Gaps) .
+  eq getTasks(empty) = empty .
+  
+--- generates the ID of each task inside a gap
+  op getGapTasks : GapName Set{Task} -> Set{TaskId} .
+  eq getGapTasks(GName, <task> <name> TName </name> Task </task> Tasks)
+   = (GName -> TName) getGapTasks(GName, Tasks) .
+  eq getGapTasks(GName, empty) = empty .
+
+
+  var TId : TaskId . var TIds : Set{TaskId} .  var Coalition : Set{MraName} .
+  var Agents' : Set{Agent} .
+
+
+--- here maude may hang forever
+
+
+--- we have a set of tasks and a set of free agents, so we assign a task to each agent
+ op assignCoalitions : Set{TaskId} Set{Agent} -> [Set{Agent}] .
+ eq assignCoalitions(empty, Agents) = empty .
+--- when all the tasks are assigned, we have finished
+
+
+--- this is the source of trouble - main rule:
+--- we have a set of assigned tasks and a set of not yet assigned tasks and mras
+--- so we can assign one of the free pruned agents
+--- if there are still enough agents around (if it is feasible)
+--- then add the mras to the assigned ones and remove the task from the open ones
+crl assignCoalitions(TId TIds, <agent> <task-id> TId </task-id> <coalition> Coalition </coalition> Agent </agent> Agents)
+ => <agent> <task-id> TId </task-id> <coalition> Coalition </coalition> Agent </agent> assignCoalitions(TIds, pruneAgents(Agents,Coalition)) 
+ if isFeasible(TIds, pruneAgents(Agents,Coalition)) .
+
+
+--- checks if the task is still feasible with the available agents (at least one agent per task)
+--- this can be removed if the system gets stuck because a task cannot be assigned and we don't know which one it is
+op isFeasible : Set{TaskId} Set{Agent} -> Bool .
+eq isFeasible(TId TIds, <agent> <task-id> TId </task-id> Agent </agent> Agents)
+ = isFeasible(TIds, Agents) .
+eq isFeasible(empty, Agents) = true .
+eq isFeasible(TIds, Agents) = false [owise] .
+
+
+
+--- pruneAgents removes the agents which contain mras that have already been assigned to another task
+op pruneAgents : Set{Agent} Set{MraName} -> Set{Agent} .
+eq pruneAgents( <agent> <coalition> Coalition </coalition> Agent </agent> Agents, MNames) 
+ = if intersection(Coalition, MNames) == empty 
+   then <agent> <coalition> Coalition </coalition> Agent </agent> 
+   else empty fi 
+   pruneAgents(Agents,MNames) .
+endm
+
+
+
+

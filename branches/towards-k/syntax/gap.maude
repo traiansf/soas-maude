@@ -1,0 +1,62 @@
+---(
+load list
+load set
+load position
+load angle
+load skill
+load interface
+load mra
+load operation
+load part
+load task
+---)
+
+--- mod GAP-NUMBER is
+---   including INT .
+---   sort GapNumber .
+---   subsort Int < GapNumber .
+--- endm
+
+mod GAP-NAME is
+  sort GapName .
+  op _+_ : GapName GapName -> GapName [assoc comm format (d r o d)] .
+endm
+
+
+--- assigned task removes task from the gap when assigning coalitions to them
+
+mod GAP-ITEM is 
+  including SET{Task} .
+  including PART .
+  including OPERATION . 
+  including GAP-NAME .
+---   including GAP-NUMBER .
+  sort GapItem . 
+ op <name>_</name> : GapName -> GapItem [format (ni o d o) ] .
+ op <number>_</number> : Int -> GapItem [format (ni o d o) ] .
+ op <tasks>_</tasks> : Set{Task} -> GapItem [format (ni++ o n--i o) ] .
+ op <assigned-tasks>_</assigned-tasks> : Set{Task} -> GapItem [format (ni++ o n--i o) ] .
+endm
+view GapItem from TRIV to GAP-ITEM is sort Elt to GapItem . endv
+
+mod GAP is 
+  including SET{GapItem} .
+  including GAP-NAME .
+  sort Gap .
+ op <gap>_</gap> : Set{GapItem} -> Gap [format (ni++ o n--i o) ] . 
+endm
+view Gap from TRIV to GAP is sort Elt to Gap . endv 
+
+
+
+--- number is the number of products to be assembled according to this gap
+
+--- a GAP is a set of TASKS
+--- a TASK is a set of OPERATIONS
+--- an OPERATION is a set of SKILLS (here without specific arguments) applied on PARTS
+
+--- later: from the GAP we derive the LSAI
+--- the LSAI is a set of TASKS applied to a layout
+
+
+--- specify: parts, operation, task, gap

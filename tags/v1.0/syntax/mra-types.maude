@@ -1,0 +1,30 @@
+mod MRA-NAME is
+  sort MraName .
+  op unassigned-human : -> MraName .
+  op _+_ : MraName MraName -> MraName [assoc comm format (d r o d)] .
+endm
+view MraName from TRIV to MRA-NAME is sort Elt to MraName . endv
+
+mod MRA-TYPE is
+  sorts MraType .
+  including INT .
+  ops gripper axis robot conveyor positioning-device feeder human ending
+   toolwarehouse : -> MraType [ctor format (! o) ] .
+
+
+ ops mra-length mra-width : -> Int .
+ eq mra-length = 50 .
+ eq mra-width = 50 .
+
+ ops conveyor-length  conveyor-width : -> Int .
+ eq conveyor-length = 300 .
+ eq conveyor-width = 50 .
+endm
+
+mod MRA-SUBTYPE is
+  sort MraSubType .
+  ops 2finger magnetic vacuum screw-driver : -> MraSubType [ctor format (! o)] . 
+  ops linear corner : -> MraSubType [ctor format (! o)] .
+endm
+
+

@@ -1,0 +1,69 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+mod CONVEYORS is
+  including MRA .
+  ops c1 c2 c3 c4 c5 : -> MraName .
+  ops c1 c2 c3 c4 c5 : -> Mra .
+  eq c1 = 
+    <mra> 
+        <name> c1 </name> <type> conveyor </type> 
+        <skills>
+          <skill> <type> transport </type> <subtype> linear </subtype>
+            <range> 800.0 </range> </skill>
+        </skills>
+        <required-skills> empty </required-skills>
+        <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
+      </mra> 
+  .
+  eq c2 =
+     <mra> 
+        <name> c2 </name> <type> conveyor </type> 
+        <skills>
+          <skill> <type> transport </type> <subtype> linear </subtype>
+            <range> 600.0 </range> </skill>
+        </skills>
+        <required-skills> empty </required-skills>
+        <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
+      </mra> 
+  .
+  eq c3 =
+     <mra> 
+        <name> c3 </name> <type> conveyor </type> 
+        <skills>
+          <skill> <type> transport </type> <subtype> linear </subtype>
+            <range> 700.0 </range> </skill>
+        </skills>
+        <required-skills> empty </required-skills>
+        <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
+      </mra> 
+  .
+  eq c4 = 
+     <mra> 
+        <name> c4 </name> <type> conveyor </type> 
+        <skills>
+          <skill> <type> transport </type> <subtype> junction </subtype>
+            <range> 2000.0 </range> </skill>
+        </skills>
+        <required-skills> empty </required-skills>
+        <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
+      </mra>
+  .
+  eq c5 =
+     <mra> 
+        <name> c5 </name> <type> conveyor </type> 
+        <skills>
+          <skill> <type> transport </type> <subtype> corner </subtype>
+            <range> 1200.0 </range> </skill>
+        </skills>
+        <required-skills> empty </required-skills>
+        <interfaces> oval(+ true) star(- true) star(+ true) </interfaces>
+     </mra>
+  .
+endm

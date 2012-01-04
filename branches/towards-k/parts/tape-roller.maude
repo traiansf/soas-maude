@@ -1,0 +1,86 @@
+---in ../syntax/syntax
+
+load ../mras/feeders .
+ mod TAPE-ROLLER is
+  including PART .
+  including FEEDERS .
+  ops p1 p2 p3 p4 carrier : -> Part .
+  ops p1 p2 p3 p4 wpca : -> PartName .
+  eq p1 = 
+    <part> 
+        <name> p1 </name> <type> body-case </type> 
+        <material> plastic </material>
+        <weight> 300 </weight>         
+        --- each part needs to know which feeder delivers it
+        <feeder> f1 </feeder>
+	  <x-dimension> 50 </x-dimension>
+	  <y-dimension> 70 </y-dimension>
+	  <z-dimension> 20 </z-dimension>
+---	  <gripper-subtype> 2finger </gripper-subtype>
+	  <grip-pos1> (25,0,10) </grip-pos1>
+ 	  <grip-pos2> (25,50,10) </grip-pos2>
+
+ 	  --- this should be calculated by maude, but we do it manually now: distance between gripping points
+	
+ 	  <prange> 50.0 </prange>
+   </part> 
+  .
+  eq p2 = 
+    <part> 
+        <name> p2 </name> <type> tape-roll </type> 
+        <material> plastic </material>
+        <weight> 90 </weight>    
+                <feeder> f2 </feeder>
+	  <x-dimension> 40 </x-dimension>
+	  <y-dimension> 40 </y-dimension>
+	  <z-dimension> 15 </z-dimension>
+---	  <gripper-subtype> 2finger </gripper-subtype>
+	  <grip-pos1> (20,0,10) </grip-pos1>
+ 	  <grip-pos2> (20,40,10) </grip-pos2>
+   </part> 
+  .
+  eq p3 = 
+    <part> 
+        <name> p3 </name> <type> body-case </type> 
+        <material> plastic </material>
+        <weight> 30 </weight>  
+                <feeder> f3 </feeder>
+	  <x-dimension> 50 </x-dimension>
+	  <y-dimension> 70 </y-dimension>
+	  <z-dimension> 18 </z-dimension>
+---	  <gripper-subtype> 2finger </gripper-subtype>
+	  <grip-pos1> (25,0,9) </grip-pos1>
+ 	  <grip-pos2> (25,50,9) </grip-pos2>
+   </part> 
+  .
+  eq p4 = 
+    <part> 
+        <name> p4 </name> <type> screw </type> 
+        <material> metal </material>
+        <weight> 10 </weight>    
+                <feeder> f4 </feeder>
+	  <x-dimension> 5 </x-dimension>
+	  <y-dimension> 5 </y-dimension>
+	  <z-dimension> 15 </z-dimension>
+---	  <gripper-subtype> screw-driver </gripper-subtype>
+	  <grip-pos1> (2,2,15) </grip-pos1>
+   </part> 
+  .
+  eq carrier = 
+    <part> 
+        <name> wpca </name> <type> carrier </type> 
+        <material> metal </material>
+        <weight> 350 </weight>         
+	  <x-dimension> 100 </x-dimension>
+	  <y-dimension> 100 </y-dimension>
+	  <z-dimension> 30 </z-dimension>
+   </part> 
+  .
+endm
+
+--- weight in grams
+--- dimensions in mm
+--- gripping positions (x,y,z) in mm from the reference point of the part
+--- 1 pos: vacuum gripper, magnetic screw-driver
+--- 2 pos: 2finger gripper
+--- 3 pos: 3finger gripper

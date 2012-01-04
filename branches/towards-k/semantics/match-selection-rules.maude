@@ -1,0 +1,8 @@
+mod MATCH-SELECTION-RULES is
+  ...
+endm
+
+--- this is for optimization, such as: choose
+--- first coalition suggested or
+--- coalition with smallest number of modules or
+--- coalition which already exists

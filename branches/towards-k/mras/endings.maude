@@ -1,0 +1,28 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+mod ENDING is
+  including MRA .
+  ops ending-in ending-out : -> MraName .
+  ops ending-in ending-out : -> Mra .
+  eq ending-in = 
+    <mra> 
+        <name> ending-in </name> <type> ending </type> 
+        <skills> empty </skills>
+        <interfaces> star(- true) </interfaces>
+      </mra> 
+  .
+  eq ending-out = 
+     <mra> 
+        <name> ending-out </name> <type> ending </type> 
+        <skills> empty </skills>
+        <interfaces> star(+ true) </interfaces>
+      </mra> 
+  .
+endm

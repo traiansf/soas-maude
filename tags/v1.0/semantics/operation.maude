@@ -1,0 +1,44 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/skill
+load ../syntax/operation
+load skill
+---)
+
+mod DECOMPOSE-OPERATIONS is
+  including DECOMPOSE-SKILLS .
+  including SET{Operation} .
+  op decompose : Set{Operation} -> Set{Operation} .
+
+  var Skills : Set{Skill} .  var Operations : Set{Operation} .
+
+  eq decompose((empty).Set{Operation}) = empty .
+  eq decompose(<operation> Skills </operation> Operations)
+   = <operation> decompose(Skills) </operation> decompose(Operations) .
+endm
+
+mod SUBSTRACT-OPERATIONS is
+  including SUBSTRACT-SKILLS .
+  including SET{Operation} .
+  op _\_ : Set{Operation} Set{Skill} -> Set{Operation} .
+
+  var Skills Skills1 : Set{Skill}  . var Operations : Set{Operation} .
+  eq (empty).Set{Operation} \ Skills = empty .
+  eq (<operation> Skills1 </operation> Operations) \ Skills
+   = <operation> substract(Skills1, Skills) </operation> (Operations \ Skills) .
+
+  eq <operation> empty </operation> = empty .
+endm
+
+mod MATCH-OPERATIONS is
+--- this compares offered operations with required operations
+  including MATCH-SKILLS .
+---  this compares offered skills with required skills
+  including SET{Operation} .
+  op match : Set{Skill} Set{Operation} -> [Bool] .
+  var Skills2 Skills1 : Set{Skill}  . var Operations : Set{Operation} .
+  eq match(Skills2, <operation> Skills1 </operation> Operations)
+   = match(Skills2, Skills1) or-else match(Skills2, Operations) .
+  eq match(Skills2, (empty).Set{Operation}) = false .
+endm

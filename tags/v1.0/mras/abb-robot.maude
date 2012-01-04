@@ -1,0 +1,40 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+mod ABB-ROBOT is
+  including MRA .
+  op r3 : -> MraName .
+  op abb-robot : -> Mra .
+  eq abb-robot =
+    <mra>
+        <name> r3 </name> <type> robot </type>
+        <skills> 
+          <skill>
+            <type> move </type>
+            <subtype> rotational </subtype>
+            <direction> vertical </direction>
+            <range> 220.0 </range>
+          </skill>
+          <skill>
+            <type> move </type>
+            <subtype> rotational </subtype> <direction> horizontal </direction>
+            <range> 280.0 </range>
+          </skill>
+          <skill>
+            <type> move </type>
+            <subtype> rotational </subtype> <direction> horizontal </direction>
+            <range> 60.0 </range>
+          </skill>
+	</skills>
+           <required-skills> empty </required-skills>
+--- <required-skills> <skill> <type> position-carrier </type> </skill> </required-skills>
+        <interfaces> circular(- true)  triangular(- true) straight(- true) diamond(- true) </interfaces>
+     </mra>
+  .
+endm

@@ -1,0 +1,242 @@
+mod PRODUCT is 
+  including LIST{Part} .
+  sort Product .
+  op <product>_</product> : List{Part} -> Product .
+  op getPosition : Product ~> Position .
+  eq getPosition(<product> <part> <part-position> P </part-position> Part </part>, PartsL </product>)
+   = P .
+
+  var P : Position . var Part : Set{PartItem} . var PartsL : List{Part} .
+endm 
+
+--- takes the gap and the layout incl. transports => derive the LSAI
+
+
+---(
+  TODO: simulate the execution of the LSAI
+---)
+
+mod DERIVE-LSAI is 
+ including SET{Agent} .
+ including LIST{Agent} .
+ including LIST{Skill} .
+ including AGENTS .
+ including PRODUCT .
+
+ op deltaz : -> Int .
+ eq  deltaz = 60 .
+
+ op  deltaUnload : -> Position .
+ eq deltaUnload = (0, 100, 0) .
+ 
+ op <procedure>_</procedure> : List{Skill} -> AgentItem   [format (ni++ o --ni o) ] .
+
+
+  op <final-product>_</final-product> : Product -> ConfigItem   [format (ni++ o --ni o) ] .
+  op <final-agents>_</final-agents> : List{Agent} -> ConfigItem   [format (ni++ o --ni o) ] .
+
+  rl <config> <agents> <state> derive-lsai </state> SAgents </agents> Cfg </config>
+  => <config> deriveLSAI(SAgents, Cfg) </config> .
+  op deriveLSAI : Set{Agent} Set{ConfigItem} ~> Set{ConfigItem} .
+
+
+ eq deriveLSAI(SAgents, Cfg)
+  = deriveLSAI(sortedList(SAgents), nil, Cfg, <product> nil </product>) .
+ 
+ op deriveLSAI : List{Agent} List{Agent} Set{ConfigItem} Product -> [Set{ConfigItem}] .
+
+ eq deriveLSAI(nil, Agents', Cfg, Product) 
+  = <final-agents> Agents' </final-agents> <final-product> Product </final-product> .
+
+ eq deriveLSAI((<agent> <task-id> GapName -> TaskName </task-id> <coalition> MraNames </coalition> AgentIs </agent>, Agents), Agents', <passive-gaps> <gap> <name> GapName </name> <tasks> <task> <name> TaskName </name> <object> PartName </object> Task </task> Tasks </tasks> Gap </gap>  Gaps </passive-gaps> <passive-parts> <part> <name> PartName </name> Part </part> Parts </passive-parts> <passive-mras> Mras </passive-mras> Cfg, Product)
+  =  deriveLSAI(Agents, Agents', <passive-gaps> <gap> <name> GapName </name> <tasks> <task> <name> TaskName </name> <object> PartName </object> Task </task> Tasks </tasks> Gap </gap>  Gaps </passive-gaps> <passive-parts> <part> <name> PartName </name> Part </part> Parts </passive-parts> <passive-mras> Mras </passive-mras> Cfg, 
+  createMovements(<agent> <task-id> GapName -> TaskName </task-id> <coalition> MraNames </coalition> AgentIs </agent>, <task> <name> TaskName </name> <object> PartName </object> Task </task>,  <part> <name> PartName </name> Part </part>, Product, getMras(Mras, MraNames), Agents)) .
+
+---(  movements for conveyors )
+ eq deriveLSAI((<agent> <layout-mra> <type> conveyor </type> Mra </layout-mra> AgentIs </agent>, Agents), Agents', Cfg, Product)
+  = deriveLSAI(Agents, Agents', Cfg, createConveyorMovements(<agent> <layout-mra> <type> conveyor </type> Mra </layout-mra> AgentIs </agent>, Product, getPosition(Product), getConveyorMovement(Mra))) .
+
+---(  Unload )
+ eq deriveLSAI((<agent>  <task-id> GapName -> TaskName </task-id> AgentIs </agent>, Agents), Agents', <passive-gaps> <gap> <name> GapName </name> <tasks> <task> <name> TaskName </name> <operations> <operation> <skill> <type> unload </type> </skill> </operation> </operations> Task </task> Tasks </tasks> Gap </gap>  Gaps </passive-gaps> Cfg, Product)
+  = deriveLSAI(Agents, Agents', <passive-gaps> <gap> <name> GapName </name> <tasks> <task> <name> TaskName </name> <operations> <operation> <skill> <type> unload </type> </skill> </operation> </operations> Task </task> Tasks </tasks> Gap </gap>  Gaps </passive-gaps> Cfg,
+  {<agent>  <task-id> GapName -> TaskName </task-id> AgentIs 
+       <procedure>
+         <skill> <type> unload </type> <from> getPosition(Product) </from> <to> sum(getPosition(Product),deltaUnload) </to> </skill>
+       </procedure>
+    </agent>
+    ,
+    updatePositions(Product, deltaUnload)
+   }) .
+
+
+
+
+--- angle = [ Yaw , Pitch , Roll ]
+  op getConveyorMovement : Set{MraItem} ~> Position .
+  eq getConveyorMovement(<subtype> linear </subtype> <angle> [0,0,0] </angle> Mra) = (conveyor-length,0,0) .
+  eq getConveyorMovement(<subtype> linear </subtype> <angle> [-90,0,0] </angle> Mra) = (0,conveyor-length,0) .
+  eq getConveyorMovement(<subtype> linear </subtype> <angle> [180,0,0] </angle> Mra) = (- conveyor-length,0,0) .
+  eq getConveyorMovement(<subtype> linear </subtype> <angle> [90,0,0] </angle> Mra) = (0,- conveyor-length,0) .
+  eq getConveyorMovement(<subtype> corner </subtype> <angle> [0,0,0] </angle> Mra) = (conveyor-width,0,0) .
+  eq getConveyorMovement(<subtype> corner </subtype> <angle> [-90,0,0] </angle> Mra) = (0,conveyor-width,0) .
+  eq getConveyorMovement(<subtype> corner </subtype> <angle> [180,0,0] </angle> Mra) = (- conveyor-width,0,0) .
+  eq getConveyorMovement(<subtype> corner </subtype> <angle> [90,0,0] </angle> Mra) = (0,- conveyor-width,0) .
+  
+
+
+ op deriveLSAI : List{Agent} List{Agent} Set{ConfigItem} AgentProductPair -> [Set{ConfigItem}] .
+
+ sort AgentProductPair .
+ op {_,_} : Agent Product -> AgentProductPair .
+ eq deriveLSAI(Agents, Agents', Cfg, {Agent,Product})
+  = deriveLSAI(Agents, (Agents',Agent), Cfg, Product) .
+
+
+ op getMras : Set{Mra} Set{MraName} ~> Set{Mra} .
+ eq getMras(<mra> <name> MraName </name> Mra </mra> Mras, MraName MraNames)
+  = <mra> <name> MraName </name> Mra </mra> getMras(Mras, MraNames)  .
+ eq getMras(Mras, empty) = empty .
+
+ 
+ op createConveyorMovements : Agent Product Position Position -> AgentProductPair .
+ eq createConveyorMovements(<agent> AgentIs </agent>, Product, P, DeltaP)
+  = {
+      <agent> AgentIs 
+         <procedure> <skill> <type> transport </type> <from> P </from> <to> sum(P, DeltaP) </to> </skill> </procedure> </agent>
+    ,
+      updatePositions(Product, DeltaP)
+    } .
+
+
+ op updatePositions : Product Position -> Product .
+ eq updatePositions(<product> PartsL </product>, DeltaP) = <product> updatePositions(PartsL, DeltaP) </product> .
+
+ op updatePositions : List{Part} Position -> List{Part} .
+ eq updatePositions((<part> <part-position> P </part-position> Part </part>, PartsL), DeltaP) 
+  = <part> <part-position> sum(P,DeltaP) </part-position> Part </part>, updatePositions(PartsL, DeltaP)  .
+ eq updatePositions(nil, DeltaP) = nil .
+
+
+ op createMovements : Agent Task Part Product Set{Mra} List{Agent} -> AgentProductPair .
+
+ceq createMovements(<agent> AgentIs </agent>, <task> Task <operations> <operation> <skill> <type> load </type> Skill </skill> Skills </operation> Operations </operations> <start-point> (X1,Y1,Z1) </start-point> <start-orientation> [ZA1,XA1,YA1] </start-orientation> </task>, <part> Part <name> PartName </name> <x-dimension> X </x-dimension> <y-dimension> Y </y-dimension> </part>, <product> nil </product>, Mras, (<agent> AgentIs' <layout-mra> Mra <position> (X2,Y2,Z2) </position> <angle> [ZA2, XA2,YA2] </angle> </layout-mra> </agent>, Agents)) 
+  = {
+      <agent> AgentIs <procedure> rotate?([ZA2 - ZA1, XA2 - XA1, YA2 - YA1]),<skill> <type> load </type> <from> (X1,Y1,Z1) </from> <to> P </to> </skill> </procedure> </agent>
+    ,
+     <product> <part> Part <name> PartName </name> <x-dimension> X </x-dimension> <y-dimension> Y </y-dimension> <part-position> P </part-position> <part-angle> [ZA2, XA2,YA2] </part-angle> </part> </product> } 
+ if P := middlePlacement(X,Y, getInitialPosition((X2,Y2,Z2),  [ZA2, XA2,YA2])) .
+
+
+---(  TODO: movements for pick&place )
+
+eq createMovements(Agent, <task> Task <operations> <operation> <skill> <type> pick&place </type> Skill </skill> Skills </operation> Operations </operations> <start-point> position(feeder) </start-point> <start-orientation> angle(feeder) </start-orientation>  <end-point> position(PlacePartName) </end-point> <end-orientation> angle(PlacePartName) </end-orientation>   </task>, <part> Part <name> PartName </name> <x-dimension> X </x-dimension> <y-dimension> Y </y-dimension> <z-dimension> Z </z-dimension> </part>, <product> PartsL,<part> PlacePart <name> PlacePartName </name> </part>, PartsL' </product>, Mras, (<agent> AgentIs' <layout-mra> Mra <position> (X2,Y2,Z2) </position> <angle> [ZA2, XA2,YA2] </angle> </layout-mra> </agent>, Agents)) 
+ = {
+    createP&PMovements(Agent, addZOffset(getFeederPosition(Agent), Z quo 2), addZOffset(getConveyorPosition(Agent), getZ(getPlacePosition(PlacePart)) + Z quo 2), getProvidedSkills(Agent))
+    ,
+    <product> PartsL,
+      <part> PlacePart <name> PlacePartName </name> </part> , 
+      PartsL', 
+      <part> Part <name> PartName </name> <x-dimension> X </x-dimension> <y-dimension> Y </y-dimension> <z-dimension> Z </z-dimension> <part-position> middlePlacement(X, Y, getPlacePosition(PlacePart)) </part-position> <part-angle> [0,0,0] </part-angle> </part>
+      </product>
+   } .
+
+  op getPlacePosition : Set{PartItem} -> Position .
+  eq getPlacePosition(Part <part-position> (X1,Y1,Z1) </part-position> <x-dimension> X2 </x-dimension> <y-dimension> Y2 </y-dimension> <z-dimension> Z2 </z-dimension>) = (X1 + X2 quo 2, Y1 + Y2 quo 2, Z1 + Z2 quo 2) .
+
+  op getFeederPosition : Agent -> Position .
+  eq getFeederPosition(<agent> AgentIs' <layout-mra> Mra <position> (X2,Y2,Z2) </position> <angle> [0, 0, 0] </angle> </layout-mra> </agent>) = (X2 + mra-length quo 2, Y2 + mra-width quo 2, 0) .
+  eq getFeederPosition(<agent> AgentIs' <layout-mra> Mra <position> (X2,Y2,Z2) </position> <angle> [180, 0, 0] </angle> </layout-mra> </agent>) = (X2 + mra-length + mra-length quo 2, Y2 + mra-width quo 2, 0) .
+
+  op getConveyorPosition : Agent -> Position .
+  eq getConveyorPosition(<agent> AgentIs' <layout-mra> Mra <position> (X2,Y2,Z2) </position> <angle> [0, 0, 0] </angle> </layout-mra> </agent>) = (X2 + mra-length + mra-length quo 2, Y2 - conveyor-width quo 2, Z2) .
+  eq getConveyorPosition(<agent> AgentIs' <layout-mra> Mra <position> (X2,Y2,Z2) </position> <angle> [180, 0, 0] </angle> </layout-mra> </agent>) = (X2 + mra-length quo 2, Y2 + mra-width + conveyor-width quo 2, Z2) .
+
+  op createP&PMovements : Agent Position Position Set{Skill} ~> Agent .
+
+---(  TODO: derive the LSAI procedure for pick and place
+          -  translate pick and place in a concrete movements and open/closing of grippers executed by the MRAs coalition
+(start at B, open), move to A, at A: close, 
+move to B-C-D, at D: open, move to C-B
+
+positions:  A : position of (middle of the feeder)
+            B : position deltaz above A
+            C : position deltaz above D
+            D : position of (middle of beginning of conveyor and top of the current product)
+---)
+
+  eq createP&PMovements(<agent> AgentIs </agent>, AP, DP, Skills) 
+    =  <agent> AgentIs <procedure> moveDown(AP,Skills),<skill> <type> open-close </type> <subtype> close </subtype> </skill>,moveUp(AP, Skills), moveFromTo(AP, DP, Skills, -1.0), 
+moveDown(DP, Skills), <skill> <type> open-close </type> <subtype> open </subtype> </skill>, moveUp(DP, Skills), moveFromTo(DP, AP, Skills, 1.0) </procedure> </agent> .
+
+
+ op moveUp : Position Set{Skill} -> List{Skill} .
+--- moveUp moves from argument (X,Y,Z) to (X,Y,deltaz) 
+ceq moveUp((X,Y,Z), Skills <skill> Skill <type> move </type> <subtype> linear </subtype> <direction> vertical </direction>
+         <range> Range </range> </skill>)
+  = <skill> Skill <type> move </type> <subtype> linear </subtype> <direction> vertical </direction>
+         <range> float(deltaz - Z) </range> </skill>
+ if Range >= float(deltaz - Z) .
+ceq moveUp((X,Y,Z), Skills <skill> Skill <type> move </type> <subtype> rotational </subtype> <direction> vertical </direction>
+           <range> Range </range> </skill>)
+ = <skill> Skill <type> move </type> <subtype> rotational </subtype> <direction> vertical </direction>
+           <range> MRange </range> </skill>
+ if MRange := 2.0 * asin(float(deltaz - Z) / float(2 * mra-length)) * 180.0 / pi 
+ /\ Range >= abs(MRange) .
+
+ op moveDown : Position Set{Skill} -> List{Skill} .
+--- moveDown moves from  (X,Y,deltaz) to argument (X,Y,Z)
+ceq moveDown((X,Y,Z), Skills <skill> Skill <type> move </type> <subtype> linear </subtype> <direction> vertical </direction>
+         <range> Range </range> </skill>)
+  = <skill> Skill <type> move </type> <subtype> linear </subtype> <direction> vertical </direction>
+         <range> - float(deltaz - Z) </range> </skill>
+ if rat(Range) > - deltaz + Z .
+ceq moveDown((X,Y,Z),  Skills <skill> Skill <type> move </type> <subtype> rotational </subtype> <direction> vertical </direction>
+           <range> Range </range> </skill>)
+ = <skill> Skill <type> move </type> <subtype> rotational </subtype> <direction> vertical </direction>
+           <range> MRange </range> </skill>
+ if MRange := - 2.0 * asin(float(deltaz - Z) / float(2 * mra-length)) * 180.0 / pi 
+ /\ Range >= abs(MRange) .
+
+ op moveFromTo : Position Position Set{Skill} Float -> List{Skill} .
+--- moveFromTo takes as argument two positions (X1,Y1,Z1) and (X2,Y2,Z2) and moves from (X1,Y1,deltaz) to (X2,Y2,deltaz)
+ceq moveFromTo((X1,Y1,Z1),(X2,Y2,Z2), Skills
+   <skill> Skill <type> move </type> <subtype> rotational </subtype> <direction> horizontal </direction>
+           <range> Range </range> </skill>, Direction)
+  = <skill> Skill <type> move </type> <subtype> rotational </subtype> <direction> horizontal </direction>
+           <range> 90.0 * Direction </range> </skill>
+  if Range >= 90.0 .
+ceq moveFromTo((X1,Y1,Z1),(X2,Y2,Z2), Skills
+   <skill> Skill1 <type> move </type> <subtype> linear </subtype> <direction> horizontal </direction>
+           <range> Range1 </range> </skill>
+    <skill> Skill2 <type> move </type> <subtype> linear </subtype> <direction> horizontal </direction>
+           <range> Range2 </range> </skill>, Direction)
+  =  <skill> Skill1 <type> move </type> <subtype> linear </subtype> <direction> horizontal </direction>
+           <range> float(X2 - X1) </range> </skill>,
+    <skill> Skill2 <type> move </type> <subtype> linear </subtype> <direction> horizontal </direction>
+           <range> float(Y2 - Y1) </range> </skill>
+  if Range1 >= abs(float(X2 - X1)) 
+  /\ Range2 >= abs(float(Y2 - Y1)) .
+--- the two linear horizontal skill were supposed to be ortogonal but this is left unspecified at the moment.
+
+
+
+
+ op rotate? : Angle -> List{Skill} .
+ eq rotate?([0,0,0]) = nil .
+ eq rotate?([ZA,XA,YA]) = <skill> <type> move </type> <subtype> rotational </subtype> <rotation-angle> [ZA,XA,YA] </rotation-angle> </skill> [owise] .
+
+ op getInitialPosition : Position Angle -> Position .
+ eq getInitialPosition((X,Y,Z), [0,0,0]) = (X + conveyor-width quo 2, Y + conveyor-width quo 2, Z) .
+ eq getInitialPosition((X,Y,Z), [-90,0,0]) = (X + conveyor-width quo 2, Y + conveyor-width quo 2, Z) .
+ eq getInitialPosition((X,Y,Z), [180,0,0]) = ((X + conveyor-length) - conveyor-width quo 2, Y + conveyor-width quo 2, Z) .
+ eq getInitialPosition((X,Y,Z), [90,0,0]) = (X + conveyor-width quo 2, (Y + conveyor-length) - conveyor-width quo 2, Z) .
+  
+ op middlePlacement : Int Int Position -> Position .
+ eq middlePlacement(X1, Y1, (X2, Y2, Z2)) = (X2 - X1 quo 2, Y2 - Y1 quo 2, Z2) .
+
+
+ var Cfg : Set{ConfigItem} .  var SAgents : Set{Agent} . var Agents Agents' : List{Agent} . var GapName : GapName . var TaskName : TaskName . var Agent : Agent . var AgentIs AgentIs' : Set{AgentItem} . var PlacePartName PartName : PartName . var Task : Set{TaskItem} . var Tasks : Set{Task} . var Gap : Set{GapItem} . var Gaps : Set{Gap} . var PlacePart Part : Set{PartItem} . var Parts : Set{Part} . var PartsL PartsL' : List{Part} . var Product : Product . var MraNames : Set{MraName} . var MraName : MraName . var Mra : Set{MraItem} . var Mras : Set{Mra} .  var Skill Skill1 Skill2 : Set{SkillItem} . var Skills : Set{Skill} .  var Operations : Set{Operation} .  
+var P PartP AP DP DeltaP : Position .  var A : Angle .
+ var X Y Z X1 Y1 Z1 X2 Y2 Z2 XA YA ZA ZA1 ZA2 XA1 XA2 YA1 YA2 : Int .  var Direction Range Range1 Range2  MRange : Float .
+---  
+endm

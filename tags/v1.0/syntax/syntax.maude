@@ -1,0 +1,21 @@
+--- "load" includes the following files
+--- "including" includes a module inside a module
+--- lower case for files
+--- upper case for modules
+
+load list
+load set
+load position
+load angle
+load part-type
+load mra-types
+load skill
+load interface
+load mra
+load operation
+load part
+load task
+load gap
+--- load transport
+--- load lsai
+load configuration

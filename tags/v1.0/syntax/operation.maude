@@ -1,0 +1,12 @@
+---(
+load set
+load list
+load skill
+---)
+mod OPERATION is
+  including SET{Skill} .
+  sort Operation .
+  op <operation>_</operation> : Set{Skill} -> Operation [format (ni++ o n--i o) ] . 
+endm
+view Operation from TRIV to OPERATION is sort Elt to Operation . endv 
+

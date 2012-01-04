@@ -1,0 +1,49 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+ mod FEEDERS is
+  including MRA .
+  ops f1 f2 f3 f4 : -> MraName .
+  ops f1 f2 f3 f4 : -> Mra .
+  eq f1 = 
+    <mra> 
+        <name> f1 </name> <type> feeder </type> 
+        <skills>
+          <skill> <type> feed </type> </skill>
+        </skills>
+        <interfaces> triangular(+ true) </interfaces>
+      </mra> 
+  .
+  eq f2 = 
+     <mra> 
+        <name> f2 </name> <type> feeder </type> 
+        <skills>
+          <skill> <type> feed </type> </skill>
+        </skills>
+      </mra> 
+  .
+  eq f3 = 
+     <mra> 
+        <name> f3 </name> <type> feeder </type>
+        <skills>
+          <skill> <type> feed </type> </skill>
+        </skills>
+        <interfaces> triangular(+ true) </interfaces>
+      </mra> 
+  .
+  eq f4 = 
+     <mra> 
+        <name> f4 </name> <type> feeder </type>
+        <skills>
+          <skill> <type> feed </type> </skill>
+        </skills>
+        <interfaces> triangular(+ true) </interfaces>
+      </mra> 
+  .
+endm

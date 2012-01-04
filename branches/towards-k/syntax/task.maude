@@ -1,0 +1,59 @@
+---(
+load list
+load set
+load position
+load angle
+load skill
+load interface
+load mra
+load operation
+load part
+---)
+
+mod TASK-NAME is
+  sort TaskName .
+  op _+_ : TaskName TaskName -> TaskName [assoc comm] .
+endm
+
+mod TASK-TYPE is
+  sorts TaskType .
+  ops pick&place transport feeding other : -> TaskType [ctor format (! o) ] .
+endm
+
+
+mod OBJECT is
+  including PART-NAME .
+--- an object can consist of one or several parts (that is, a subassembly)
+  sorts ObjectName .
+  subsort PartName < ObjectName .
+  op _+_ : ObjectName ObjectName -> ObjectName [assoc comm format (d r o d)] .
+endm
+
+mod TASK-ITEM is 
+  including TASK-NAME .
+  including TASK-TYPE .
+  including OBJECT .
+  including SET{Operation} .
+  including POSITION .
+  including ANGLE .
+  including MRA .
+  sort TaskItem . 
+  op <name>_</name> : TaskName -> TaskItem [format (ni o d o) ] .
+  op <type>_</type> : TaskType -> TaskItem [format (ni o d o) ] .
+  op <start-point>_</start-point> : Position -> TaskItem [format (ni++ o -- o) ] .
+  op <end-point>_</end-point> : Position -> TaskItem [format (ni++ o -- o) ] .
+  op <start-orientation>_</start-orientation> : Angle -> TaskItem [format (ni++ o -- o) ] .
+  op <end-orientation>_</end-orientation> : Angle -> TaskItem [format (ni++ o -- o) ] .
+  op <object>_</object> : ObjectName -> TaskItem [format (ni++ o -- o) ] .
+  op <operations>_</operations> : Set{Operation} -> TaskItem [format (ni++ o -- o) ] .
+  op <trange>_</trange> : Float -> TaskItem .
+endm
+view TaskItem from TRIV to TASK-ITEM is sort Elt to TaskItem . endv
+
+mod TASK is including SET{TaskItem} .
+  sort Task .
+  op <task>_</task> : Set{TaskItem} -> Task [format (ni++ o n--i o) ] . 
+endm
+view Task from TRIV to TASK is sort Elt to Task . endv 
+
+

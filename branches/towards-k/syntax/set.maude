@@ -1,0 +1,56 @@
+
+fmod SET{X :: TRIV} is
+  protecting EXT-BOOL .
+  protecting NAT .
+  sorts NeSet{X} Set{X} .
+  subsorts X$Elt < NeSet{X} < Set{X} .
+  op empty : -> Set{X} [ctor] .
+  op __ : Set{X} Set{X} -> Set{X} [assoc comm id: empty ctor prec 25] .
+  op __ : NeSet{X} Set{X} -> NeSet{X} [ctor ditto] .
+  var E : X$Elt .
+  var N : NeSet{X} .
+  vars A S S' : Set{X} .
+  var C : Nat .
+  op insert : X$Elt Set{X} -> Set{X} .
+  op delete : X$Elt Set{X} -> Set{X} .
+  op _in_ : X$Elt Set{X} -> Bool .
+  op |_| : Set{X} -> Nat .
+  op |_| : NeSet{X} -> NzNat .
+  op $card : Set{X} Nat -> Nat .
+  op union : Set{X} Set{X} -> Set{X} .
+  op union : NeSet{X} Set{X} -> NeSet{X} .
+  op union : Set{X} NeSet{X} -> NeSet{X} .
+  op intersection : Set{X} Set{X} -> Set{X} .
+  op $intersect : Set{X} Set{X} Set{X} -> Set{X} .
+  op _\_ : Set{X} Set{X} -> Set{X} [gather (E e)] .
+  op $diff : Set{X} Set{X} Set{X} -> Set{X} .
+  op _subset_ : Set{X} Set{X} -> Bool .
+  op _psubset_ : Set{X} Set{X} -> Bool .
+---  eq N N = N .
+  eq insert (E, S) = E S .
+  eq delete (E, (E S)) = delete (E, S) .
+  eq delete (E, S) = S [owise] .
+  eq E in (E S) = true .
+  eq E in S = false [owise] .
+  eq | S | = $card (S, 0) .
+  eq $card (empty, C) = C .
+---  eq $card ((N, N, S), C) = $card ((N, S), C) .
+  eq $card ((E S), C) = $card (S, C + 1) [owise] .
+  eq union (S, S') = S S' .
+  eq intersection (S, empty) = empty .
+  eq intersection (S, N) = $intersect (S, N, empty) .
+  eq $intersect (empty, S', A) = A .
+  eq $intersect ((E S), S', A) = $intersect (S, S', if E in S' then E A else
+    A fi) .
+  eq S \ empty = S .
+  eq S \ N = $diff (S, N, empty) .
+  eq $diff (empty, S', A) = A .
+  eq $diff ((E S), S', A) = $diff (S, S', if E in S' then A else E A fi) .
+  eq empty subset S' = true .
+  eq (E S) subset S' = E in S' and-then S subset S' .
+  eq S psubset S' = S =/= S' and-then S subset S' .
+
+  op unique : Set{X} -> Set{X} .
+  eq unique(empty) = empty .
+  eq unique(E S) = if E in S then S else E S fi .
+endfm

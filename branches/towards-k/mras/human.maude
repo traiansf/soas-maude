@@ -1,0 +1,41 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+mod HUMAN is
+  including MRA .
+  ops human1 human2 human3 : -> MraName .
+  ops human1 human2 human3 : -> Mra .
+  eq human1 =
+    <mra>
+        <name> human1 </name> 
+        <skills> 
+          <skill> <type> load </type> </skill>
+          <skill> <type> unload </type> </skill>
+       </skills>
+       <interfaces> empty </interfaces>
+     </mra> .
+  eq human2 =
+    <mra>
+        <name> human2 </name> 
+        <skills> 
+          <skill> <type> load </type> </skill>
+          <skill> <type> unload </type> </skill>
+       </skills>
+       <interfaces> empty </interfaces>
+     </mra> .
+  eq human3 =
+    <mra>
+        <name> human3 </name> 
+        <skills> 
+          <skill> <type> load </type> </skill>
+          <skill> <type> unload </type> </skill>
+       </skills>
+       <interfaces> empty </interfaces>
+     </mra> .
+endm

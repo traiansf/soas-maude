@@ -1,0 +1,42 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/skill
+load skill
+---)
+
+mod PATTERN is including SET{Skill} .
+ sort Pattern .
+ op first has_and second has_. : Set{Skill} Set{Skill} -> Pattern [comm format (ni d o d d d o d d) ] .
+endm
+view Pattern from TRIV to PATTERN is sort Elt to Pattern . endv 
+
+
+mod PATTERNS is
+  including SET{Pattern} .
+  including MATCH-SKILLS .
+
+  op patterns : -> Set{Pattern} .
+  eq patterns = (
+    first has <skill> <type> move </type> </skill> 
+    and second has  <skill> <type> move </type> </skill>  .
+    first has  <skill> <type> move </type> </skill> 
+    and second has <skill> <type> grip </type> </skill> .
+    first has  <skill> <type> grip </type> </skill>  <skill> <type> move </type> </skill>
+    and second has <skill> <type> store </type> <subtype> grippers </subtype> </skill> .
+    first has <skill> <type> transport </type> <subtype> linear </subtype> </skill> 
+    and second has  <skill> <type> transport </type> <subtype> linear </subtype> </skill> .
+    first has  <skill> <type> move </type> </skill> 
+    and second has <skill> <type> position-carrier </type> </skill> .
+    first has  <skill> <type> feed </type> </skill> 
+    and second has <skill> <type> move </type> </skill> .
+  ) .
+
+  op pattern-match : Set{Skill} Set{Skill} Set{Pattern} -> [Bool] .
+  vars Skills1 Skills2 Skills1' Skills2' : Set{Skill} .
+  var Patterns : Set{Pattern} .  
+  ceq pattern-match(Skills1, Skills2, (first has Skills1' and second has Skills2' .) Patterns) = true
+   if match(Skills1, Skills1')
+   /\ match(Skills2, Skills2') .
+
+endm

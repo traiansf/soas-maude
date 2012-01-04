@@ -1,0 +1,44 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+mod POSITIONING-DEVICES is
+  including MRA .
+  ops pd1 pd2 pd3 : -> MraName .
+  ops pd1 pd2 pd3 : -> Mra .
+  eq pd1 = 
+     <mra> 
+        <name> pd1 </name> <type> positioning-device </type> 
+        <skills> 
+          <skill> <type> position-carrier </type>
+           <accuracy> 1 </accuracy> </skill>
+        </skills>
+        <interfaces> straight(+ true) oval(- true) </interfaces>
+      </mra>
+  .
+  eq pd2 =
+     <mra> 
+        <name> pd2 </name> <type> positioning-device </type> 
+        <skills> 
+          <skill> <type> position-carrier </type>
+           <accuracy> 2 </accuracy> </skill>
+        </skills>
+        <interfaces> straight(+ true) oval(- true) </interfaces>
+      </mra> 
+  .
+  eq pd3 =
+     <mra> 
+        <name> pd3 </name> <type> positioning-device </type> 
+        <skills> 
+          <skill> <type> position-carrier </type>
+           <accuracy> 3 </accuracy> </skill>
+        </skills>
+        <interfaces> straight(+ true) oval(- true) </interfaces>
+      </mra> 
+  .
+endm

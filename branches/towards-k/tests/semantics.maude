@@ -1,0 +1,30 @@
+load syntax.maude
+load ../semantics/semantics.maude
+
+mod TEST is 
+  including CONFIG .
+  including ASSIGN-TASKS . 
+--- 
+endm
+
+---set trace on .
+---set trace condition off .
+---set trace substitution off .
+---
+
+--- this is the normal running command to get all results:
+--- search instance =>! X:Config .
+
+--- get only one result
+--- search [1] instance =>! X:Config .
+
+--- this is to see where the program is stuck:
+--- search instance =>! X:[Config] .
+
+rew instance .
+quit
+
+--- changes made:
+--- human3 added
+--- gripper3 and gripper 4 added
+--- a7 added

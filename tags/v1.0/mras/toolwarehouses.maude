@@ -1,0 +1,36 @@
+---(
+load ../syntax/list
+load ../syntax/set
+load ../syntax/position
+load ../syntax/angle
+load ../syntax/skill
+load ../syntax/interface
+load ../syntax/mra
+---)
+mod TOOLWAREHOUSES is
+  including MRA .
+  ops w1 w2 : -> MraName .
+  ops w1 w2 : -> Mra .
+  eq w1 = 
+     <mra> 
+        <name> w1 </name> <type> toolwarehouse </type> 
+        <skills> 
+          <skill> <type> store </type> <subtype> grippers </subtype>
+           <count> 2 </count> </skill>
+        </skills>
+        <required-skills> empty </required-skills>
+        <interfaces> diamond (+ true) </interfaces>
+      </mra> 
+  .
+  eq w2 =
+     <mra> 
+        <name> w2 </name> <type> toolwarehouse </type> 
+        <skills> 
+          <skill> <type> store </type> <subtype> grippers </subtype>
+           <count> 3 </count> </skill>
+        </skills>
+        <required-skills> empty </required-skills>
+        <interfaces> diamond(+ true) </interfaces>
+      </mra> 
+  .
+endm

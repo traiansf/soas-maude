@@ -1,0 +1,3 @@
+mod COMPOSITE is 
+ including SET{Skill} .
+endm
