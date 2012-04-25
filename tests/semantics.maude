@@ -18,7 +18,7 @@ set trace substitution off .
 ---)
 
 --- this is the normal running command to get all results:
-search instance =>! X:Config .
+---search instance =>! X:Config .
 
 --- get only one result
 --- search [1] instance =>! X:Config .
@@ -34,7 +34,7 @@ search instance =>! X:Config .
 
 
 --- this is to see only one instance where the program is stuck:
----search [1] instance =>! X:[Config] .
+search [1] instance =>! X:[Config] .
 
 
 ---( Solution for gap2

@@ -53,8 +53,8 @@ mod ASSIGN-TASKS is
  var Agents : Set{Agent} . var MNames : Set{MraName} .
  var Config : Set{ConfigItem} .  var Parts : Set{Part} .
 
- rl [start-agents] : <config> <gaps> Gaps </gaps> <mras> Mras </mras> <parts> Parts </parts> </config>
-                  => <config> <gaps> Gaps </gaps> <mras> Mras </mras> <agents> empty </agents> <passive-parts> Parts </passive-parts> </config> .
+ rl [start-agents] : <config> <gaps> Gaps </gaps> <mras> Mras </mras> <parts> Parts </parts> <floorEnd> P:Position </floorEnd> </config>
+                  => <config> <gaps> Gaps </gaps> <mras> Mras </mras> <agents> empty </agents> <passive-parts> Parts </passive-parts> <floorEnd> P:Position </floorEnd> </config> .
 
  --- this rule transforms a mra into an agent looking for partners to a task
  ceq <gaps>
