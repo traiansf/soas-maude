@@ -11,7 +11,13 @@ mod CONFIG is including CONFIGURATION .
   including PARTS .
   op instance : -> Config .
 ---  eq instance =  <config> <mras> mras </mras> <gaps> gap1 </gaps> </config> .
-  eq instance =  <config> <mras> mras </mras> <gaps> gap2 </gaps> <parts> parts </parts> </config> .
+  eq instance 
+   =  <config> <mras> mras </mras> 
+               <gaps> gap2 </gaps> 
+               <parts> parts </parts> 
+               <floorEnd> (1000,10000,0) </floorEnd> 
+      </config> .
+  eq gapName(Cfg:Set{ConfigItem}) = gap2 .
 
 --- config contains 2 cells: mras and gap - they interact
 

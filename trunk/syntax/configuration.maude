@@ -24,6 +24,7 @@ mod CONFIG-ITEM is
   op <passive-mras>_</passive-mras> : Set{Mra} -> ConfigItem [format (ni++ o n-- o) ] .
   op <parts>_</parts> : Set{Part} ->  ConfigItem [format (ni++ o n-- o) ] .
   op <passive-parts>_</passive-parts> : Set{Part} ->  ConfigItem [format (ni++ o n-- o) ] .
+ op <floorEnd>_</floorEnd> : Position -> ConfigItem .
 endm
 view ConfigItem from TRIV to CONFIG-ITEM is sort Elt to ConfigItem . endv
 
@@ -35,4 +36,5 @@ mod CONFIGURATION is
   including SET{ConfigItem} .
   sort Config .
   op <config>_</config> : Set{ConfigItem} -> Config .
+  op gapName : Set{ConfigItem} ~> GapName .
 endm

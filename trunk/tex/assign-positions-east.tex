@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage[tight,poster]{k}
+\begin{document}
+\begin{kdefinition}
+  \krule{layout-east}{
+  \begin{array}{c}
+\kmiddle{white}{assignPositions}{
+\kmiddle{white}{agents}{
+\reduce{
+\kmiddle{blue}{agent}{
+\kall{blue}{task-id}{TID}
+}
+}{\kdot}
+}
+\mathrel{}\kall{white}{currentTaskId}{TID}
+\mathrel{}\kall{white}{currentLayoutId}{\reduce{LI}{LI + 2}} 
+\mathrel{}\kall{white}{direction}{east}
+\mathrel{}\kall{white}{currentPosition}{(\reduce{X}{X + \textit{conveyor-length}},Y,Z)}
+\mathrel{}\kall{white}{floorEnd}{(XE,YE,ZE)}
+}
+\\
+\reduce{\kdot}{
+\kmiddle{green}{agent}{
+\kall{green}{layout-id}{LI}
+\kall{green}{layout-mra}{
+  \kall{green}{position}{ (X,Y,Z) }
+  \kall{green}{angle}{[0,0,0]}
+}
+}
+\mathrel{}
+\kmiddle{blue}{agent}{
+\kall{blue}{task-id}{TID}
+\kall{green}{layout-id}{LI + 1}
+\kall{green}{layout-mra}{
+  \kall{green}{position}{
+  ((X + \textit{conveyor-length}) - 2 * \textit{mra-width},Y + 
+  \textit{conveyor-width},Z)
+  }
+  \kall{green}{angle}{[0,0,0]}
+}
+}
+}
+\end{array}
+}{
+X + \textit{conveyor-length} + \textit{conveyor-width} \leq XE
+}{}
+\end{kdefinition}
+\end{document}
