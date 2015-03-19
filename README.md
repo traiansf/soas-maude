@@ -1,4 +1,4 @@
-# SOAS-MAUDE: Self Organizing Assembly Systems modelled in Maude
+# SOAS-MAUDE: Self Organizing Assembly Systems modeled in Maude
 
 Code accompanying the results described in the following 2 papers:
 
